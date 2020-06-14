@@ -1,0 +1,93 @@
+html {
+	scroll-behavior: smooth;
+  }
+
+
+#slider{
+	background-image : url("../img/interieur-grandvillars-optique.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	overflow : hidden;
+}
+
+#title{
+	margin : 0px auto 0px auto;
+	padding: 20px 40px 60px 40px;
+	color: white;
+	text-align : center;
+	font-size: 1.5em;
+	text-shadow : 0px 0px 10px black;
+}
+
+
+h1{
+	margin: 0px auto 20px auto;
+	padding: 20px;
+	border: 2px solid white;
+	font-weight: 600;
+	background : rgba(0,0,0,0.85);
+	opacity : .8;
+  }
+	
+  .h1-1,
+  .h1-2,
+  .h1-3{
+	  display : block;
+	  text-transform: uppercase;
+  }	
+	
+  .h1-1{
+	  letter-spacing: 1.3em;
+	  font-size: .4em;
+	  margin-right: -1.3em;
+  }
+  
+  .h1-2{
+	  margin-right: -.25em;
+	 letter-spacing : 0.25em;
+  }
+
+#activisu{	
+	min-height :300px;
+	color : white;
+	background-image : url("../img/tech.jpg");
+	background-attachment : fixed;
+	background-size : cover;
+}
+
+.img-activisu{
+	height : 40vh;
+	text-align: center;
+	margin-left: 5%;
+}
+
+video {
+    line-height: normal;
+}
+
+#map{
+	height: 60vh;
+}
+
+#reseaux img{
+	margin-right : 20px;
+	max-height : 50px;
+}
+
+.font-cursive {
+    font-family: 'Kalam', cursive;
+}
+
+.card-img-fixed-height {
+	height : 150px;
+}
+
+.dropdown-menu {         
+	max-height: 300px;
+	overflow-y: auto;
+  }
+
+  .modal-content {
+	  overflow-y : auto !important;
+  }
