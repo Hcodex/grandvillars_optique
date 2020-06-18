@@ -460,35 +460,7 @@
 				<div class="col-6 align-self-center px-5">
 					<div>
 						<h2>Contact</h2>
-						<form>
-							<div class="form-group">
-								<label for="email">Votre adresse mail</label>
-								<input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-								<small id="emailHelp" class="form-text text-muted">Votre mail ne sera pas transmit à un tiers</small>
-							</div>
-							<div class="form-group">
-								<label for="name">Votre nom</label>
-								<input type="text" class="form-control" id="name" placeholder="">
-							</div>
-							<div class="form-group">
-								<label for="subject">Objet</label>
-								<select id="subject" class="custom-select">
-									<option selected>Demande d'information</option>
-									<option value="1">Prise de rendez-vous</option>
-									<option value="2">Commande</option>
-									<option value="3">Autre</option>
-								</select>
-							</div>
-							<div class="form-group">
-								<label for="content">Votre message</label>
-								<textarea id="content" class="form-control" placeholder="Saisser votre message" required></textarea>
-							</div>
-							<div class="form-group form-check">
-								<input type="checkbox" class="form-check-input" id="exampleCheck1">
-								<label class="form-check-label" for="exampleCheck1">J'accepte les termes de la politique de confidentialité</label>
-							</div>
-							<button type="sendmessage" class="btn btn-primary">Envoyer</button>
-						</form>
+        				{% include 'partials/contact_form.html.twig' %}
 					</div>
 				</div>
 			</div>
