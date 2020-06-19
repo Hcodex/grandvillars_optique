@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Contact;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -36,7 +37,7 @@ class ContactType extends AbstractType
                     "Autre demande" => 'Autre demande',
                 ],
             ])
-            ->add('description', TextareaType::class, [
+            ->add('message', TextareaType::class, [
                 'label' => 'Message',
                 'attr' => [
                     'placeholder' => 'Votre message',
@@ -47,7 +48,7 @@ class ContactType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => Contact::class,
         ]);
     }
 }

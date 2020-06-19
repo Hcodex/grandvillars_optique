@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
 use App\Form\ContactType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,12 +15,15 @@ class HomeController extends AbstractController
      */
     public function index(Request $request)
     {
-        $form = $this->createForm(ContactType::class);
+        $contact = new Contact();
+
+        $form = $this->createForm(ContactType::class, $contact);
 
         $form->handleRequest($request);
 
         dump($request);
         dump($form->get('email')->getData());
+        dump($contact);
 
         return $this->render('home/index.html.twig', [
             'form' => $form->createView()
