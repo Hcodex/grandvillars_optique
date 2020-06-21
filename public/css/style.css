@@ -91,3 +91,10 @@ video {
   .modal-content {
 	  overflow-y : auto !important;
   }
+
+  #alerts-container{
+	  position : absolute;
+	  top : 80px;
+	  width : 70%;
+	  left : 15%;
+  }
