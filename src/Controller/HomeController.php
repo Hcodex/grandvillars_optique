@@ -6,7 +6,10 @@ use App\Entity\Contact;
 use App\Form\ContactType;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,7 +28,6 @@ class HomeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $contact = $form->getData();
-            dump($contact);
 
             $email = (new TemplatedEmail())
                 ->from('mailer@grandvillars-optique.fr')
@@ -47,4 +49,46 @@ class HomeController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/ajaxRdv", name="rdv")
+     */
+    public function _ajaxRdv(Request $request, MailerInterface $mailer)
+    {
+        if ($request->isXMLHttpRequest()) {
+
+            $form = $this->createForm(ContactType::class);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $contact = $form->getData();
+                
+                $email = (new TemplatedEmail())
+                    ->from('mailer@grandvillars-optique.fr')
+                    ->replyTo($contact->getEmail())
+                    ->to('contact@grandvillars-optique.fr')
+                    ->subject('Message via formulaire - ' . $contact->getSubject() . ' - ' .  $contact->getLastName())
+                    ->htmlTemplate('emails/contact.html.twig')
+
+                    ->context([
+                        'contact' => $contact,
+                    ]);
+
+                $mailer->send($email);
+
+                return new JsonResponse([
+                    'status' => 'success',
+                ]);
+            }
+
+        return $this->render('home/index.html.twig', [
+            'form' => $form->createView()
+        ]);
+
+        }
+
+        return new Response('This is not ajax!', 400);
+    }
+
 }

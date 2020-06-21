@@ -93,7 +93,7 @@ video {
   }
 
   #alerts-container{
-	  position : absolute;
+	  position : fixed;
 	  top : 80px;
 	  width : 70%;
 	  left : 15%;

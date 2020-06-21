@@ -32,8 +32,6 @@ $('.navbar-nav a').click(function (event) {
 
 function showAlert(message, type, closeDelay) {
 
-    console.log("show alert");
-
     var $cont = $("#alerts-container");
 
     if ($cont.length == 0) {
@@ -61,3 +59,33 @@ function showAlert(message, type, closeDelay) {
     if (closeDelay)
         window.setTimeout(function () { alert.alert("close") }, closeDelay);
 }
+
+
+
+$('form[name="contact"]').submit(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: './ajaxRdv',
+        data: new FormData(this),
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            console.log(data);
+            if (data["status"] === 'success') {
+                showAlert("<strong>Votre message a bien été envoyé</strong>", "success", 5000);
+                $('.invalid-feedback').removeClass('invalid-feedback');
+                $('.is-invalid').removeClass('is-invalid');
+                $('.form-error-icon', '.form-error-message').remove();
+                $('form[name="contact"]>.btn').addClass('btn-success').text('Message envoyé !').prop("disabled", true);
+            } else {
+                showAlert("<strong>Echec,</strong> vérifiez les champs du formulaire", "danger", 5000);
+                var innerHTML = $(data).find('#contact').html();
+                $('#contact').html(innerHTML);
+            }
+        },
+        error: function (data) {
+            showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);
+        }
+    });
+});
