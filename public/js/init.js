@@ -64,6 +64,7 @@ function showAlert(message, type, closeDelay) {
 
 $('form[name="contact"]').submit(function (e) {
     e.preventDefault();
+    $('form[name="contact"]>.btn').addClass('disabled').text('Envoi...').prop("disabled", true);
     $.ajax({
         type: 'POST',
         url: './ajaxRdv',
@@ -76,12 +77,14 @@ $('form[name="contact"]').submit(function (e) {
                 showAlert("<strong>Votre message a bien été envoyé</strong>", "success", 5000);
                 $('.invalid-feedback').removeClass('invalid-feedback');
                 $('.is-invalid').removeClass('is-invalid');
-                $('.form-error-icon', '.form-error-message').remove();
+                $('.form-error-icon').remove();
+                $('.form-error-message').remove();
                 $('form[name="contact"]>.btn').addClass('btn-success').text('Message envoyé !').prop("disabled", true);
             } else {
                 showAlert("<strong>Echec,</strong> vérifiez les champs du formulaire", "danger", 5000);
                 var innerHTML = $(data).find('#contact').html();
                 $('#contact').html(innerHTML);
+                $('form[name="contact"]>.btn').removeClass('disabled').text('Confirmer').prop("disabled", false);
             }
         },
         error: function (data) {
