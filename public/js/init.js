@@ -92,3 +92,10 @@ $('form[name="contact"]').submit(function (e) {
         }
     });
 });
+
+
+$('.tab-btn').on('click', function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+    $(this).removeClass('active')
+  })
