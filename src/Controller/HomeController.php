@@ -63,7 +63,7 @@ class HomeController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $contact = $form->getData();
-                
+
                 $email = (new TemplatedEmail())
                     ->from('mailer@grandvillars-optique.fr')
                     ->replyTo($contact->getEmail())
@@ -82,13 +82,11 @@ class HomeController extends AbstractController
                 ]);
             }
 
-        return $this->render('home/index.html.twig', [
-            'form' => $form->createView()
-        ]);
-
+            return $this->render('home/index.html.twig', [
+                'form' => $form->createView()
+            ]);
         }
 
         return new Response('This is not ajax!', 400);
     }
-
 }
