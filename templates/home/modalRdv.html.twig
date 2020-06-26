@@ -37,7 +37,7 @@
 									<option value="goldfish">Entretenir mes lunettes</option>
 								</select>
 							</div>
-							<a class="btn btn-primary tab-btn" data-toggle="tab" href="#pills-slots" role="tab">Suivant</a>
+							<a class="btn btn-info float-right tab-btn" href="#pills-slots" role="tab">Suivant</a>
 						</div>
 
 						<div class="tab-pane fade" id="pills-slots" role="tabpanel" aria-labelledby="pills-slots-tab">
@@ -66,7 +66,7 @@
 													{% for i in 2..8 %}
 														{% set date = "now"|date_modify("+"~ i ~ " day") %}
 														{% if date|date("w") != 0 %}
-															<li class="list-group-item list-group-item-action" data-list="{{slotNum}}1" data-daynum={{date|date("w")}}>
+															<li class="list-group-item list-group-item-action" data-list="day-{{slotNum}}" data-slot={{slotNum}} data-daynum={{date|date("w")}}>
 																{{ date|format_date(pattern="EEEE d '\n' MMMM", locale='fr')|nl2br }}
 															</li>
 														{% endif %}
@@ -76,20 +76,20 @@
 
 											<div class="col-6">
 												<ul class="list-group text-center selector-list">
-													<li class="list-group-item list-group-item-action" data-list="{{slotNum}}2">Entre<br>8h et 10h</li>
-													<li class="list-group-item list-group-item-action" data-list="{{slotNum}}2">Entre<br>10h et 12h</li>
-													<li class="list-group-item list-group-item-action" data-list="{{slotNum}}2">Entre<br>14h et 16h</li>
-													<li class="list-group-item list-group-item-action" data-list="{{slotNum}}2">Entre<br>16h et 17h</li>
-													<li class="list-group-item list-group-item-action" data-list="{{slotNum}}2">Entre<br>17h et 18h</li>
-													<li class="list-group-item list-group-item-action" data-list="{{slotNum}}2">Entre<br>18h et 19h</li>
+													<li class="list-group-item list-group-item-action" data-list="hour-{{slotNum}}" data-slot={{slotNum}}>Entre<br>8h et 10h</li>
+													<li class="list-group-item list-group-item-action" data-list="hour-{{slotNum}}" data-slot={{slotNum}}>Entre<br>10h et 12h</li>
+													<li class="list-group-item list-group-item-action" data-list="hour-{{slotNum}}" data-slot={{slotNum}}>Entre<br>14h et 16h</li>
+													<li class="list-group-item list-group-item-action" data-list="hour-{{slotNum}}" data-slot={{slotNum}}>Entre<br>16h et 17h</li>
+													<li class="list-group-item list-group-item-action" data-list="hour-{{slotNum}}" data-slot={{slotNum}}>Entre<br>17h et 18h</li>
+													<li class="list-group-item list-group-item-action" data-list="hour-{{slotNum}}" data-slot={{slotNum}}>Entre<br>18h et 19h</li>
 												</ul>
 											</div>
 										</div>
 									</div>
 								{% endfor %}
 							</div>
-							<a class="btn btn-primary tab-btn" data-toggle="tab" href="#pills-home" role="tab">Précédent</a>
-							<a class="btn btn-primary tab-btn" data-toggle="tab" href="#pills-message" role="tab" >Suivant</a>
+							<a class="btn btn-dark tab-btn " href="#pills-home" role="tab">Précédent</a>
+							<a class="btn btn-info tab-btn float-right" href="#pills-message" role="tab" >Suivant</a>
 						</div>
 
 						<div class="tab-pane fade" id="pills-message" role="tabpanel" aria-labelledby="pills-message-tab">
@@ -98,8 +98,8 @@
 							<div class="form-group">
 								<textarea id="content" class="form-control" placeholder="Vous pouver laisser un commentaire"></textarea>
 							</div>
-							<a class="btn btn-primary tab-btn" data-toggle="tab" href="#pills-slots" role="tab">Précédent</a>
-							<button type="button" class="btn btn-primary">Envoyer</button>
+							<a class="btn btn-dark tab-btn "  href="#pills-slots" role="tab">Précédent</a>
+							<button type="button" class="btn btn-primary float-right">Envoyer</button>
 						</div>
 					</div>
 				</div>

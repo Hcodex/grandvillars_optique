@@ -13,9 +13,17 @@ $(document).ready(function () {
 
 $(".selector-list>li ").click(function () {
     var datalist = $(this).attr("data-list");
-    console.log(datalist);
+    var slot =  $(this).data("slot");
+    console.log(slot);
     $(".selector-list>li[data-list='" + datalist + "']").removeClass("active");
     $(this).addClass("active");
+    if ($(this).data("daynum") == 1){
+        $(".selector-list>li[data-list='hour-" + slot + "']:nth-child(2)").addClass("disabled bg-secondary").removeClass("active");
+        $(".selector-list>li[data-list='hour-" + slot + "']:nth-child(1)").addClass("disabled bg-secondary").removeClass("active");
+    } else {
+        $(".selector-list>li[data-list='hour-" + slot + "']").removeClass("disabled bg-secondary");
+    }
+    
 });
 
 
