@@ -83,6 +83,12 @@ video {
 	height : 150px;
 }
 
+.card-img-fixed-height img{
+	max-height : 80%;
+	width : auto;
+	margin : auto;
+}
+
 .dropdown-menu {         
 	max-height: 300px;
 	overflow-y: auto;
