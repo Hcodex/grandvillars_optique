@@ -109,5 +109,35 @@ $('.slot-item').on('click', function (e) {
 
     hour = $.trim($(this).text());
 
-    $("#rdv_slot" + slot).val(day +" " + hour );
+    $("#rdv_slot" + slot).val(day + " " + hour);
 })
+
+
+$('#nextbtn').on('click', function (e) {
+    e.preventDefault();
+    form = $('form[name="rdv"]').get(0);
+    console.log(form);
+    $.ajax({
+        type: 'POST',
+        url: './ajaxRdv',
+        data: new FormData(form),
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            if (data["status"] === 'success') {
+                $('.invalid-feedback').removeClass('invalid-feedback');
+                $('.is-invalid').removeClass('is-invalid');
+                $('.form-error-icon').remove();
+                $('.form-error-message').remove();
+                $("#pills-home").removeClass('active')
+                $("#pills-slots").tab('show');
+            } else {
+                var innerHTML =$(data).find('#rdvFormStep1').html();
+                $('#rdvFormStep1').html(innerHTML);
+            }
+        },
+        error: function (data) {
+            showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);
+        }
+    });
+});

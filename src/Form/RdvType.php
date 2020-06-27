@@ -22,7 +22,7 @@ class RdvType extends AbstractType
                     'placeholder' => 'Votre adresse mail',
                 ],
             ])
-            ->add('Name', TextType::class, [
+            ->add('name', TextType::class, [
                 'label' => 'Nom',
                 'attr' => [
                     'placeholder' => 'Votre nom',

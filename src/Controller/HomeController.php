@@ -74,7 +74,6 @@ class HomeController extends AbstractController
             'form' => $form->createView(),
             'form2' => $form2->createView(),
         ]);
-
     }
 
     /**
@@ -110,6 +109,32 @@ class HomeController extends AbstractController
 
             return $this->render('partials/contact_form.html.twig', [
                 'form' => $form->createView(),
+            ]);
+        }
+
+        return new Response('This is not ajax!', 400);
+    }
+
+    /**
+     * @Route("/ajaxRdv", name="rdv")
+     */
+    public function _ajaxRdv(Request $request)
+    {
+        if ($request->isXMLHttpRequest()) {
+
+            
+            $form = $this->createForm(RdvType::class);
+
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                return new JsonResponse([
+                    'status' => 'success',
+                ]);
+            }
+
+            return $this->render('home/modalRdv.html.twig', [
+                'form2' => $form->createView(),
             ]);
         }
 

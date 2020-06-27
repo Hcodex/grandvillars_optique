@@ -11,6 +11,7 @@ class Rdv
 {
     /**
      * @Assert\Email(message="Adresse mail invalide")
+     * @Assert\NotBlank(message="Ce champ ne peut être vide")
      */
     private $email;
 
