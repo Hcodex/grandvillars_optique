@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
+use App\Form\RdvType;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -42,12 +43,39 @@ class HomeController extends AbstractController
 
             $mailer->send($email);
 
-            $this->addFlash('success', 'Votre message a bien été evoyé');
+            $this->addFlash('success', 'Votre message a bien été envoyé');
+        }
+
+
+        $form2 = $this->createForm(RdvType::class);
+
+        $form2->handleRequest($request);
+
+
+        if ($form2->isSubmitted() && $form2->isValid()) {
+            $contact = $form2->getData();
+
+            $email = (new TemplatedEmail())
+                ->from('mailer@grandvillars-optique.fr')
+                ->replyTo($contact->getEmail())
+                ->to('contact@grandvillars-optique.fr')
+                ->subject('Demande de RDV - ' . $contact->getSubject() . ' - ' .  $contact->getName())
+                ->htmlTemplate('emails/rdv.html.twig')
+
+                ->context([
+                    'contact' => $contact,
+                ]);
+
+            $mailer->send($email);
+
+            $this->addFlash('success', 'Votre demande a bien été envoyée');
         }
 
         return $this->render('home/index.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'form2' => $form2->createView(),
         ]);
+
     }
 
     /**

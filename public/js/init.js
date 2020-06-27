@@ -109,5 +109,5 @@ $('.slot-item').on('click', function (e) {
 
     hour = $.trim($(this).text());
 
-    $("#choice-" + slot).val(day +" " + hour );
+    $("#rdv_slot" + slot).val(day +" " + hour );
 })
