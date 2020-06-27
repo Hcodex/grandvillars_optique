@@ -1,7 +1,7 @@
 <div class="modal fade" id="modalRdv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-		{{form_start(form2)}}
 		<div class="modal-content">
+			{{form_start(form2)}}
 			<div class="modal-header bg-secondary">
 				<h5 class="modal-title" id="exampleModalLabel">Prendre rendez vous</h5>
 				<button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
@@ -9,7 +9,6 @@
 				</button>
 			</div>
 			<div class="card-body">
-
 				<div class="tab-content" id="pills-tabContent">
 
 					<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -62,18 +61,12 @@
 												{%- if date|date("w") != 0 -%}
 													<div class="tab-pane fade show {% if loop.first %}active{% endif %}" id="slot-list-{{slotNum}}-{{i}}" aria-labelledby="v-pills-home-tab">
 														<ul class="list-group text-center selector-list">
-															<li class="list-group-item list-group-item-action slot-item {% if date|date(" w") == 1 %}bg-secondary disabled{% endif %}" data-list="hour-{{slotNum}}" data-slot={{slotNum}}>entre
-																<br>8h et 10h</li>
-															<li class="list-group-item list-group-item-action slot-item {% if date|date(" w") == 1 %}bg-secondary disabled{% endif %}" data-list="hour-{{ slotNum }}" data-slot={{ slotNum }}>entre
-																<br>10h et 12h</li>
-															<li class="list-group-item list-group-item-action slot-item" data-list="hour-{{slotNum}}" data-slot={{slotNum}}>entre
-																<br>14h et 16h</li>
-															<li class="list-group-item list-group-item-action slot-item" data-list="hour-{{slotNum}}" data-slot={{slotNum}}>entre
-																<br>16h et 17h</li>
-															<li class="list-group-item list-group-item-action slot-item" data-list="hour-{{slotNum}}" data-slot={{slotNum}}>entre
-																<br>17h et 18h</li>
-															<li class="list-group-item list-group-item-action slot-item {% if date|date(" w") == 6 %}bg-secondary disabled{% endif %}" data-list="hour-{{slotNum}}" data-slot={{slotNum}}>entre
-																<br>18h et 19h</li>
+															<li class="list-group-item list-group-item-action slot-item {% if date|date(" w") == 1 %}bg-secondary disabled{% endif %}" data-list="hour-{{ slotNum}}" data-slot={{ slotNum }}>entre <br>8h et 10h</li>
+															<li class="list-group-item list-group-item-action slot-item {% if date|date(" w") == 1 %}bg-secondary disabled{% endif %}" data-list="hour-{{ slotNum }}" data-slot={{ slotNum }}>entre <br>10h et 12h</li>
+															<li class="list-group-item list-group-item-action slot-item" data-list="hour-{{slotNum}}" data-slot={{slotNum}}>entre <br>14h et 16h</li>
+															<li class="list-group-item list-group-item-action slot-item" data-list="hour-{{slotNum}}" data-slot={{slotNum}}>entre <br>16h et 17h</li>
+															<li class="list-group-item list-group-item-action slot-item" data-list="hour-{{slotNum}}" data-slot={{slotNum}}>entre <br>17h et 18h</li>
+															<li class="list-group-item list-group-item-action slot-item {% if date|date(" w") == 6 %}bg-secondary disabled{% endif %}" data-list="hour-{{slotNum}}" data-slot={{slotNum}}>entre <br>18h et 19h</li>
 														</ul>
 													</div>
 												{%- endif -%}
@@ -82,26 +75,26 @@
 									</div>
 								</div>
 							</div>
-							{% endfor %}
-							<a class="btn btn-dark tab-btn float-left my-3" href="#pills-home" role="tab">Précédent</a>
-							<a class="btn btn-info tab-btn float-right my-3" href="#pills-message" role="tab">Suivant</a>
-						</div>
+						{% endfor %}
 					</div>
-					<div class="tab-pane fade" id="pills-message" role="tabpanel" aria-labelledby="pills-message-tab">
-						<h6>Etape 3/3 : Recap</h6>
-						<hr>
-						<p>Vos choix :
-						</p>
-						{{ form_row(form2.slot1) }}
-						{{ form_row(form2.slot2) }}
-						{{ form_row(form2.slot3) }}
-						{{ form_row(form2.message) }}
-						<a class="btn btn-dark tab-btn float-left my-3" href="#pills-slots" role="tab">Précédent</a>
-						<button type="submit" class="btn btn-primary float-right my-3">Confirmer</button>
-					</div>
+					<a class="btn btn-dark tab-btn float-left my-3" href="#pills-home" role="tab">Précédent</a>
+					<a class="btn btn-info tab-btn float-right my-3" href="#pills-message" role="tab">Suivant</a>
+				</div>
+
+				<div class="tab-pane fade" id="pills-message" role="tabpanel" aria-labelledby="pills-message-tab">
+					<h6>Etape 3/3 : Recap</h6>
+					<hr>
+					<p>Vos choix :
+					</p>
+					{{ form_row(form2.slot1) }}
+					{{ form_row(form2.slot2) }}
+					{{ form_row(form2.slot3) }}
+					{{ form_row(form2.message) }}
+					<a class="btn btn-dark tab-btn float-left my-3" href="#pills-slots" role="tab">Précédent</a>
+					<button type="submit" class="btn btn-primary float-right my-3">Confirmer</button>
 				</div>
 			</div>
-			{{ form_end(form2) }}
 		</div>
+		{{ form_end(form2) }}
 	</div>
-</div>
+</div></div>
