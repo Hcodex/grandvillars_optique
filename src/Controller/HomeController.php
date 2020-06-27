@@ -36,7 +36,6 @@ class HomeController extends AbstractController
                 ->to('contact@grandvillars-optique.fr')
                 ->subject('Message via formulaire - ' . $contact->getSubject() . ' - ' .  $contact->getLastName())
                 ->htmlTemplate('emails/contact.html.twig')
-
                 ->context([
                     'contact' => $contact,
                 ]);
@@ -79,9 +78,9 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/ajaxRdv", name="rdv")
+     * @Route("/ajaxContact", name="contact")
      */
-    public function _ajaxRdv(Request $request, MailerInterface $mailer)
+    public function _ajaxContact(Request $request, MailerInterface $mailer)
     {
         if ($request->isXMLHttpRequest()) {
 
@@ -98,7 +97,6 @@ class HomeController extends AbstractController
                     ->to('contact@grandvillars-optique.fr')
                     ->subject('Message via formulaire - ' . $contact->getSubject() . ' - ' .  $contact->getLastName())
                     ->htmlTemplate('emails/contact.html.twig')
-
                     ->context([
                         'contact' => $contact,
                     ]);
@@ -110,8 +108,8 @@ class HomeController extends AbstractController
                 ]);
             }
 
-            return $this->render('home/index.html.twig', [
-                'form' => $form->createView()
+            return $this->render('partials/contact_form.html.twig', [
+                'form' => $form->createView(),
             ]);
         }
 

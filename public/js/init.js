@@ -67,7 +67,7 @@ $('form[name="contact"]').submit(function (e) {
     $('form[name="contact"]>.btn').addClass('disabled').text('Envoi...').prop("disabled", true);
     $.ajax({
         type: 'POST',
-        url: './ajaxRdv',
+        url: './ajaxContact',
         data: new FormData(this),
         contentType: false,
         processData: false,
