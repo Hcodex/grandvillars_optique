@@ -16,11 +16,11 @@
 					<span class="h1-3">Optique & Audition</span>
 				</h1>
 				<a href="#contact" class="btn btn-dark p-2 mx-2">Nous contacter</a>
-				<button class="btn btn-info p-2 mx-2" data-toggle="modal" data-target="#modalRdv">Prendre rendez-vous</button>
+				<button class="btn btn-info p-2 mx-2 my-2" data-toggle="modal" data-target="#modalRdv">Prendre rendez-vous</button>
 			</div>
 		</div>
 
-		<section id="quote" class="bg-secondary py-5">
+		<section id="quote" class="d-none d-md-block bg-secondary py-5">
 			<div class="container">
 				<div class="media">
 					<img src="./img/cedric.jpg" alt="Cedric Hinterlang" width="100px" class="rounded-circle align-self-center mr-3">
@@ -36,7 +36,7 @@
 		<section id="metier" class="my-5">
 			<div class="container">
 				<h2 class="my-5 text-center">Notre métier</h2>
-				<div class="row row-cols-1 row-cols-md-4 mt-5">
+				<div class="row row-cols-2 row-cols-md-4 mt-5">
 					<div class="col mb-4">
 						<div class="card h-100  border-0">
 							<div class="text-white text-center">
@@ -85,19 +85,19 @@
 
 		<section id="horaires">
 			<div class="card-group bg-secondary">
-				<div class="card border-0">
+				<div class="card border-0 d-none d-xl-block">
 					<img src="./img/magasin5.jpg" class="card-img-top" alt="Intérieur grandvillars Optique">
 				</div>
 				<div class="card border-0">
 					<img src="./img/magasin4.jpg" class="card-img-top" alt="Intérieur grandvillars Optique">
 				</div>
-				<div class="card border-0">
+				<div class="card border-0 d-none d-xxl-block">
 					<img src="./img/magasin9.jpg" class="card-img-top" alt="Intérieur grandvillars Optique">
 				</div>
 				<div class="card border-0 d-flex  align-self-center bg-transparent">
 					<div class="mx-auto">
-						<div class="text-center">
-							<i class="iconify" data-icon="mdi:clock-outline" data-inline="false" data-width="100px"></i>
+						<div class="text-center my-3">
+							<i class="iconify" data-icon="mdi:clock-outline" data-inline="false" data-width="70px"></i>
 						</div>
 						<table class="table table-borderless table-sm">
 							<tr>
@@ -144,7 +144,7 @@
 
 					</div>
 				</div>
-				<div class="card border-0">
+				<div class="card border-0 d-none d-lg-block">
 					<img src="./img/magasin7.jpg" class="card-img-top" alt="Intérieur grandvillars Optique">
 				</div>
 			</div>
@@ -154,11 +154,11 @@
 			<div class="container my-5">
 				<h2>Nos services</h2>
 				<p>Mauris vel tincidunt nisi. Fusce vestibulum quam libero, eget lobortis enim consectetur vitae. Mauris tristique justo leo, eu mattis metus varius ut. Curabitur pretium mauris diam, sit amet placerat diam eleifend nec. Sed id faucibus turpis. Pellentesque hendrerit nulla vitae ligula pellentesque congue. Curabitur arcu est, rhoncus sollicitudin finibus ut, hendrerit id ligula. Nunc tincidunt purus quis diam congue pellentesque.</p>
-				<div class="row row-cols-1 row-cols-md-2">
+				<div class="row row-cols-1 row-cols-xl-2">
 					<div class="col mb-4">
 						<div class="card h-100 border-primary">
 							<div class="card-body media">
-								<i class="iconify align-self-center mr-3 text-primary" data-icon="whh:gears" data-inline="false" data-width="50"></i>
+								<i class="iconify align-self-center mr-3 text-primary d-none d-sm-block" data-icon="whh:gears" data-inline="false" data-width="50"></i>
 								<div class="media-body">
 									<h3>Verres ophtalmiques</h3>
 									<hr class="bg-primary">
@@ -175,11 +175,12 @@
 					<div class="col mb-4">
 						<div class="card h-100 border-grey">
 							<div class="card-body media">
-								<i class="iconify align-self-center mr-3 text-grey" data-icon="mdi:ear-hearing" data-inline="false" data-width="50"></i>
+								<i class="iconify align-self-center mr-3 text-grey  d-none d-sm-block" data-icon="mdi:ear-hearing" data-inline="false" data-width="50"></i>
 								<div class="media-body">
 									<h3>Prothèses audio</h3>
 									<hr class="bg-grey">
-									<p>Grandvillars Optique dispose d'un audioprothésiste Diplômé d'Etat dans son équipé pour réaliser votre équipement auditif : </p>
+									<p>Grandvillars Optique dispose d'un audioprothésiste Diplômé d'Etat dans son équipé pour réaliser votre équipement auditif :
+									</p>
 									<ul>
 										<li>Conception</li>
 										<li>Réalisation</li>
@@ -193,7 +194,7 @@
 					<div class="col mb-4">
 						<div class="card h-100 border-info">
 							<div class="card-body media">
-								<i class="iconify align-self-center mr-3 text-info" data-icon="mdi:wrench" data-inline="false" data-width="50"></i>
+								<i class="iconify align-self-center mr-3 text-info  d-none d-sm-block" data-icon="mdi:wrench" data-inline="false" data-width="50"></i>
 								<div class="media-body">
 									<h3>Atelier</h3>
 									<hr class="bg-info">
@@ -210,17 +211,23 @@
 					<div class="col mb-4">
 						<div class="card h-100 border-dark">
 							<div class="card-body media">
-								<i class="iconify align-self-center mr-3 text-dark" data-icon="mdi-ballot" data-inline="false" data-width="50"></i>
+								<i class="iconify align-self-center mr-3 text-dark  d-none d-sm-block" data-icon="mdi-ballot" data-inline="false" data-width="50"></i>
 								<div class="media-body">
 									<h3>Dépistages</h3>
 									<hr class="bg-dark">
 									<p>Notre magasin dispose de tout l'équiment nécessaire pour effectuer les dépistages et évaluer votre besoin en équipement visuel ou auditif</p>
-									<button class="btn btn-primary p-3 mx-2 float-right mt-2" data-toggle="modal" data-target="#modalRdv">Prendre rendez-vous</button>
-									<ul>
-										<li>Bilans visuels</li>
-										<li>Mesures d'accuité</li>
-										<li>Depistage gratuit</li>
-									</ul>
+									<div class="row">
+										<div class="col-12 col-md-6">
+											<ul>
+												<li>Bilans visuels</li>
+												<li>Mesures d'accuité</li>
+												<li>Depistage gratuit</li>
+											</ul>
+										</div>
+										<div class="col-12 col-md-6">
+											<button class="btn btn-primary p-3 mx-2 float-md-right" data-toggle="modal" data-target="#modalRdv">Prendre rendez-vous</button>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -231,14 +238,14 @@
 
 		<section id="activisu">
 			<div class="row mx-0">
-				<div class="col-md-2 align-self-center text-center">
+				<div class="col-sm-2 col-md-1 col-xl-2 d-none d-sm-block d-lg-none d-xl-block order-3 order-xl-1 my-5 align-self-center text-center ">
 					<img class="img-activisu " src="./img/activisu.png" alt="Activisu">
 				</div>
-				<div class="col-md-5 align-self-center">
+				<div class="col-sm-10 col-lg-6 col-xl-5 order-2 order-xl-2 my-5 align-self-center ">
 					<h3>Dans notre magasin : Activisu</h3>
 					<p>Dans notre magasin, bénéficiez de l'Activisu avec la technologie Eyecode. C'est un appareil de prise de mesure automatique avec lequel vous pouvez prendre une photo et une séquence vidéo pour voir la monture de profil et de face sur votre visage.</p>
 				</div>
-				<div class="col-md-5 p-0">
+				<div class="col-lg-6 col-xl-5 order-1 order-xl-3 p-0">
 					<video class="w-100 d-block" autoplay loop muted>
 						<source src="./media/eyecode.mp4" type="video/mp4">
 						Sorry, your browser doesn't support embedded videos.
@@ -249,7 +256,7 @@
 
 		<section id="magasin" class="my-5">
 			<div class="row  mx-0">
-				<div id="carouselExampleIndicators" class="carousel slide carousel-fade col-6 px-5" data-ride="carousel">
+				<div id="carouselExampleIndicators" class="carousel slide carousel-fade col-6 px-5 d-none d-xl-block" data-ride="carousel">
 					<ol class="carousel-indicators">
 						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
 						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -276,11 +283,11 @@
 					</a>
 				</div>
 
-				<div class="col-6 align-self-center pr-5">
+				<div class="col-12 col-xl-6 align-self-center pr-5">
 					<h2>Les + Grandvillars Optique</h2>
 					<p>Votre opticien Grandvillars Optique vous souhaite la bienvenue. Notre équipe de quatre personnes, dont trois opticiens lunetiers diplômés, vous accueille depuis 2002 au centre du village de Grandvillars, dans le Territoire de Belfort.</p>
 					<div class="d-flex flex-wrap">
-						<div class="col-6">
+						<div class="col-12 col-md-6">
 							<h3 class="h4">Satisfaction client</h3>
 							<ul>
 								<li>Vaste choix de montures</li>
@@ -289,7 +296,7 @@
 								<li>Montage rapide sur place</li>
 							</ul>
 						</div>
-						<div class="col-6">
+						<div class="col-12 col-md-6">
 							<h3 class="h4">Prendre soin de votre bugdet</h3>
 							<ul>
 								<li>La 2ème paire à 1€</li>
@@ -297,14 +304,14 @@
 								<li>Tiers payant mutuelle</li>
 							</ul>
 						</div>
-						<div class="col-6">
+						<div class="col-12 col-md-6">
 							<h3 class="h4">Engagements</h3>
 							<ul>
 								<li>Garantie anti-casse 2 ans</li>
 								<li>Service après vente</li>
 							</ul>
 						</div>
-						<div class="col-6">
+						<div class="col-12 col-md-6">
 							<h3 class="h4">Espace enfants</h3>
 							<ul>
 								<li>Vaste choix de montures adaptés</li>
@@ -320,25 +327,25 @@
 			<h3 class="text-center text-uppercase">
 				Notre savoir faire est reconnu
 			</h3>
-			<div class="d-flex d-flex justify-content-center mt-5">
-				<div class="col-1">
+			<div class="row d-md-flex justify-content-center mt-5">
+				<div class="col-3 col-md-1 order-last order-md-first">
 					<img src="./img/opticien-engage-essilor-2020.png" class="img-fluid" alt="essilor opticien engagé 2020">
 				</div>
-				<div class="col-6 text-center align-self-center">
-					<h4 class="font-cursive">
-						<span class="iconify" data-icon="emojione-v1:left-check-mark"></span>
+				<div class="col-12 col-md-6 mb-5 order-first text-center align-self-center">
+					<h4 class="font-cursive h5">
+						<span class="iconify" data-icon="emojione-v1:left-check-mark "></span>
 						Opticien partenaire mutuelles
 					</h4>
-					<h4 class="font-cursive">
+					<h4 class="font-cursive h5">
 						<span class="iconify" data-icon="emojione-v1:left-check-mark"></span>
 						Partenaire Essilor : opticien engagé
 					</h4>
-					<h4 class="font-cursive">
+					<h4 class="font-cursive h5">
 						<span class="iconify" data-icon="emojione-v1:left-check-mark"></span>
 						Certifié AFNOR qualité service
 					</h4>
 				</div>
-				<div class="col-1">
+				<div class="col-3 col-md-1 order-3">
 					<img src="./img/afnor-certification.png" class="img-fluid" alt="Certifiaction Afnor qualité en optique">
 				</div>
 			</div>
@@ -349,10 +356,10 @@
 				<h2 class="text-center text-white">Mutuelles partenaires</h2>
 
 				<div class="dropdown my-5 text-center">
-					<button class="btn btn-primary dropdown-toggle col-6 mx-auto" type="button" data-toggle="dropdown">Votre mutuelle est-elle prise charge ?
+					<button class="btn btn-primary dropdown-toggle col-12 col-md-6 mx-auto" type="button" data-toggle="dropdown">Votre mutuelle est-elle prise charge ?
 						<span class="caret"></span>
 					</button>
-					<ul class="dropdown-menu col-6 p-0 shadow">
+					<ul class="dropdown-menu col-12 col-md-6 p-0 shadow">
 						<div class="p-3 bg-white sticky-top shadow">
 							<input class="form-control " id="myInput" type="text" placeholder="Rechercher">
 						</div>
@@ -382,8 +389,8 @@
 										<div class="d-flex card-img-fixed-height px-5">
 											<img src="./img/mutuelles/optistya.jpg" class="card-img-top img-fluid align-self-center" alt="...">
 										</div>
-										<div class="card-body">
-											<h5 class="card-title text-center">Optistya</h5>
+										<div class="card-body pt-2">
+											<h5 class="card-title">Optistya</h5>
 											<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur rerum ipsam labore consequatur. Nihil, doloremque!</p>
 										</div>
 									</div>
@@ -393,7 +400,7 @@
 										<div class="d-flex card-img-fixed-height px-5">
 											<img src="./img/mutuelles/kalixia.jpg" class="card-img-top img-fluid align-self-center" alt="...">
 										</div>
-										<div class="card-body">
+										<div class="card-body pt-2">
 											<h5 class="card-title">Kalixia</h5>
 											<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur rerum ipsam labore consequatur. Nihil, doloremque!</p>
 										</div>
@@ -404,7 +411,7 @@
 										<div class="d-flex card-img-fixed-height px-5">
 											<img src="./img/mutuelles/seveane.jpg" class="card-img-top img-fluid align-self-center" alt="...">
 										</div>
-										<div class="card-body">
+										<div class="card-body pt-2">
 											<h5 class="card-title">Seveane</h5>
 											<p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
 										</div>
@@ -421,7 +428,7 @@
 										<div class="d-flex card-img-fixed-height px-5">
 											<img src="./img/mutuelles/cdc-mutuelle.png" class="card-img-top img-fluid align-self-center" alt="...">
 										</div>
-										<div class="card-body">
+										<div class="card-body pt-2">
 											<h5 class="card-title">CDC Mutuelle</h5>
 											<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime molestiae tempora esse deleniti fugit illo dignissimos, non libero iusto sit.</p>
 										</div>
@@ -432,7 +439,7 @@
 										<div class="d-flex card-img-fixed-height px-5">
 											<img src="./img/mutuelles/msa.svg" class="card-img-top img-fluid align-self-center" alt="...">
 										</div>
-										<div class="card-body">
+										<div class="card-body pt-2">
 											<h5 class="card-title">MSA</h5>
 											<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur rerum ipsam labore consequatur. Nihil, doloremque!</p>
 										</div>
@@ -443,7 +450,7 @@
 										<div class="d-flex card-img-fixed-height px-5">
 											<img src="./img/mutuelles/mgen.jpg" class="card-img-top img-fluid align-self-center" alt="...">
 										</div>
-										<div class="card-body">
+										<div class="card-body pt-2">
 											<h5 class="card-title">MGEN</h5>
 											<p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
 										</div>
@@ -460,7 +467,7 @@
 										<div class="d-flex card-img-fixed-height px-5">
 											<img src="./img/mutuelles/mmg.jpeg" class="card-img-top img-fluid align-self-center" alt="...">
 										</div>
-										<div class="card-body">
+										<div class="card-body pt-2">
 											<h5 class="card-title">MMG</h5>
 											<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime molestiae tempora esse deleniti fugit illo dignissimos, non libero iusto sit.</p>
 										</div>
@@ -471,7 +478,7 @@
 										<div class="d-flex card-img-fixed-height px-5">
 											<img src="./img/mutuelles/just-mutuelle.png" class="card-img-top img-fluid align-self-center" alt="...">
 										</div>
-										<div class="card-body">
+										<div class="card-body pt-2">
 											<h5 class="card-title">Mutuelle Just</h5>
 											<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur rerum ipsam labore consequatur. Nihil, doloremque!</p>
 										</div>
@@ -482,7 +489,7 @@
 										<div class="d-flex card-img-fixed-height px-5">
 											<img src="./img/mutuelles/la-mutuelle-generale.png" class="card-img-top img-fluid align-self-center" alt="...">
 										</div>
-										<div class="card-body">
+										<div class="card-body pt-2">
 											<h5 class="card-title">La mutuelle générale</h5>
 											<p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
 										</div>
@@ -508,31 +515,31 @@
 		<section id="marques" class="container my-5">
 			<h2 class="text-center mb-5">Nos marques</h2>
 			<div class="d-flex flex-wrap">
-				<div class="col-3 align-self-center px-4"><img src="./img/marques/bulgari-logo.svg" alt="Bulgari" class="img-fluid"></div>
-				<div class="col-3 align-self-center px-4"><img src="./img/marques/kenzo-logo.svg" alt="Kenzo" class="img-fluid"></div>
-				<div class="col-3 align-self-center px-4"><img src="./img/marques/dilem-logo.jpg" alt="Dilem" class="img-fluid"></div>
-				<div class="col-3 align-self-center px-4"><img src="./img/marques/mise-au-green-logo.png" alt="Mise au green" class="img-fluid"></div>
-				<div class="col-3 align-self-center px-4"><img src="./img/marques/nike-logo.svg" alt="Nike" class="img-fluid"></div>
-				<div class="col-3 align-self-center px-4"><img src="./img/marques/hugo-boss-logo.svg" alt="Hugo Boss" class="img-fluid"></div>
-				<div class="col-3 align-self-center px-4"><img src="./img/marques/ray-ban-logo.svg" alt="Ray Ban" class="img-fluid"></div>
-				<div class="col-3 align-self-center px-4"><img src="./img/marques/oakley-logo.svg" alt="Oakely" class="img-fluid"></div>
-				<div class="col-3 align-self-center px-4"><img src="./img/marques/oxibis-logo.svg" alt="Oxibis" class="img-fluid"></div>
-				<div class="col-3 align-self-center px-4"><img src="./img/marques/prada-logo.svg" alt="Prada" class="img-fluid"></div>
-				<div class="col-3 align-self-center px-4"><img src="./img/marques/burberry-logo.svg" alt="Burberry" class="img-fluid"></div>
-				<div class="col-3 align-self-center px-4"><img src="./img/marques/dolce-and-gabbana-logo.svg" alt="Dolce & Gabbana" class="img-fluid"></div>
-				<div class="col-3 align-self-center px-4"><img src="./img/marques/spiderman-logo.png" alt="Spiderman" class="img-fluid"></div>
-				<div class="col-3 align-self-center px-4"><img src="./img/marques/avangers-logo.png" alt="Avangers" class="img-fluid"></div>
-				<div class="col-3 align-self-center px-4"><img src="./img/marques/lulu-castagnette-logo.png" alt="Lulu Castagnette" class="img-fluid"></div>
-				<div class="col-3 align-self-center px-4"><img src="./img/marques/star-wars-logo.jpg" alt="Star Wars" class="img-fluid"></div>
+				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/bulgari-logo.svg" alt="Bulgari" class="img-fluid"></div>
+				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/kenzo-logo.svg" alt="Kenzo" class="img-fluid"></div>
+				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/dilem-logo.jpg" alt="Dilem" class="img-fluid"></div>
+				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/mise-au-green-logo.png" alt="Mise au green" class="img-fluid"></div>
+				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/nike-logo.svg" alt="Nike" class="img-fluid"></div>
+				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/hugo-boss-logo.svg" alt="Hugo Boss" class="img-fluid"></div>
+				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/ray-ban-logo.svg" alt="Ray Ban" class="img-fluid"></div>
+				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/oakley-logo.svg" alt="Oakely" class="img-fluid"></div>
+				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/oxibis-logo.svg" alt="Oxibis" class="img-fluid"></div>
+				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/prada-logo.svg" alt="Prada" class="img-fluid"></div>
+				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/burberry-logo.svg" alt="Burberry" class="img-fluid"></div>
+				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/dolce-and-gabbana-logo.svg" alt="Dolce & Gabbana" class="img-fluid"></div>
+				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/spiderman-logo.png" alt="Spiderman" class="img-fluid"></div>
+				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/avangers-logo.png" alt="Avangers" class="img-fluid"></div>
+				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/lulu-castagnette-logo.png" alt="Lulu Castagnette" class="img-fluid"></div>
+				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/star-wars-logo.jpg" alt="Star Wars" class="img-fluid"></div>
 			</div>
 		</section>
 
 		<section id="contactSection">
 			<div class="row bg-secondary mx-0">
-				<div class="col-6">
+				<div class="col-12 col-xl-6 px-0">
 					<img src="./img/photo-exterieur-grandvillars-optique.jpg" class="img-fluid" alt="Photo extérieur grandvillard optique">
 				</div>
-				<div class="col-6 align-self-center px-5">
+				<div class="col-12 col-xl-6 my-3 align-self-center px-5">
 					<div>
 						<h2>Contact</h2>
 						{% include 'partials/contact_form.html.twig' %}

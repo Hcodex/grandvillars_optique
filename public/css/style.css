@@ -26,8 +26,8 @@ h1{
 	padding: 20px;
 	border: 2px solid white;
 	font-weight: 600;
-	background : rgba(0,0,0,0.85);
-	opacity : .8;
+	background : rgba(0,0,0,1);
+	opacity : .85;
   }
 	
   .h1-1,
@@ -48,8 +48,37 @@ h1{
 	 letter-spacing : 0.25em;
   }
 
+@media screen and (max-width: 530px) {
+	#title{
+		padding: 20px 10px 60px 10px;
+	}
+	
+	h1{
+		padding: 10px;
+	  }
+
+	  .h1-1{
+		letter-spacing: 1.1em;
+		font-size: .33em;
+		margin-right: -1.1em;
+	  }
+	  
+	  .h1-2{
+		margin-right: -0.05rem;
+		letter-spacing : 0.08rem;
+		font-size: 0.95em;
+	  }
+
+	  .h1-3{
+		font-size: 0.55em;
+		letter-spacing :0.2em;
+	}
+
+
+}
+
 #activisu{	
-	min-height :300px;
+	/*min-height :300px;*/
 	color : white;
 	background-image : url("../img/tech.jpg");
 	background-attachment : fixed;
@@ -57,7 +86,7 @@ h1{
 }
 
 .img-activisu{
-	height : 40vh;
+	height : 30vh;
 	text-align: center;
 	margin-left: 5%;
 }
@@ -75,6 +104,12 @@ video {
 	max-height : 50px;
 }
 
+@media screen and (max-width: 766px) {
+	#reseaux img{
+		margin-right : 10px;
+	}
+}
+
 .font-cursive {
     font-family: 'Kalam', cursive;
 }
@@ -83,6 +118,11 @@ video {
 	height : 150px;
 }
 
+@media screen and (max-width: 766px) {
+	.card-img-fixed-height {
+		height : 80px;
+	}
+}
 .card-img-fixed-height img{
 	max-height : 80%;
 	width : auto;
@@ -104,3 +144,9 @@ video {
 	  width : 70%;
 	  left : 15%;
   }
+
+@media screen and (min-width: 1500px) {
+	.d-xxl-block {
+		display: block !important;
+	}
+}
