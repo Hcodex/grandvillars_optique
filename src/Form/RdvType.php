@@ -35,7 +35,7 @@ class RdvType extends AbstractType
                     "Contrôler ma vue" => 'Contrôle de la vue',
                     "Être conseillé dans le choix de mes lunettes" => 'Choix lunettes',
                     "Être conseillé dans le choix de lunettes pour mon enfant" => 'Choix lunettes enfant',
-                    "'Être accompagné dans la manipulation et l\'entretien de mes lentilles" => 'Consultation lentilles',
+                    "Être accompagné dans la manipulation et l\'entretien de mes lentilles" => 'Consultation lentilles',
                     "Retirer une commande en magasin" => 'Retrait commande',
                 ],
             ])
@@ -48,12 +48,18 @@ class RdvType extends AbstractType
             ])
             ->add('slot1', TextType::class, [
                 'required'   => false,
+                'disabled' => true,
+                'label' => false,
             ])
             ->add('slot2', TextType::class, [
                 'required'   => false,
+                'disabled' => true,
+                'label' => false,
             ])
             ->add('slot3', TextType::class, [
                 'required'   => false,
+                'disabled' => true,
+                'label' => false,
             ]);
     }
 
