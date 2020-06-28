@@ -6,7 +6,9 @@ $(document).ready(function () {
         var value = $(this).val().toLowerCase();
         $(".dropdown-menu li").filter(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
+        }).length;
+
+        $(".dropdown-menu li:visible").length === 0 ? $('#mutuellesNoResult').removeClass("d-none") : $('#mutuellesNoResult').addClass("d-none"); 
     });
 
 });

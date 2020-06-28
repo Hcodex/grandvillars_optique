@@ -32,7 +32,7 @@
 				</div>
 			</div>
 		</section>
-		
+
 		<section id="metier" class="my-5">
 			<div class="container">
 				<h2 class="my-5 text-center">Notre métier</h2>
@@ -350,54 +350,22 @@
 					<button class="btn btn-primary dropdown-toggle col-6 mx-auto" type="button" data-toggle="dropdown">Votre mutuelle est-elle prise charge ?
 						<span class="caret"></span>
 					</button>
-					<ul class="dropdown-menu col-6 p-3 shadow">
-						<input class="form-control mb-2" id="myInput" type="text" placeholder="Rechercher">
-						<li>
-							<a class="text-muted" href="#">
-								<span class="iconify" data-icon="emojione-v1:left-check-mark"></span>
-								ACORIS MUTUELLES
-							</a>
-						</li>
-						<li>
-							<a class="text-muted" href="#">
-								<span class="iconify" data-icon="emojione-v1:left-check-mark"></span>
-								ADREA MUTUELLE</a>
-						</li>
-						<li>
-							<a class="text-muted" href="#">
-								<span class="iconify" data-icon="emojione-v1:cross-mark"></span>
-								ALLIANCE DES MUTUALISTES DU TRANSPORT ET DU SECTEUR SOCIAL - ALMUTRA</a>
-						</li>
-						<li>
-							<a class="text-muted" href="#">
-								<span class="iconify" data-icon="emojione-v1:left-check-mark"></span>
-								AMELLIS MUTUELLES</a>
-						</li>
-						<li>
-							<a class="text-muted" href="#">
-								<span class="iconify" data-icon="emojione-v1:left-check-mark"></span>
-								BANQUE POPULAIRE MUTUALITE</a>
-						</li>
-						<li>
-							<a class="text-muted" href="#">
-								<span class="iconify" data-icon="emojione-v1:cross-mark"></span>
-								BPCE MUTUELLE</a>
-						</li>
-						<li>
-							<a class="text-muted" href="#">
-								<span class="iconify" data-icon="emojione-v1:left-check-mark"></span>
-								ENERGIE MUTUELLE</a>
-						</li>
-						<li>
-							<a class="text-muted" href="#">
-								<span class="iconify" data-icon="emojione-v1:left-check-mark"></span>
-								FRANCE MUTUELLE</a>
-						</li>
+					<ul class="dropdown-menu col-6 p-0 shadow">
+						<div class="p-3 bg-white sticky-top shadow">
+							<input class="form-control " id="myInput" type="text" placeholder="Rechercher">
+						</div>
+						<div class="p-3">
+							<div id="mutuellesNoResult" class="d-none">
+								<span class="iconify" data-icon="flat-color-icons:cancel"></span>
+								Aucun résultat ne correspond à votre recherche...
+							</div>
+							{% include 'partials/mutuelles_list.html.twig' %}
+						</div>
 					</ul>
 				</div>
 			</div>
 
-			<div id="mutuellesCarousel" class="carousel slide pb-4" data-ride="carousel"  data-interval="false">
+			<div id="mutuellesCarousel" class="carousel slide pb-4" data-ride="carousel" data-interval="false">
 				<ol class="carousel-indicators">
 					<li data-target="#mutuellesCarousel" data-slide-to="0" class="active"></li>
 					<li data-target="#mutuellesCarousel" data-slide-to="1"></li>
@@ -526,15 +494,15 @@
 				</div>
 
 
-	<a class="carousel-control-prev" href="#mutuellesCarousel" role="button" data-slide="prev">
-		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-		<span class="sr-only">Previous</span>
-	</a>
-	<a class="carousel-control-next" href="#mutuellesCarousel" role="button" data-slide="next">
-		<span class="carousel-control-next-icon" aria-hidden="true"></span>
-		<span class="sr-only">Next</span>
-	</a>
-</div>
+				<a class="carousel-control-prev" href="#mutuellesCarousel" role="button" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				</a>
+				<a class="carousel-control-next" href="#mutuellesCarousel" role="button" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				</a>
+			</div>
 		</section>
 
 		<section id="marques" class="container my-5">
@@ -563,7 +531,7 @@
 				<div class="col-6 align-self-center px-5">
 					<div>
 						<h2>Contact</h2>
-        				{% include 'partials/contact_form.html.twig' %}
+						{% include 'partials/contact_form.html.twig' %}
 					</div>
 				</div>
 			</div>
