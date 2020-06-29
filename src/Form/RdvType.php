@@ -50,16 +50,27 @@ class RdvType extends AbstractType
                 'required'   => false,
                 'disabled' => true,
                 'label' => false,
+                'attr' => [
+                    'placeholder' => 'Aucun créneau sélectionné',
+                ],
             ])
             ->add('slot2', TextType::class, [
                 'required'   => false,
                 'disabled' => true,
                 'label' => false,
+                'attr' => [
+                    'placeholder' => '-',
+                    'class' => 'd-none',
+                ],
             ])
             ->add('slot3', TextType::class, [
                 'required'   => false,
                 'disabled' => true,
                 'label' => false,
+                'attr' => [
+                    'placeholder' => '-',
+                    'class' => 'd-none',
+                ],
             ]);
     }
 

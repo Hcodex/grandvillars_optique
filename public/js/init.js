@@ -104,20 +104,17 @@ $('.tab-btn').on('click', function (e) {
 
 $('.slot-item').on('click', function (e) {
     var slot = $(this).data("slot");
-
     day = $.trim($(".list-group-item[data-list='day-" + slot + "'].active").text());
-
     console.log(day);
-
     hour = $.trim($(this).text());
-
-    $("#rdv_slot" + slot).val(day + " " + hour);
+    $("#rdv_slot" + slot).val(day + " - " + hour).removeClass("d-none");
 })
 
 
 $('#nextbtn').on('click', function (e) {
     e.preventDefault();
     form = $('form[name="rdv"]').get(0);
+    $(this).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
     console.log(form);
     $.ajax({
         type: 'POST',
@@ -136,7 +133,8 @@ $('#nextbtn').on('click', function (e) {
             } else {
                 var innerHTML =$(data).find('#rdvFormStep1').html();
                 $('#rdvFormStep1').html(innerHTML);
-            }
+            };
+            $('#nextbtn').html('Suivant');
         },
         error: function (data) {
             showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);
