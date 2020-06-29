@@ -48,7 +48,6 @@ class RdvType extends AbstractType
             ])
             ->add('slot1', TextType::class, [
                 'required'   => false,
-                'disabled' => true,
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Aucun créneau sélectionné',
@@ -56,7 +55,6 @@ class RdvType extends AbstractType
             ])
             ->add('slot2', TextType::class, [
                 'required'   => false,
-                'disabled' => true,
                 'label' => false,
                 'attr' => [
                     'placeholder' => '-',
@@ -65,7 +63,6 @@ class RdvType extends AbstractType
             ])
             ->add('slot3', TextType::class, [
                 'required'   => false,
-                'disabled' => true,
                 'label' => false,
                 'attr' => [
                     'placeholder' => '-',
