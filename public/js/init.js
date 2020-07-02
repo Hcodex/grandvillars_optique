@@ -123,6 +123,12 @@ function purgeRdvForm() {
     $("#pills-slots").removeClass('active');
     $("#pills-message").removeClass('active')
     $("#pills-home").tab('show');
+    $("#slot3").removeClass('active');
+    $("#slot2").removeClass('active')
+    $("#slot1").tab('show');
+    $("#slot3-tab").removeClass('active');
+    $("#slot2-tab").removeClass('active')
+    $("#slot1-tab").tab('show');
 }
 
 $('#nextbtn').on('click', function (e) {
