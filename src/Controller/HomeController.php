@@ -68,6 +68,8 @@ class HomeController extends AbstractController
             $mailer->send($email);
 
             $this->addFlash('success', 'Votre demande a bien été envoyée');
+
+            $form2 = $this->createForm(RdvType::class);
         }
 
         return $this->render('home/index.html.twig', [
@@ -122,7 +124,6 @@ class HomeController extends AbstractController
     {
         if ($request->isXMLHttpRequest()) {
 
-            
             $form = $this->createForm(RdvType::class);
 
             $form->handleRequest($request);
