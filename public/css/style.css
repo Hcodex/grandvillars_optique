@@ -2,7 +2,6 @@ html {
 	scroll-behavior: smooth;
   }
 
-
 #slider{
 	background-image : url("../img/interieur-grandvillars-optique.jpg");
 	background-size: cover;
@@ -136,6 +135,10 @@ video {
 
   .modal-content {
 	  overflow-y : auto !important;
+  }
+
+  .modal, .modal-open{
+	  padding-right : 0px !important;
   }
 
   #alerts-container{

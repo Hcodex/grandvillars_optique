@@ -1,0 +1,56 @@
+{%- set slots = [
+"entre\n 8h et 10h",
+"entre\n 10h et 12h",
+"entre\n 14h et 16h",
+"entre\n 16h et 17h",
+"entre\n 17h et 18h",
+"entre\n 18h et 19h",
+] -%}
+
+
+{%~ for slotNum in 1..3 ~%}
+
+{% set daylist %}{% endset %}
+{% set slotlist %}{% endset %}
+{% set firstflag = false %}
+
+{%- for i in 2..8 -%}
+	{%- set date = "now"|date_modify("+"~ i ~ " day")|date('Y-m-d') -%}
+
+	{%- if (date|date("w") != 0) -%}
+		{% set daylist %}
+		{{ daylist }}
+		<a class="list-group-item list-group-item-action p-2 {% if date in closeddays %}bg-secondary disabled text-grey {% endif %} {% if firstflag == false and (date not in closeddays)%}active {% endif %}" data-toggle="list" href="#slot-list-{{slotNum}}-{{i}}" data-list="day-{{slotNum}}" data-slot={{slotNum}} data-daynum={{date|date("w")}}>
+			{{- date|format_date(pattern="EEEE d '\n' MMMM", locale='fr')| nl2br | capitalize | raw  -}}
+		</a>
+
+		{% endset %}
+		{% set slotlist %}
+		{{ slotlist }}
+		<div class="tab-pane fade show {% if firstflag == false and (date not in closeddays) %}active{% set firstflag = true %}{% endif %}" id="slot-list-{{slotNum}}-{{i}}" aria-labelledby="v-pills-home-tab">
+			<div class="list-group text-center selector-list">
+				{%- for slot in slots -%}
+					<li class="btn list-group-item list-group-item-action slot-item {% if (date in closeddays ) or ((date|date('w') == 6) and (loop.index == 6)) or (date|date('w') == 1) and ((loop.index == 1) or (loop.index == 2)) %}bg-secondary disabled {% endif %} p-2" data-list="hour-{{ slotNum }}" data-slot={{ slotNum }}>{{slot| nl2br | capitalize | raw}}</li>
+				{%- endfor -%}
+			</div>
+		</div>
+		{% endset %}
+	{%- endif -%}
+{%- endfor -%}
+
+
+<div class="tab-pane fade show {% if slotNum == 1 %} active {% endif %}" id="slot{{slotNum}}" role="tab" aria-labelledby="home-tab">
+	<div class="d-flex">
+		<div class="col-6">
+			<div class="list-group text-center selector-list">
+				{{ daylist }}
+			</div>
+		</div>
+		<div class="col-6">
+			<div class="tab-content" id="myTabContent2">
+				{{ slotlist }}
+			</div>
+		</div>
+	</div>
+</div>
+{%~ endfor ~%}

@@ -108,6 +108,7 @@ $('.slot-item').on('click', function (e) {
     console.log(day);
     hour = $.trim($(this).text());
     $("#rdv_slot" + slot).val(day + " - " + hour).removeClass("d-none");
+    $("#rdv_no_choice").addClass("d-none");
 })
 
 
@@ -117,9 +118,10 @@ $('#modalRdv .close').on('click', function () {
 
 function purgeRdvForm() {
     $('.slot-item').removeClass("active");
-    $('#rdv_slot1').val('');
-    $('#rdv_slot2').val('');
-    $('#rdv_slot3').val('');
+    $('#rdv_slot1').val('').addClass("d-none");
+    $('#rdv_slot2').val('').addClass("d-none");
+    $('#rdv_slot3').val('').addClass("d-none");
+    $("#rdv_no_choice").removeClass("d-none");
     $("#pills-slots").removeClass('active');
     $("#pills-message").removeClass('active')
     $("#pills-home").tab('show');

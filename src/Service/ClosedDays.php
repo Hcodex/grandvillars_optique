@@ -26,7 +26,7 @@ class ClosedDays
             date('Y-m-d',mktime(0, 0, 0, 7,  14, $year)),  // Fête nationale
 
             //a supprimer
-            date('Y-m-d',mktime(0, 0, 0, 7,  4, $year)),  // Fête nationale
+            date('Y-m-d',mktime(0, 0, 0, 7,  6, $year)),  // Fête nationale
             date('Y-m-d',mktime(0, 0, 0, 7,  8, $year)),  // Fête nationale
 
             date('Y-m-d',mktime(0, 0, 0, 8,  15, $year)),  // Assomption
