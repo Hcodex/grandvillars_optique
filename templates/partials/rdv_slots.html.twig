@@ -23,8 +23,8 @@
 		<a class="list-group-item list-group-item-action p-2 {% if date in closeddays %}bg-secondary disabled text-grey {% endif %} {% if firstflag == false and (date not in closeddays)%}active {% endif %}" data-toggle="list" href="#slot-list-{{slotNum}}-{{i}}" data-list="day-{{slotNum}}" data-slot={{slotNum}} data-daynum={{date|date("w")}}>
 			{{- date|format_date(pattern="EEEE d '\n' MMMM", locale='fr')| nl2br | capitalize | raw  -}}
 		</a>
-
 		{% endset %}
+
 		{% set slotlist %}
 		{{ slotlist }}
 		<div class="tab-pane fade show {% if firstflag == false and (date not in closeddays) %}active{% set firstflag = true %}{% endif %}" id="slot-list-{{slotNum}}-{{i}}" aria-labelledby="v-pills-home-tab">
