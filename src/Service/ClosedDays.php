@@ -2,8 +2,6 @@
 
 namespace App\Service;
 
-use DateTime;
-
 class ClosedDays
 {
     public $data = "test";
