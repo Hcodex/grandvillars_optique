@@ -1,14 +1,32 @@
-<h1>Nouvelle demande de rendez-vous depuis le formulaire</h1>
-<p>Motif :
-	{{contact.subject}}</p>
-<p>Nom :
-	{{contact.name}}</p>
-<p>Email de contact :
-	{{contact.email}}</p>
-<p>Disponibilités :</p>
-<p>{{contact.slot1}}<br>
-	{{contact.slot2}}<br>
-	{{contact.slot3}}</p>
-<p>Message :
-</p>
-<p>{{contact.message}}</p>
+{% extends 'emails/base.html.twig' %}
+
+{% block content %}
+	<div class="content">
+		<h2>Nouvelle demande de rendez-vous depuis le formulaire</h2>
+		<h3>Motif :
+			{{contact.subject}}</h3>
+		<p>Non :
+			{{contact.name}}</p>
+		<p>Email de contact :
+			<a href="mailto:{{contact.email}}">{{contact.email}}</a>
+		</p>
+		<p>Disponibilités :</p>
+		{% if contact.slot1 is not empty %}
+			<p class="messageContainer">{{contact.slot1}}</p>
+		{% endif %}
+		{% if contact.slot2 is not empty  %}
+			<p class="messageContainer">{{contact.slot2}}</p>
+		{% endif %}
+		{% if contact.slot3 is not empty %}
+			<p class="messageContainer">{{contact.slot3}}</p>
+		{% endif %}
+		<p>Message :
+		</p>
+		<p class="messageContainer">{{contact.message}}</p>
+		<div style="text-align : center">
+			<div class="replyBtn">
+				<a href="mailto:{{contact.email}}">Répondre</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}
