@@ -4,7 +4,6 @@ namespace App\Service;
 
 class ClosedDays
 {
-    public $data = "test";
 
     public function getHollydays()
     {
