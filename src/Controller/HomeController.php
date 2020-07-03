@@ -6,6 +6,7 @@ use App\Entity\Contact;
 use App\Form\ContactType;
 use App\Form\RdvType;
 use App\Service\ClosedDays;
+use App\Service\MailSender;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -21,61 +22,33 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(Request $request, MailerInterface $mailer, ClosedDays $closedDays)
+    public function index(Request $request, MailerInterface $mailer, ClosedDays $closedDays,  MailSender $mailSender)
     {
 
-        $form = $this->createForm(ContactType::class);
+        $contactForm = $this->createForm(ContactType::class);
+        $contactForm->handleRequest($request);
 
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $contact = $form->getData();
-
-            $email = (new TemplatedEmail())
-                ->from('mailer@grandvillars-optique.fr')
-                ->replyTo($contact->getEmail())
-                ->to('contact@grandvillars-optique.fr')
-                ->subject('Message via formulaire - ' . $contact->getSubject() . ' - ' .  $contact->getLastName())
-                ->htmlTemplate('emails/contact.html.twig')
-                ->context([
-                    'contact' => $contact,
-                ]);
-
-            $mailer->send($email);
+        if ($contactForm->isSubmitted() && $contactForm->isValid()) {
+            $contact = $contactForm->getData();
+            $mailSender->SendContactMail($contact, $mailer );
 
             $this->addFlash('success', 'Votre message a bien été envoyé');
         }
 
+        $rdvForm = $this->createForm(RdvType::class);
+        $rdvForm->handleRequest($request);
 
-        $form2 = $this->createForm(RdvType::class);
-
-        $form2->handleRequest($request);
-
-
-        if ($form2->isSubmitted() && $form2->isValid()) {
-            $contact = $form2->getData();
-
-            $email = (new TemplatedEmail())
-                ->from('mailer@grandvillars-optique.fr')
-                ->replyTo($contact->getEmail())
-                ->to('contact@grandvillars-optique.fr')
-                ->subject('Demande de RDV - ' . $contact->getSubject() . ' - ' .  $contact->getName())
-                ->htmlTemplate('emails/rdv.html.twig')
-
-                ->context([
-                    'contact' => $contact,
-                ]);
-
-            $mailer->send($email);
+        if ($rdvForm->isSubmitted() && $rdvForm->isValid()) {
+            $contact = $rdvForm->getData();
+            $mailSender->SendRdvMail($contact, $mailer );
 
             $this->addFlash('success', 'Votre demande a bien été envoyée');
-
-            $form2 = $this->createForm(RdvType::class);
+            $rdvForm = $this->createForm(RdvType::class);
         }
 
         return $this->render('home/index.html.twig', [
-            'form' => $form->createView(),
-            'form2' => $form2->createView(),
+            'form' => $contactForm->createView(),
+            'form2' => $rdvForm->createView(),
             'closeddays' => $closedDays->getHollydays(),
         ]);
     }
@@ -83,28 +56,18 @@ class HomeController extends AbstractController
     /**
      * @Route("/ajaxContact", name="contact")
      */
-    public function _ajaxContact(Request $request, MailerInterface $mailer)
+    public function _ajaxContact(Request $request, MailerInterface $mailer, MailSender $mailSender)
     {
         if ($request->isXMLHttpRequest()) {
 
-            $form = $this->createForm(ContactType::class);
+            $contactForm = $this->createForm(ContactType::class);
 
-            $form->handleRequest($request);
+            $contactForm->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $contact = $form->getData();
+            if ($contactForm->isSubmitted() && $contactForm->isValid()) {
+                $contact = $contactForm->getData();
 
-                $email = (new TemplatedEmail())
-                    ->from('mailer@grandvillars-optique.fr')
-                    ->replyTo($contact->getEmail())
-                    ->to('contact@grandvillars-optique.fr')
-                    ->subject('Message via formulaire - ' . $contact->getSubject() . ' - ' .  $contact->getLastName())
-                    ->htmlTemplate('emails/contact.html.twig')
-                    ->context([
-                        'contact' => $contact,
-                    ]);
-
-                $mailer->send($email);
+                $mailSender->SendContactMail($contact, $mailer );
 
                 return new JsonResponse([
                     'status' => 'success',
@@ -112,7 +75,7 @@ class HomeController extends AbstractController
             }
 
             return $this->render('partials/contact_form.html.twig', [
-                'form' => $form->createView(),
+                'form' => $contactForm->createView(),
             ]);
         }
 
@@ -126,18 +89,18 @@ class HomeController extends AbstractController
     {
         if ($request->isXMLHttpRequest()) {
 
-            $form = $this->createForm(RdvType::class);
+            $contactForm = $this->createForm(RdvType::class);
 
-            $form->handleRequest($request);
+            $contactForm->handleRequest($request);
 
-            if ($form->isValid()) {
+            if ($contactForm->isValid()) {
                 return new JsonResponse([
                     'status' => 'success',
                 ]);
             }
 
             return $this->render('home/modalRdv.html.twig', [
-                'form2' => $form->createView(),
+                'form2' => $contactForm->createView(),
                 'closeddays' => $closedDays->getHollydays(),
             ]);
         }
