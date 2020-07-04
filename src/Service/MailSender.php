@@ -9,33 +9,46 @@ use Symfony\Component\Mime\Address;
 class MailSender
 {
 
-    public function SendContactMail($contact, $mailer)
-    {
-        $email = (new TemplatedEmail())
-            ->from('mailer@grandvillars-optique.fr')
-            ->replyTo($contact->getEmail())
-            ->to('contact@grandvillars-optique.fr')
-            ->subject('Message via formulaire - ' . $contact->getSubject() . ' - ' .  $contact->getLastName())
-            ->htmlTemplate('emails/contact.html.twig')
-            ->context([
-                'contact' => $contact,
-            ]);
+    private $mailer;
 
-        $mailer->send($email);
+    public function __construct(MailerInterface $mailer)
+    {
+        $this->mailer = $mailer;
     }
 
-    public function SendRdvMail($contact, $mailer)
+
+    public function SendContactMail($contact)
     {
+        $from = 'mailer@grandvillars-optique.fr';
+        $to = 'contact@grandvillars-optique.fr';
+        $subject = 'Message via formulaire - ' . $contact->getSubject() . ' - ' .  $contact->getLastName();
+        $template = 'emails/contact.html.twig';
+
+        $this->SendMail($from, $to, $subject, $template, $contact, 0);
+        $this->SendMail($from, $contact->getEmail(), $subject, $template, $contact, 1);
+    }
+
+    public function SendRdvMail($contact)
+    {
+        $from = 'mailer@grandvillars-optique.fr';
+        $to = 'contact@grandvillars-optique.fr';
+        $subject = 'Demande de RDV - ' . $contact->getSubject() . ' - ' .  $contact->getName();
+        $template = 'emails/rdv.html.twig';
+
+        $this->SendMail($from, $to, $subject, $template, $contact, 0);
+        $this->SendMail($from, $contact->getEmail(), $subject, $template, $contact, 1);
+    }
+
+    public function  SendMail($from, $to, $subject, $template, $contact, $copy) {
         $email = (new TemplatedEmail())
-            ->from('mailer@grandvillars-optique.fr')
-            ->replyTo($contact->getEmail())
-            ->to('contact@grandvillars-optique.fr')
-            ->subject('Demande de RDV - ' . $contact->getSubject() . ' - ' .  $contact->getName())
-            ->htmlTemplate('emails/rdv.html.twig')
-            ->context([
-                'contact' => $contact,
-            ]);
-        
-        $mailer->send($email);
+        ->from($from)
+        ->to($to)
+        ->subject($subject)
+        ->htmlTemplate($template)
+        ->context([
+            'contact' => $contact,
+            'copy' => $copy,
+        ]);
+        $this->mailer->send($email);
     }
 }

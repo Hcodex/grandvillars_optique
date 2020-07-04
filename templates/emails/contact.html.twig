@@ -1,23 +1,33 @@
 {% extends 'emails/base.html.twig' %}
 
 {% block content %}
-<div class="content">
-
-	<h2>Nouveau message depuis le formulaire</h2>
-	<h3>Sujet :
-		{{contact.subject}}</h3>
-	<p>Non :
-		{{contact.LastName}}</p>
-	<p>Email de contact :
-		<a href="mailto:{{contact.email}}">{{contact.email}}</a>
-	</p>
-	<p>Message :
-	</p>
-	<p class="messageContainer">{{contact.message}}</p>
-	<div style="text-align : center">
-		<div class="replyBtn">
-			<a href="mailto:{{contact.email}}">Répondre</a>
-		</div>
+	<div class="content">
+		{% if copy == 1 %}
+			<h2>Votre message est envoyé</h2>
+			<p>Bonjour,</p>
+			<p>Merci d'avoir utilisé notre formulaire de contact, votre message à été transmis à notre magasin. Nous predrons en charge votre demande très prochainement.</p>
+			<p>
+				Vous trouverez ci-après un copie de votre demande</p>
+			<hr>
+		{% else %}
+			<h2>Nouveau message depuis le formulaire</h2>
+		{% endif %}
+		<h3>Sujet :
+			{{contact.subject}}</h3>
+		<p>Non :
+			{{contact.LastName}}</p>
+		<p>Email de contact :
+			<a href="mailto:{{contact.email}}">{{contact.email}}</a>
+		</p>
+		<p>Message :
+		</p>
+		<p class="messageContainer">{{contact.message}}</p>
+		{% if copy != 1 %}
+			<div style="text-align : center">
+				<div class="replyBtn">
+					<a href="mailto:{{contact.email}}">Répondre</a>
+				</div>
+			</div>
+		{% endif %}
 	</div>
-</div>
 {% endblock %}

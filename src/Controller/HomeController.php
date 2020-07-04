@@ -22,7 +22,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(Request $request, MailerInterface $mailer, ClosedDays $closedDays,  MailSender $mailSender)
+    public function index(Request $request, ClosedDays $closedDays, MailSender $mailSender)
     {
 
         $contactForm = $this->createForm(ContactType::class);
@@ -30,7 +30,7 @@ class HomeController extends AbstractController
 
         if ($contactForm->isSubmitted() && $contactForm->isValid()) {
             $contact = $contactForm->getData();
-            $mailSender->SendContactMail($contact, $mailer );
+            $mailSender->SendContactMail($contact);
 
             $this->addFlash('success', 'Votre message a bien été envoyé');
         }
@@ -40,7 +40,7 @@ class HomeController extends AbstractController
 
         if ($rdvForm->isSubmitted() && $rdvForm->isValid()) {
             $contact = $rdvForm->getData();
-            $mailSender->SendRdvMail($contact, $mailer );
+            $mailSender->SendRdvMail($contact);
 
             $this->addFlash('success', 'Votre demande a bien été envoyée');
             $rdvForm = $this->createForm(RdvType::class);
@@ -56,7 +56,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/ajaxContact", name="contact")
      */
-    public function _ajaxContact(Request $request, MailerInterface $mailer, MailSender $mailSender)
+    public function _ajaxContact(Request $request, MailSender $mailSender)
     {
         if ($request->isXMLHttpRequest()) {
 
@@ -67,7 +67,7 @@ class HomeController extends AbstractController
             if ($contactForm->isSubmitted() && $contactForm->isValid()) {
                 $contact = $contactForm->getData();
 
-                $mailSender->SendContactMail($contact, $mailer );
+                $mailSender->SendContactMail($contact);
 
                 return new JsonResponse([
                     'status' => 'success',
