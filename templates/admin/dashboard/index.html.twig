@@ -1,0 +1,72 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Panneau d'administration
+{% endblock %}
+
+{% block body %}
+	<main data-spy="scroll" data-target="#navbar" data-offset="0">
+		<h1 class="mt-5 pt-5 text-center">Panneau d'administration</h1>
+		<section>
+			<div class="container mt-5">
+				<h2 class="text-primary">Jours de fermeture exeptionnelle :</h2>
+
+
+				<div class="row row-cols-1 row-cols-md-4 mt-3">
+					<div class="col">
+						<div class="card h-100">
+							<h5 class="card-title bg-primary p-3 text-center text-white">Ajouter</h5>
+							<div class="card-body text-center">
+								<h3 class="h1">+</h3>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="card">
+							<h5 class="card-title bg-info p-3 text-center">mardi</h5>
+							<div class="card-body text-center">
+								<h3 class="h1">15</h3>
+								<p class="card-text h2">JUILLET</p>
+							</div>
+							<div class="card-footer text-center">
+								Editer
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="card">
+							<h5 class="card-title bg-info p-3 text-center">mardi</h5>
+							<div class="card-body text-center">
+								<h3 class="h1">15</h3>
+								<p class="card-text h2">JUILLET</p>
+							</div>
+							<div class="card-footer text-center">
+								Editer
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="card">
+							<h5 class="card-title bg-info p-3 text-center">mardi</h5>
+							<div class="card-body text-center">
+								<h3 class="h1">15</h3>
+								<p class="card-text h2">JUILLET</p>
+							</div>
+							<div class="card-footer text-center">
+								Editer
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section>
+			<div class="container mt-5 text-primary">
+				<h2>Gestion des images</h2>
+			</div>
+
+
+		</section>
+	</main>
+
+{% endblock %}
