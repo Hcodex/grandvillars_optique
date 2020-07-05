@@ -7,56 +7,98 @@
 	<main data-spy="scroll" data-target="#navbar" data-offset="0">
 		<h1 class="mt-5 pt-5 text-center">Panneau d'administration</h1>
 		<section>
-			<div class="container mt-5">
+			<div class="container my-5">
 				<h2 class="text-primary">Jours de fermeture exeptionnelle :</h2>
+				<div class="row row-cols-1 row-cols-md-5 mt-3">
+					<div class="col">
+						<div class="card h-100" data-toggle="modal" data-target="#modalClosingDays">
+							<div class="card-body text-center d-flex text-center">
+								<h3 class="h1 align-self-center mx-auto">
+									<span class="iconify" data-icon="bx:bx-calendar-plus" data-inline="false" data-width="80" data-height="80"></span>
+								</h3>
+							</div>
+							<div class="card-footer text-center bg-primary text-white">
+								Ajouter
+							</div>
+						</div>
+					</div>
 
+					{% for closingDay in closingDays |slice(0, 3) %}
+						{% set month = closingDay.date|format_date(pattern="MMMM", locale='fr') %}
+						{% set day = closingDay.date|format_date(pattern="EEEE", locale='fr') %}
+						{% set daynum = closingDay.date|date("d") %}
+						<div class="col">
+							<div class="card h-100">
+								<h5 class="card-title bg-info p-3 text-center">{{day}}</h5>
+								<div class="card-body text-center">
+									<h3 class="h1">{{daynum}}</h3>
+									<p class="card-text h3">{{month}}</p>
+								</div>
+								<div class="card-footer text-center">
+									Supprimer
+								</div>
+							</div>
+						</div>
+					{% endfor %}
 
-				<div class="row row-cols-1 row-cols-md-4 mt-3">
-					<div class="col">
-						<div class="card h-100">
-							<h5 class="card-title bg-primary p-3 text-center text-white">Ajouter</h5>
-							<div class="card-body text-center">
-								<h3 class="h1">+</h3>
-							</div>
-						</div>
-					</div>
-					<div class="col">
-						<div class="card">
-							<h5 class="card-title bg-info p-3 text-center">mardi</h5>
-							<div class="card-body text-center">
-								<h3 class="h1">15</h3>
-								<p class="card-text h2">JUILLET</p>
-							</div>
-							<div class="card-footer text-center">
-								Editer
-							</div>
-						</div>
-					</div>
-					<div class="col">
-						<div class="card">
-							<h5 class="card-title bg-info p-3 text-center">mardi</h5>
-							<div class="card-body text-center">
-								<h3 class="h1">15</h3>
-								<p class="card-text h2">JUILLET</p>
-							</div>
-							<div class="card-footer text-center">
-								Editer
-							</div>
-						</div>
-					</div>
 					<div class="col-sm-3">
-						<div class="card">
-							<h5 class="card-title bg-info p-3 text-center">mardi</h5>
-							<div class="card-body text-center">
-								<h3 class="h1">15</h3>
-								<p class="card-text h2">JUILLET</p>
+						<div class="card h-100" data-toggle="modal" data-target="#modalCalendar">
+							<div class="card-body text-center d-flex text-center">
+								<h3 class="h3 align-self-center mx-auto">
+									<span class="iconify" data-icon="clarity:calendar-line" data-inline="false" data-width="80" data-height="80"></span>
+								</h3>
 							</div>
-							<div class="card-footer text-center">
-								Editer
+							<div class="card-footer text-center card-footer text-center bg-primary text-white">
+								Voir plus
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
+		</section>
+		{% include 'admin/partials/modalClosingDays.html.twig' %}
+
+		{% include 'admin/partials/modalCalendar.html.twig' %}
+
+		<section class="mt-5">
+			<div class="container mt-5 text-primary">
+				<h2>Horaires</h2>
+				<table class="table">
+					<thead>
+						<tr class="bg-info">
+							<th scope="col"></th>
+							<th scope="col">Lundi</th>
+							<th scope="col">Mardi</th>
+							<th scope="col">Mercredi</th>
+							<th scope="col">Jeudi</th>
+							<th scope="col">Vendredi</th>
+							<th scope="col">Samedi</th>
+							<th scope="col">Dimanche</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">Matin</th>
+							<td>Fermé</td>
+							<td>9h-12</td>
+							<td>9h-12</td>
+							<td>9h-12</td>
+							<td>9h-12</td>
+							<td>9h-12</td>
+							<td>Fermé</td>
+						</tr>
+						<tr>
+							<th scope="row">Après-midi</th>
+							<td>14h-19</td>
+							<td>14h-19</td>
+							<td>14h-19</td>
+							<td>14h-19</td>
+							<td>14h-19</td>
+							<td>Fermé</td>
+							<td>Fermé</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</section>
 
@@ -64,9 +106,6 @@
 			<div class="container mt-5 text-primary">
 				<h2>Gestion des images</h2>
 			</div>
-
-
 		</section>
 	</main>
-
 {% endblock %}
