@@ -163,3 +163,12 @@ $('#nextbtn').on('click', function (e) {
         }
     });
 });
+
+$('.showConfirm').on('click', function (e) {
+    event.preventDefault();
+    data =  $(this).data("link");
+    message =  $(this).data("message");
+    $("#modalConfirm #confirmBtn").attr('href', data);
+    $("#modalConfirm .modal-body").html('<p>' + message + '</p>');
+    $("#modalConfirm").modal();
+})
