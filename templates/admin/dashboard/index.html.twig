@@ -24,17 +24,36 @@
 					</div>
 
 					{% for closingDay in closingDays |slice(0, 3) %}
-						{% set month = closingDay.date|format_date(pattern="MMMM", locale='fr') %}
-						{% set day = closingDay.date|format_date(pattern="EEEE", locale='fr') %}
-						{% set daynum = closingDay.date|date("d") %}
+						{% set startMonth = closingDay.startDate|format_date(pattern="MMM", locale='fr') %}
+						{% set startDay = closingDay.startDate|format_date(pattern="EEEE", locale='fr') %}
+						{% set startDayNum = closingDay.startDate|date("d") %}
+						{% set endMonth = closingDay.endDate|format_date(pattern="MMM", locale='fr') %}
+						{% set endDayNum = closingDay.endDate|date("d") %}
 						<div class="col">
 							<div class="card h-100">
-								<h5 class="card-title bg-info p-3 text-center">{{day}}</h5>
-								<div class="card-body text-center">
-									<h3 class="h1">{{daynum}}</h3>
-									<p class="card-text h3">{{month}}</p>
-								</div>
-								<a class="showConfirm" data-link ="{{path('admin_closingday_delete', {'id' : closingDay.id})}}" data-message="Le <strong>{{closingDay.date|format_date(pattern="d MMMM YYYY", locale='fr')}}</strong> sera supprimé de la liste des jours de fermeture">
+
+								{% if closingDay.startDate == closingDay.endDate %}
+									<h5 class="card-title bg-info p-3 text-center">{{startDay}}</h5>
+									<div class="card-body text-center">
+										<h3 class="h1">{{startDayNum}}</h3>
+										<p class="card-text h3">{{startMonth}}</p>
+									</div>
+									<a class="showConfirm" data-link="{{path('admin_closingday_delete', {'id' : closingDay.id})}}" data-message="Le <strong>{{closingDay.startDate|format_date(pattern=' d MMMM YYYY', locale='fr')}}</strong> sera supprimé de la liste des jours de fermeture">
+
+								{% else %}
+									<h5 class="card-title bg-info p-3 text-center">Congés</h5>
+									<div class="card-body text-center d-flex align-items-center">
+										<div class="mx-auto">
+											<h3 class="h3">{{~ startDayNum ~ " " ~ startMonth}}</h3>
+											<hr>
+											<h3 class="h3">{{~ endDayNum ~ " " ~ endMonth}}</h3>
+										</div>
+									</div>
+									<a class="showConfirm" data-link="{{path('admin_closingday_delete', {'id' : closingDay.id})}}" data-message="Le congé du <strong>{{closingDay.startDate|format_date(pattern=' d MMMM YYYY', locale='fr')}}</strong> au <strong>{{closingDay.endDate|format_date(pattern=' d MMMM YYYY', locale='fr')}}</strong> sera supprimé de la liste des jours de fermeture">
+
+								{% endif %}
+
+
 									<div class="card-footer text-center">
 										Supprimer
 									</div>
@@ -109,6 +128,5 @@
 				<h2>Gestion des images</h2>
 			</div>
 		</section>
-		{% include 'admin/partials/modalConfirm.html.twig' %}
-	</main>
+		{% include 'admin/partials/modalConfirm.html.twig' %}</main>
 {% endblock %}
