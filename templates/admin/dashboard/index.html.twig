@@ -8,7 +8,7 @@
 		<h1 class="mt-5 pt-5 text-center">Panneau d'administration</h1>
 		<section>
 			<div class="container my-5">
-				<h2 class="text-primary">Jours de fermeture exeptionnelle :</h2>
+				<h2 class="text-primary">Jours de fermeture exceptionnelle :</h2>
 				<div class="row row-cols-1 row-cols-md-5 mt-3">
 					<div class="col">
 						<div class="card h-100" data-toggle="modal" data-target="#modalClosingDays">
@@ -34,9 +34,11 @@
 									<h3 class="h1">{{daynum}}</h3>
 									<p class="card-text h3">{{month}}</p>
 								</div>
-								<div class="card-footer text-center">
-									Supprimer
-								</div>
+								<a class="showConfirm" data-link ="{{path('admin_closingday_delete', {'id' : closingDay.id})}}" data-message="Le <strong>{{closingDay.date|format_date(pattern="d MMMM YYYY", locale='fr')}}</strong> sera supprimé de la liste des jours de fermeture">
+									<div class="card-footer text-center">
+										Supprimer
+									</div>
+								</a>
 							</div>
 						</div>
 					{% endfor %}
@@ -107,5 +109,6 @@
 				<h2>Gestion des images</h2>
 			</div>
 		</section>
+		{% include 'admin/partials/modalConfirm.html.twig' %}
 	</main>
 {% endblock %}

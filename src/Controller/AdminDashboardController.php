@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ClosingDays;
 use App\Form\ClosingDaysType;
 use App\Repository\ClosingDaysRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,18 +18,18 @@ class AdminDashboardController extends AbstractController
      */
     public function index(Request $request, EntityManagerInterface $manager, ClosingDaysRepository $closingDayRepo)
     {
-        $closingDay = new ClosingDays;
+        $addClosingDay = new ClosingDays;
 
-        $closingDaysForm = $this->createForm(ClosingDaysType::class, $closingDay);
+        $closingDaysForm = $this->createForm(ClosingDaysType::class, $addClosingDay);
         $closingDaysForm->handleRequest($request);
 
         if ($closingDaysForm->isSubmitted() && $closingDaysForm->isValid()) {
-            $manager->persist($closingDay);
+            $manager->persist($addClosingDay);
             $manager->flush();
 
             $this->addFlash(
                 'success',
-                "Votre compte a bien été crée !"
+                "Le jour de fermeture a été ajouté"
             );
         }
 
@@ -37,4 +38,26 @@ class AdminDashboardController extends AbstractController
             'closingDays'  => $closingDayRepo->getClosingDays(),
         ]);
     }
+
+    /**
+     * Delete a closing day
+     * 
+     * @Route("/admin/closingday/{id}/delete", name="admin_closingday_delete")
+     *
+     * @param ClosingDays $closingDays
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    public function deleteClosingDay(ClosingDays $closingDays, EntityManagerInterface $manager){
+        $manager->remove($closingDays);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            "Le jour de fermeture a été supprimé"
+        );
+        
+        return $this->redirectToROute('admin_dashboard');
+    }
 }
+
