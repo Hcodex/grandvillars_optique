@@ -27,12 +27,12 @@ class ClosingDaysType extends AbstractType
                 ]
             ])
             ->add('startDate', DateType::class, [
-                'label' => 'Date',
+                'label' => 'Date de début',
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
             ])
             ->add('endDate', DateType::class, [
-                'label' => 'Date',
+                'label' => 'Date de fin',
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
             ]);
