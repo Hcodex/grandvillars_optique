@@ -22,7 +22,7 @@ class ClosingDaysRepository extends ServiceEntityRepository
     public function getClosingDays()
     {
         return $this->createQueryBuilder('c')
-            ->orderBy('c.date', 'ASC')
+            ->orderBy('c.startDate', 'ASC')
             ->getQuery()
             ->getResult();
     }

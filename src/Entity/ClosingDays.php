@@ -18,30 +18,23 @@ class ClosingDays
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $date;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $type;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $startDate;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $endDate;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
-
-        return $this;
     }
 
     public function getType(): ?int
@@ -52,6 +45,30 @@ class ClosingDays
     public function setType(int $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getStartDate(): ?\DateTimeInterface
+    {
+        return $this->startDate;
+    }
+
+    public function setStartDate(\DateTimeInterface $startDate): self
+    {
+        $this->startDate = $startDate;
+
+        return $this;
+    }
+
+    public function getEndDate(): ?\DateTimeInterface
+    {
+        return $this->endDate;
+    }
+
+    public function setEndDate(\DateTimeInterface $endDate): self
+    {
+        $this->endDate = $endDate;
 
         return $this;
     }
