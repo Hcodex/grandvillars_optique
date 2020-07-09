@@ -5,7 +5,7 @@ namespace App\Service;
 class PublicHollydays
 {
 
-    static function getHollydays()
+    public function getHollydays()
     {
 
         $year = intval(date('Y'));

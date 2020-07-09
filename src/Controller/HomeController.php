@@ -23,7 +23,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(Request $request, MailSender $mailSender)
+    public function index(Request $request, PublicHOllydays $publicHollydays, MailSender $mailSender)
     {
 
         $contactForm = $this->createForm(ContactType::class);
@@ -50,7 +50,7 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'form' => $contactForm->createView(),
             'form2' => $rdvForm->createView(),
-            'closeddays' => PublicHollydays::getHollydays(),
+            'closeddays' => $publicHollydays->getHollydays(),
         ]);
     }
 
@@ -86,7 +86,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/ajaxRdv", name="rdv")
      */
-    public function _ajaxRdv(Request $request)
+    public function _ajaxRdv(Request $request, PublicHollydays $publicHollydays)
     {
         if ($request->isXMLHttpRequest()) {
 
@@ -102,7 +102,7 @@ class HomeController extends AbstractController
 
             return $this->render('home/modalRdv.html.twig', [
                 'form2' => $contactForm->createView(),
-                'closeddays' => PublicHollydays::getHollydays(),
+                'closeddays' => $publicHollydays->getHollydays(),
             ]);
         }
 
