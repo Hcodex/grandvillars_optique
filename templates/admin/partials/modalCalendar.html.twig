@@ -1,4 +1,6 @@
 {% set closingDates = [] %}
+{% set recurentClosingDates = [] %}
+
 {% for closingDay in closingDays %}
 	{% set interval = date( date(closingDay.startDate) ).diff(date(closingDay.endDate)) %}
 	{% for day in 0 .. interval.days %}
@@ -6,6 +8,15 @@
 	{% endfor %}
 
 {% endfor %}
+
+{% for recurentClosingDay in recurentClosingDays %}
+	{% set interval = date( date(recurentClosingDay.startDate) ).diff(date(recurentClosingDay.endDate)) %}
+	{% for day in 0 .. interval.days %}
+		{% set recurentClosingDates = recurentClosingDates|merge([recurentClosingDay.startDate|date_modify("+" ~ day ~ " days")|date('m-d')]) %}
+	{% endfor %}
+{% endfor %}
+
+
 {% set nextMonth = time|date_modify("+1 month")|date("U") %}
 {% set prevMonth = time|date_modify("-1 month")|date("U") %}
 {% set time = time|date("U") %}
@@ -47,7 +58,7 @@
 									{% if loop.first and startDow != 0 %}
 										<td colspan="{{ startDow }}"></td>
 									{% endif %}
-									<td class="{% if (dateOfDay in publicHollydays) %}bg-secondary text-grey {% endif %}{% if (dateOfDay in closingDates) %}bg-primary text-white{% endif %} {% if (dateOfDay == "now"|date('Y-m-d')) %}font-weight-bold border border-info{% endif %} text-center">
+									<td class="{% if (dateOfDay in publicHollydays) %}bg-secondary text-grey {% endif %}{% if (dateOfDay in closingDates) or (dateOfDay|date('m-d') in recurentClosingDates) %}bg-primary text-white{% endif %} {% if (dateOfDay == "now"|date('Y-m-d')) %}font-weight-bold border border-info{% endif %} text-center">
 										<div>{{ day }}</div>
 									</td>
 									{% if loop.last and dow != 6 %}

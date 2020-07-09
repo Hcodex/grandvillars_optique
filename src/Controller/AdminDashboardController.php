@@ -38,8 +38,10 @@ class AdminDashboardController extends AbstractController
         return $this->render('admin/dashboard/index.html.twig', [
             'form' =>  $closingDaysForm->createView(),
             'closingDays'  => $closingDayRepo->getClosingDays(),
+            'recurentClosingDays' => $closingDayRepo->getRecurentClosingDays(),
             'time' => date("Y-m-d H:i:s"),
             'publicHollydays' => PublicHollydays::getHollydays(),
+
         ]);
     }
 
@@ -72,6 +74,7 @@ class AdminDashboardController extends AbstractController
     {
         return $this->render('admin/partials/modalCalendar.html.twig', [
             'closingDays'  => $closingDayRepo->getClosingDays(),
+            'recurentClosingDays' => $closingDayRepo->getRecurentClosingDays(),
             'time' => date("Y-m-d", $date),
             'publicHollydays' => PublicHollydays::getHollydays(),
         ]);

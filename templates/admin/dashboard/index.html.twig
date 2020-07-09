@@ -39,7 +39,10 @@
 										<p class="card-text h3">{{startMonth}}</p>
 									</div>
 									<a class="showConfirm" data-link="{{path('admin_closingday_delete', {'id' : closingDay.id})}}" data-message="Le <strong>{{closingDay.startDate|format_date(pattern=' d MMMM YYYY', locale='fr')}}</strong> sera supprimé de la liste des jours de fermeture">
-
+										<div class="card-footer text-center">
+											Supprimer
+										</div>
+									</a>
 								{% else %}
 									<h5 class="card-title bg-info p-3 text-center">Congés</h5>
 									<div class="card-body text-center d-flex align-items-center">
@@ -50,14 +53,11 @@
 										</div>
 									</div>
 									<a class="showConfirm" data-link="{{path('admin_closingday_delete', {'id' : closingDay.id})}}" data-message="Le congé du <strong>{{closingDay.startDate|format_date(pattern=' d MMMM YYYY', locale='fr')}}</strong> au <strong>{{closingDay.endDate|format_date(pattern=' d MMMM YYYY', locale='fr')}}</strong> sera supprimé de la liste des jours de fermeture">
-
+										<div class="card-footer text-center">
+											Supprimer
+										</div>
+									</a>
 								{% endif %}
-
-
-									<div class="card-footer text-center">
-										Supprimer
-									</div>
-								</a>
 							</div>
 						</div>
 					{% endfor %}
@@ -75,7 +75,36 @@
 						</div>
 					</div>
 				</div>
+
+
+				<div class="row">
+					<div class="col-12 mt-4">
+						<div class="card bg-info text-center">
+							<h3 class="h4 p-2">Fermetures régulières</h3>
+						</div>
+					</div>
+
+					{% for recurentClosingDay in recurentClosingDays|sort %}
+						<div class="col-4 mt-2">
+							<div class="card">
+								{% if recurentClosingDay.startDate == recurentClosingDay.endDate %}
+									<div class="card-body h2 text-center">
+										{{~ recurentClosingDay.startDate|format_date(pattern="d \n MMMM", locale='fr')| nl2br|raw}}
+									</div>
+								{% else %}
+									<div class="card-body h2 text-center">
+										Du {{ recurentClosingDay.startDate|format_date(pattern="d MMM", locale='fr') }}<br>
+										au {{ recurentClosingDay.endDate|format_date(pattern="d MMM", locale='fr') }}
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					{% endfor %}
+
+				</div>
 			</div>
+
+
 		</section>
 		{% include 'admin/partials/modalClosingDays.html.twig' %}
 
