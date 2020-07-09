@@ -7,6 +7,7 @@ use App\Form\ContactType;
 use App\Form\RdvType;
 use App\Service\ClosedDays;
 use App\Service\MailSender;
+use App\Service\PublicHollydays;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -22,7 +23,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(Request $request, ClosedDays $closedDays, MailSender $mailSender)
+    public function index(Request $request, PublicHOllydays $publicHollydays, MailSender $mailSender)
     {
 
         $contactForm = $this->createForm(ContactType::class);
@@ -49,7 +50,7 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'form' => $contactForm->createView(),
             'form2' => $rdvForm->createView(),
-            'closeddays' => $closedDays->getHollydays(),
+            'closeddays' => $publicHollydays->getHollydays(),
         ]);
     }
 
@@ -85,7 +86,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/ajaxRdv", name="rdv")
      */
-    public function _ajaxRdv(Request $request, ClosedDays $closedDays)
+    public function _ajaxRdv(Request $request, PublicHollydays $publicHollydays)
     {
         if ($request->isXMLHttpRequest()) {
 
@@ -101,7 +102,7 @@ class HomeController extends AbstractController
 
             return $this->render('home/modalRdv.html.twig', [
                 'form2' => $contactForm->createView(),
-                'closeddays' => $closedDays->getHollydays(),
+                'closeddays' => $publicHollydays->getHollydays(),
             ]);
         }
 

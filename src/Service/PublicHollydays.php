@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-class ClosedDays
+class PublicHollydays
 {
 
     public function getHollydays()
