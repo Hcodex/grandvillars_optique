@@ -188,3 +188,13 @@ function showMonth(date) {
         }
     });
 }
+
+$('#closing_days_startDate').change(function (e) {
+    $('#closing_days_endDate').val(this.value);
+});
+
+$('#closing_days_endDate').change(function (e) {
+    if (this.value < $('#closing_days_startDate').val()) {
+        $('#closing_days_startDate').val(this.value);
+    }
+});

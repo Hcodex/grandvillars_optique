@@ -23,7 +23,6 @@ class ClosingDaysType extends AbstractType
                 'choices' => [
                     "Poncutel" => '0',
                     "Récurent" => '1',
-                    "Congés" => '0',
                 ]
             ])
             ->add('startDate', DateType::class, [

@@ -8,10 +8,10 @@
 		<h1 class="mt-5 pt-5 text-center">Panneau d'administration</h1>
 		<section>
 			<div class="container my-5">
-				<h2 class="text-primary">Jours de fermeture exceptionnelle :</h2>
-				<div class="row row-cols-1 row-cols-md-5 mt-3">
-					<div class="col">
-						<div class="card h-100" data-toggle="modal" data-target="#modalClosingDays">
+				<h2 class="text-primary">Jours de fermeture</h2>
+				<div class="row">
+					<div class="col-6 mt-3">
+						<div class="card h-100 " data-toggle="modal" data-target="#modalClosingDays">
 							<div class="card-body text-center d-flex text-center">
 								<h3 class="h1 align-self-center mx-auto">
 									<span class="iconify" data-icon="bx:bx-calendar-plus" data-inline="false" data-width="80" data-height="80"></span>
@@ -22,14 +22,28 @@
 							</div>
 						</div>
 					</div>
-
-					{% for closingDay in closingDays |slice(0, 3) %}
+					<div class="col-sm-6 mt-3">
+						<div class="card h-100" data-toggle="modal" data-target="#modalCalendar">
+							<div class="card-body text-center d-flex text-center">
+								<h3 class="h3 align-self-center mx-auto">
+									<span class="iconify" data-icon="clarity:calendar-line" data-inline="false" data-width="80" data-height="80"></span>
+								</h3>
+							</div>
+							<div class="card-footer text-center card-footer text-center bg-primary text-white">
+								Calendrier
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row row-cols-1 row-cols-md-5 mt-3">
+					{% for closingDay in closingDays %}
 						{% set startMonth = closingDay.startDate|format_date(pattern="MMM", locale='fr') %}
 						{% set startDay = closingDay.startDate|format_date(pattern="EEEE", locale='fr') %}
 						{% set startDayNum = closingDay.startDate|date("d") %}
+						{% set year = closingDay.startDate|date("Y") %}
 						{% set endMonth = closingDay.endDate|format_date(pattern="MMM", locale='fr') %}
 						{% set endDayNum = closingDay.endDate|date("d") %}
-						<div class="col">
+						<div class="col mt-3">
 							<div class="card h-100">
 
 								{% if closingDay.startDate == closingDay.endDate %}
@@ -37,6 +51,7 @@
 									<div class="card-body text-center">
 										<h3 class="h1">{{startDayNum}}</h3>
 										<p class="card-text h3">{{startMonth}}</p>
+										<small>{{~ year}}</small>
 									</div>
 									<a class="showConfirm" data-link="{{path('admin_closingday_delete', {'id' : closingDay.id})}}" data-message="Le <strong>{{closingDay.startDate|format_date(pattern=' d MMMM YYYY', locale='fr')}}</strong> sera supprimé de la liste des jours de fermeture">
 										<div class="card-footer text-center">
@@ -50,6 +65,7 @@
 											<h3 class="h3">{{~ startDayNum ~ " " ~ startMonth}}</h3>
 											<hr>
 											<h3 class="h3">{{~ endDayNum ~ " " ~ endMonth}}</h3>
+											<small>{{~ year}}</small>
 										</div>
 									</div>
 									<a class="showConfirm" data-link="{{path('admin_closingday_delete', {'id' : closingDay.id})}}" data-message="Le congé du <strong>{{closingDay.startDate|format_date(pattern=' d MMMM YYYY', locale='fr')}}</strong> au <strong>{{closingDay.endDate|format_date(pattern=' d MMMM YYYY', locale='fr')}}</strong> sera supprimé de la liste des jours de fermeture">
@@ -62,46 +78,37 @@
 						</div>
 					{% endfor %}
 
-					<div class="col-sm-3">
-						<div class="card h-100" data-toggle="modal" data-target="#modalCalendar">
-							<div class="card-body text-center d-flex text-center">
-								<h3 class="h3 align-self-center mx-auto">
-									<span class="iconify" data-icon="clarity:calendar-line" data-inline="false" data-width="80" data-height="80"></span>
-								</h3>
-							</div>
-							<div class="card-footer text-center card-footer text-center bg-primary text-white">
-								Voir plus
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-				<div class="row">
-					<div class="col-12 mt-4">
-						<div class="card bg-info text-center">
-							<h3 class="h4 p-2">Fermetures régulières</h3>
-						</div>
-					</div>
 
 					{% for recurentClosingDay in recurentClosingDays|sort %}
-						<div class="col-4 mt-2">
-							<div class="card">
+						{% set startMonth =  recurentClosingDay.startDate|format_date(pattern="MMM", locale='fr') %}
+						{% set startDayNum =  recurentClosingDay.startDate|date("d") %}
+						{% set endMonth =  recurentClosingDay.endDate|format_date(pattern="MMM", locale='fr') %}
+						{% set endDayNum =  recurentClosingDay.endDate|date("d") %}
+						<div class="col mt-3">
+							<div class="card h-100">
+								<h5 class="card-title bg-dark p-3 text-white text-center">Récurrent</h5>
 								{% if recurentClosingDay.startDate == recurentClosingDay.endDate %}
-									<div class="card-body h2 text-center">
-										{{~ recurentClosingDay.startDate|format_date(pattern="d \n MMMM", locale='fr')| nl2br|raw}}
+
+									<div class="card-body text-center">
+										<h3 class="h1">{{startDayNum}}</h3>
+										<p class="card-text h3">{{startMonth}}</p>
+										<small>Récurrent</small>
 									</div>
-									<a class="showConfirm" data-link="{{path('admin_closingday_delete', {'id' : recurentClosingDay.id})}}" data-message="Le <strong>{{recurentClosingDay.startDate|format_date(pattern=' d MMMM YYYY', locale='fr')}}</strong> sera supprimé de la liste des jours de fermeture">
+									<a class="showConfirm" data-link="{{path('admin_closingday_delete', {'id' : recurentClosingDay.id})}}" data-message="Le <strong>{{recurentClosingDay.startDate|format_date(pattern=' d MMMM', locale='fr')}}</strong> sera supprimé de la liste des jours de fermeture">
 										<div class="card-footer text-center">
 											Supprimer
 										</div>
 									</a>
 								{% else %}
-									<div class="card-body h2 text-center">
-										{{ "Du " ~ recurentClosingDay.startDate|format_date(pattern="d MMM", locale='fr') }}<br>
-										{{"au " ~ recurentClosingDay.endDate|format_date(pattern="d MMM", locale='fr') }}
+									<div class="card-body text-center d-flex align-items-center">
+										<div class="mx-auto">
+											<h3 class="h3">{{~ startDayNum ~ " " ~ startMonth}}</h3>
+											<hr>
+											<h3 class="h3">{{~ endDayNum ~ " " ~ endMonth}}</h3>
+											<small>Récurrent</small>
+										</div>
 									</div>
-									<a class="showConfirm" data-link="{{path('admin_closingday_delete', {'id' : recurentClosingDay.id})}}" data-message="Le congé du <strong>{{recurentClosingDay.startDate|format_date(pattern=' d MMMM YYYY', locale='fr')}}</strong> au <strong>{{recurentClosingDay.endDate|format_date(pattern=' d MMMM YYYY', locale='fr')}}</strong> sera supprimé de la liste des jours de fermeture">
+									<a class="showConfirm" data-link="{{path('admin_closingday_delete', {'id' : recurentClosingDay.id})}}" data-message="Le congé du <strong>{{recurentClosingDay.startDate|format_date(pattern=' d MMMM', locale='fr')}}</strong> au <strong>{{recurentClosingDay.endDate|format_date(pattern=' d MMMM', locale='fr')}}</strong> sera supprimé de la liste des jours de fermeture">
 										<div class="card-footer text-center">
 											Supprimer
 										</div>
@@ -110,10 +117,8 @@
 							</div>
 						</div>
 					{% endfor %}
-
 				</div>
 			</div>
-
 
 		</section>
 		{% include 'admin/partials/modalClosingDays.html.twig' %}
