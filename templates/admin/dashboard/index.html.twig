@@ -91,11 +91,21 @@
 									<div class="card-body h2 text-center">
 										{{~ recurentClosingDay.startDate|format_date(pattern="d \n MMMM", locale='fr')| nl2br|raw}}
 									</div>
+									<a class="showConfirm" data-link="{{path('admin_closingday_delete', {'id' : recurentClosingDay.id})}}" data-message="Le <strong>{{recurentClosingDay.startDate|format_date(pattern=' d MMMM YYYY', locale='fr')}}</strong> sera supprimé de la liste des jours de fermeture">
+										<div class="card-footer text-center">
+											Supprimer
+										</div>
+									</a>
 								{% else %}
 									<div class="card-body h2 text-center">
-										Du {{ recurentClosingDay.startDate|format_date(pattern="d MMM", locale='fr') }}<br>
-										au {{ recurentClosingDay.endDate|format_date(pattern="d MMM", locale='fr') }}
+										{{ "Du " ~ recurentClosingDay.startDate|format_date(pattern="d MMM", locale='fr') }}<br>
+										{{"au " ~ recurentClosingDay.endDate|format_date(pattern="d MMM", locale='fr') }}
 									</div>
+									<a class="showConfirm" data-link="{{path('admin_closingday_delete', {'id' : recurentClosingDay.id})}}" data-message="Le congé du <strong>{{recurentClosingDay.startDate|format_date(pattern=' d MMMM YYYY', locale='fr')}}</strong> au <strong>{{recurentClosingDay.endDate|format_date(pattern=' d MMMM YYYY', locale='fr')}}</strong> sera supprimé de la liste des jours de fermeture">
+										<div class="card-footer text-center">
+											Supprimer
+										</div>
+									</a>
 								{% endif %}
 							</div>
 						</div>
