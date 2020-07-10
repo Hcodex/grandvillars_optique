@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Contact;
 use App\Form\ContactType;
 use App\Form\RdvType;
+use App\Repository\ClosingDaysRepository;
 use App\Service\ClosedDays;
 use App\Service\MailSender;
 use App\Service\PublicHollydays;
@@ -23,7 +24,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(Request $request, MailSender $mailSender)
+    public function index(Request $request, MailSender $mailSender, ClosingDaysRepository $closingDayRepo)
     {
 
         $contactForm = $this->createForm(ContactType::class);
@@ -50,7 +51,14 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'form' => $contactForm->createView(),
             'form2' => $rdvForm->createView(),
-            'closeddays' => PublicHollydays::getHollydays(),
+
+
+            'closingDays'  => $closingDayRepo->getClosingDays(),
+            'recurentClosingDays' => $closingDayRepo->getRecurentClosingDays(),
+            'publicHollydays' => PublicHollydays::getHollydays(),
+
+
+
         ]);
     }
 
@@ -86,7 +94,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/ajaxRdv", name="rdv")
      */
-    public function _ajaxRdv(Request $request)
+    public function _ajaxRdv(Request $request, ClosingDaysRepository $closingDayRepo)
     {
         if ($request->isXMLHttpRequest()) {
 
@@ -102,7 +110,9 @@ class HomeController extends AbstractController
 
             return $this->render('home/modalRdv.html.twig', [
                 'form2' => $contactForm->createView(),
-                'closeddays' => PublicHollydays::getHollydays(),
+                'closingDays'  => $closingDayRepo->getClosingDays(),
+                'recurentClosingDays' => $closingDayRepo->getRecurentClosingDays(),
+                'publicHollydays' => PublicHollydays::getHollydays(),
             ]);
         }
 
