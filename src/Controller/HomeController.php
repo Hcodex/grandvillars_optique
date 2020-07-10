@@ -9,6 +9,7 @@ use App\Repository\ClosingDaysRepository;
 use App\Service\ClosedDays;
 use App\Service\MailSender;
 use App\Service\PublicHollydays;
+use DateTime;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -48,17 +49,33 @@ class HomeController extends AbstractController
             $rdvForm = $this->createForm(RdvType::class);
         }
 
+
+
+        $recurrentClosingDays = $closingDayRepo->getRecurentClosingDays();
+        foreach ($recurrentClosingDays as $recurrentClosingDay){
+            $date = $recurrentClosingDay->getStartDate();
+            $month = date_format($date, "m");
+            $day = date_format($date, "d");
+            $newDate = new DateTime();
+            $newDate->setDate(date('Y'), $month, $day)
+                    ->setTime(0, 0, 0);
+            $recurrentClosingDay->setStartDate($newDate);
+
+            $date = $recurrentClosingDay->getEndDate();
+            $month = date_format($date, "m");
+            $day = date_format($date, "d");
+            $newDate = new DateTime();
+
+            $newDate->setDate(date('Y'), $month, $day)
+                    ->setTime(0, 0, 0);
+            $recurrentClosingDay->setEndDate($newDate);
+        }
+
         return $this->render('home/index.html.twig', [
             'form' => $contactForm->createView(),
             'form2' => $rdvForm->createView(),
-
-
-            'closingDays'  => $closingDayRepo->getClosingDays(),
-            'recurentClosingDays' => $closingDayRepo->getRecurentClosingDays(),
+            'closingDays'  => array_merge($closingDayRepo->getClosingDays(), $recurrentClosingDays),
             'publicHollydays' => PublicHollydays::getHollydays(),
-
-
-
         ]);
     }
 
@@ -108,10 +125,29 @@ class HomeController extends AbstractController
                 ]);
             }
 
+            $recurrentClosingDays = $closingDayRepo->getRecurentClosingDays();
+            foreach ($recurrentClosingDays as $recurrentClosingDay){
+                $date = $recurrentClosingDay->getStartDate();
+                $month = date_format($date, "m");
+                $day = date_format($date, "d");
+                $newDate = new DateTime();
+                $newDate->setDate(date('Y'), $month, $day)
+                        ->setTime(0, 0, 0);
+                $recurrentClosingDay->setStartDate($newDate);
+    
+                $date = $recurrentClosingDay->getEndDate();
+                $month = date_format($date, "m");
+                $day = date_format($date, "d");
+                $newDate = new DateTime();
+    
+                $newDate->setDate(date('Y'), $month, $day)
+                        ->setTime(0, 0, 0);
+                $recurrentClosingDay->setEndDate($newDate);
+            }
+
             return $this->render('home/modalRdv.html.twig', [
                 'form2' => $contactForm->createView(),
-                'closingDays'  => $closingDayRepo->getClosingDays(),
-                'recurentClosingDays' => $closingDayRepo->getRecurentClosingDays(),
+                'closingDays'  => array_merge($closingDayRepo->getClosingDays(), $recurrentClosingDays),
                 'publicHollydays' => PublicHollydays::getHollydays(),
             ]);
         }
