@@ -39,28 +39,12 @@ class AdminDashboardController extends AbstractController
 
         $recurrentClosingDays = $closingDayRepo->getRecurentClosingDays();
         foreach ($recurrentClosingDays as $recurrentClosingDay){
-            $date = $recurrentClosingDay->getStartDate();
-            $month = date_format($date, "m");
-            $day = date_format($date, "d");
-            $newDate = new DateTime();
-            $newDate->setDate(date('Y'), $month, $day)
-                    ->setTime(0, 0, 0);
-            $recurrentClosingDay->setStartDate($newDate);
-
-            $date = $recurrentClosingDay->getEndDate();
-            $month = date_format($date, "m");
-            $day = date_format($date, "d");
-            $newDate = new DateTime();
-
-            $newDate->setDate(date('Y'), $month, $day)
-                    ->setTime(0, 0, 0);
-            $recurrentClosingDay->setEndDate($newDate);
+            $recurrentClosingDay->forceYear();
         }
-
+        
         return $this->render('admin/dashboard/index.html.twig', [
             'form' =>  $closingDaysForm->createView(),
             'closingDays'  => array_merge($closingDayRepo->getClosingDays(), $recurrentClosingDays),
-            'recurentClosingDays' => $recurrentClosingDays,
             'time' => date("Y-m-d H:i:s"),
             'publicHollydays' => PublicHollydays::getHollydays(),
 
@@ -94,29 +78,13 @@ class AdminDashboardController extends AbstractController
      */
     public function _ajaxCalendarNextMonth($targetDate, ClosingDaysRepository $closingDayRepo)
     {
-
+        $year = date("Y", $targetDate);
         $recurrentClosingDays = $closingDayRepo->getRecurentClosingDays();
         foreach ($recurrentClosingDays as $recurrentClosingDay){
-            $date = $recurrentClosingDay->getStartDate();
-            $month = date_format($date, "m");
-            $day = date_format($date, "d");
-            $year = date("Y", $targetDate);
-            $newDate = new DateTime();
-            $newDate->setDate($year, $month, $day)
-                    ->setTime(0, 0, 0);
-            $recurrentClosingDay->setStartDate($newDate);
-
-            $date = $recurrentClosingDay->getEndDate();
-            $month = date_format($date, "m");
-            $day = date_format($date, "d");
-            $newDate->setDate($year, $month, $day)
-                    ->setTime(0, 0, 0);
-            $recurrentClosingDay->setEndDate($newDate);
+            $recurrentClosingDay->forceYear($year);
         }
-        
         return $this->render('admin/partials/modalCalendar.html.twig', [
             'closingDays'  => array_merge($closingDayRepo->getClosingDays(), $recurrentClosingDays),
-            'recurentClosingDays' => $closingDayRepo->getRecurentClosingDays(),
             'time' => date("Y-m-d", $targetDate),
             'publicHollydays' => PublicHollydays::getHollydays(),
         ]);

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ClosingDaysRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -69,6 +70,26 @@ class ClosingDays
     public function setEndDate(\DateTimeInterface $endDate): self
     {
         $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    public function forceYear($year = null)
+    {
+        if (!$year) {
+            $year = date('Y');
+        }
+
+        $newStartDate = new DateTime();
+        $newStartDate->setDate($year, date_format($this->startDate, "m"), date_format($this->startDate, "d"))
+            ->setTime(0, 0, 0);
+        $this->startDate = $newStartDate;
+
+        $newEndDate = new DateTime();
+        $newEndDate->setDate($year, date_format($this->endDate, "m"),  date_format($this->endDate, "d"))
+            ->setTime(0, 0, 0);
+        $this->endDate = $newEndDate;
+
 
         return $this;
     }

@@ -53,24 +53,9 @@ class HomeController extends AbstractController
 
         $recurrentClosingDays = $closingDayRepo->getRecurentClosingDays();
         foreach ($recurrentClosingDays as $recurrentClosingDay){
-            $date = $recurrentClosingDay->getStartDate();
-            $month = date_format($date, "m");
-            $day = date_format($date, "d");
-            $newDate = new DateTime();
-            $newDate->setDate(date('Y'), $month, $day)
-                    ->setTime(0, 0, 0);
-            $recurrentClosingDay->setStartDate($newDate);
-
-            $date = $recurrentClosingDay->getEndDate();
-            $month = date_format($date, "m");
-            $day = date_format($date, "d");
-            $newDate = new DateTime();
-
-            $newDate->setDate(date('Y'), $month, $day)
-                    ->setTime(0, 0, 0);
-            $recurrentClosingDay->setEndDate($newDate);
+            $recurrentClosingDay->forceYear();
         }
-
+        
         return $this->render('home/index.html.twig', [
             'form' => $contactForm->createView(),
             'form2' => $rdvForm->createView(),
