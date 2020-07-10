@@ -35,10 +35,34 @@ class AdminDashboardController extends AbstractController
             );
         }
 
+
+
+        $recurrentClosingDays = $closingDayRepo->getRecurentClosingDays();
+        foreach ($recurrentClosingDays as $recurrentClosingDay){
+            $date = $recurrentClosingDay->getStartDate();
+            $month = date_format($date, "m");
+            $day = date_format($date, "d");
+            $newDate = new DateTime();
+            $newDate->setDate(date('Y'), $month, $day)
+                    ->setTime(0, 0, 0);
+            $recurrentClosingDay->setStartDate($newDate);
+
+            $date = $recurrentClosingDay->getEndDate();
+            $month = date_format($date, "m");
+            $day = date_format($date, "d");
+            $newDate = new DateTime();
+
+            $newDate->setDate(date('Y'), $month, $day)
+                    ->setTime(0, 0, 0);
+            $recurrentClosingDay->setEndDate($newDate);
+        }
+
+        dump($recurrentClosingDays);
+
         return $this->render('admin/dashboard/index.html.twig', [
             'form' =>  $closingDaysForm->createView(),
-            'closingDays'  => $closingDayRepo->getClosingDays(),
-            'recurentClosingDays' => $closingDayRepo->getRecurentClosingDays(),
+            'closingDays'  => array_merge($closingDayRepo->getClosingDays(), $recurrentClosingDays),
+            'recurentClosingDays' => $recurrentClosingDays,
             'time' => date("Y-m-d H:i:s"),
             'publicHollydays' => PublicHollydays::getHollydays(),
 

@@ -43,79 +43,43 @@
 						{% set year = closingDay.startDate|date("Y") %}
 						{% set endMonth = closingDay.endDate|format_date(pattern="MMM", locale='fr') %}
 						{% set endDayNum = closingDay.endDate|date("d") %}
+
+						{% if closingDay.type == 0 %}
+							{% set cardClass = "bg-info" %}
+						{% elseif closingDay.type == 1 %}
+							{% set cardClass = "bg-dark text-white" %}
+							{% set startDay, year  = "Récurrent","Récurrent" %}
+						{% endif %}
+
+						{% if closingDay.startDate == closingDay.endDate %}
+							{% set deleteMessage = 'Le <strong>' ~ closingDay.startDate|format_date(pattern=' d MMMM YYYY', locale='fr') ~' </strong> sera supprimé de la liste des jours de fermeture'%}
+							{% set cardContent %}
+							<h3 class="h1">{{startDayNum}}</h3>
+							<p class="card-text h3">{{startMonth}}</p>
+							<small>{{~ year}}</small>
+							{% endset %}
+						{% else %}
+							{% set deleteMessage = "Le congé du <strong>" ~ closingDay.startDate|format_date(pattern=' d MMMM YYYY', locale='fr') ~ "</strong> au <strong> " ~ closingDay.endDate|format_date(pattern=' d MMMM YYYY', locale='fr') ~ "</strong> sera supprimé de la liste des jours de fermeture" %}
+							{% set cardContent %}
+							<h3 class="h3">{{~ startDayNum ~ " " ~ startMonth}}</h3>
+							<hr>
+							<h3 class="h3">{{~ endDayNum ~ " " ~ endMonth}}</h3>
+							<small>{{~ year}}</small>
+							{% endset %}
+						{% endif %}
+
 						<div class="col mt-3">
 							<div class="card h-100">
-
-								{% if closingDay.startDate == closingDay.endDate %}
-									<h5 class="card-title bg-info p-3 text-center">{{startDay}}</h5>
-									<div class="card-body text-center">
-										<h3 class="h1">{{startDayNum}}</h3>
-										<p class="card-text h3">{{startMonth}}</p>
-										<small>{{~ year}}</small>
+								<h5 class="card-title {{cardClass}} p-3 text-center">{{startDay}}</h5>
+								<div class="card-body text-center">{{cardContent}}</div>
+								<a class="showConfirm" data-link="{{path('admin_closingday_delete', {'id' : closingDay.id})}}" data-message="{{deleteMessage}}">
+									<div class="card-footer text-center">
+										Supprimer
 									</div>
-									<a class="showConfirm" data-link="{{path('admin_closingday_delete', {'id' : closingDay.id})}}" data-message="Le <strong>{{closingDay.startDate|format_date(pattern=' d MMMM YYYY', locale='fr')}}</strong> sera supprimé de la liste des jours de fermeture">
-										<div class="card-footer text-center">
-											Supprimer
-										</div>
-									</a>
-								{% else %}
-									<h5 class="card-title bg-info p-3 text-center">Congés</h5>
-									<div class="card-body text-center d-flex align-items-center">
-										<div class="mx-auto">
-											<h3 class="h3">{{~ startDayNum ~ " " ~ startMonth}}</h3>
-											<hr>
-											<h3 class="h3">{{~ endDayNum ~ " " ~ endMonth}}</h3>
-											<small>{{~ year}}</small>
-										</div>
-									</div>
-									<a class="showConfirm" data-link="{{path('admin_closingday_delete', {'id' : closingDay.id})}}" data-message="Le congé du <strong>{{closingDay.startDate|format_date(pattern=' d MMMM YYYY', locale='fr')}}</strong> au <strong>{{closingDay.endDate|format_date(pattern=' d MMMM YYYY', locale='fr')}}</strong> sera supprimé de la liste des jours de fermeture">
-										<div class="card-footer text-center">
-											Supprimer
-										</div>
-									</a>
-								{% endif %}
+								</a>
 							</div>
 						</div>
-					{% endfor %}
 
-
-					{% for recurentClosingDay in recurentClosingDays|sort %}
-						{% set startMonth =  recurentClosingDay.startDate|format_date(pattern="MMM", locale='fr') %}
-						{% set startDayNum =  recurentClosingDay.startDate|date("d") %}
-						{% set endMonth =  recurentClosingDay.endDate|format_date(pattern="MMM", locale='fr') %}
-						{% set endDayNum =  recurentClosingDay.endDate|date("d") %}
-						<div class="col mt-3">
-							<div class="card h-100">
-								<h5 class="card-title bg-dark p-3 text-white text-center">Récurrent</h5>
-								{% if recurentClosingDay.startDate == recurentClosingDay.endDate %}
-
-									<div class="card-body text-center">
-										<h3 class="h1">{{startDayNum}}</h3>
-										<p class="card-text h3">{{startMonth}}</p>
-										<small>Récurrent</small>
-									</div>
-									<a class="showConfirm" data-link="{{path('admin_closingday_delete', {'id' : recurentClosingDay.id})}}" data-message="Le <strong>{{recurentClosingDay.startDate|format_date(pattern=' d MMMM', locale='fr')}}</strong> sera supprimé de la liste des jours de fermeture">
-										<div class="card-footer text-center">
-											Supprimer
-										</div>
-									</a>
-								{% else %}
-									<div class="card-body text-center d-flex align-items-center">
-										<div class="mx-auto">
-											<h3 class="h3">{{~ startDayNum ~ " " ~ startMonth}}</h3>
-											<hr>
-											<h3 class="h3">{{~ endDayNum ~ " " ~ endMonth}}</h3>
-											<small>Récurrent</small>
-										</div>
-									</div>
-									<a class="showConfirm" data-link="{{path('admin_closingday_delete', {'id' : recurentClosingDay.id})}}" data-message="Le congé du <strong>{{recurentClosingDay.startDate|format_date(pattern=' d MMMM', locale='fr')}}</strong> au <strong>{{recurentClosingDay.endDate|format_date(pattern=' d MMMM', locale='fr')}}</strong> sera supprimé de la liste des jours de fermeture">
-										<div class="card-footer text-center">
-											Supprimer
-										</div>
-									</a>
-								{% endif %}
-							</div>
-						</div>
 					{% endfor %}
 				</div>
 			</div>
