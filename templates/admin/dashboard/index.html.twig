@@ -36,7 +36,7 @@
 					</div>
 				</div>
 				<div class="row row-cols-1 row-cols-md-5 mt-3">
-					{% for closingDay in closingDays %}
+					{% for closingDay in closingDays|sort((a, b) => a.startDate <=> b.startDate) %}
 						{% set startMonth = closingDay.startDate|format_date(pattern="MMM", locale='fr') %}
 						{% set startDay = closingDay.startDate|format_date(pattern="EEEE", locale='fr') %}
 						{% set startDayNum = closingDay.startDate|date("d") %}
