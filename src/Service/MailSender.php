@@ -39,16 +39,35 @@ class MailSender
         $this->SendMail($from, $contact->getEmail(), $subject, $template, $contact, 1);
     }
 
-    public function  SendMail($from, $to, $subject, $template, $contact, $copy) {
+    public function  SendMail($from, $to, $subject, $template, $contact, $copy)
+    {
         $email = (new TemplatedEmail())
-        ->from($from)
-        ->to($to)
-        ->subject($subject)
-        ->htmlTemplate($template)
-        ->context([
-            'contact' => $contact,
-            'copy' => $copy,
-        ]);
+            ->from($from)
+            ->to($to)
+            ->subject($subject)
+            ->htmlTemplate($template)
+            ->context([
+                'contact' => $contact,
+                'copy' => $copy,
+            ]);
+        $this->mailer->send($email);
+    }
+
+
+
+    public function SendResetPasswordMail($to, $token, $lifetime)
+    {
+
+        $email = (new TemplatedEmail())
+            ->from(new Address('mailer@grandvillars-optique.fr', 'Mailer Grandvilar Optique'))
+            ->to($to)
+            ->subject('Demande de réinitialisation de mot de passe')
+            ->htmlTemplate('emails/resetpassword.html.twig')
+            ->context([
+                'resetToken' => $token,
+                'tokenLifetime' => $lifetime,
+            ]);
+
         $this->mailer->send($email);
     }
 }
