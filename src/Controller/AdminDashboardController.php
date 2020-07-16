@@ -12,11 +12,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class AdminDashboardController extends AbstractController
 {
     /**
      * @Route("/admin/", name="admin_dashboard")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(Request $request, EntityManagerInterface $manager, ClosingDaysRepository $closingDayRepo)
     {
@@ -55,6 +57,7 @@ class AdminDashboardController extends AbstractController
      * Delete a closing day
      * 
      * @Route("/admin/closingday/{id}/delete", name="admin_closingday_delete")
+     * @IsGranted("ROLE_ADMIN")
      *
      * @param ClosingDays $closingDays
      * @param EntityManagerInterface $manager
@@ -75,6 +78,7 @@ class AdminDashboardController extends AbstractController
 
     /**
      * @Route("admin/calendar/{targetDate}", name="calendar")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function _ajaxCalendarNextMonth($targetDate, ClosingDaysRepository $closingDayRepo)
     {
