@@ -57,7 +57,6 @@ class MailSender
 
     public function SendResetPasswordMail($to, $token, $lifetime)
     {
-
         $email = (new TemplatedEmail())
             ->from(new Address('mailer@grandvillars-optique.fr', 'Mailer Grandvilar Optique'))
             ->to($to)
@@ -70,4 +69,5 @@ class MailSender
 
         $this->mailer->send($email);
     }
+
 }
