@@ -1,6 +1,6 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Reset your password
+{% block title %}Réinitialisation de mot de passe
 {% endblock %}
 
 {% block body %}
@@ -17,12 +17,11 @@
 				{{ form_row(requestForm.email) }}
 				<div>
 					<small>
-						Enter your email address and we we will send you a
-						                link to reset your password.
+						Renseigner votre adresse mail de connexion pour recevoir un lien permettant de réinitialiser votre mot de passe
 					</small>
 				</div>
 
-				<button class="btn btn-primary">Send password reset email</button>
+				<button class="btn btn-primary">Demander le lien de réinitilaisation</button>
 				{{ form_end(requestForm) }}
 			</div>
 		</section>
