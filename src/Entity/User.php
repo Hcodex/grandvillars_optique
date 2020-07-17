@@ -7,9 +7,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueENtity(
+ *  fields={"email"},
+ *  message="Ce email est déjà liée à un compte"
+ * )
  */
 class User implements UserInterface
 {
@@ -22,11 +29,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=45)
+     * @Assert\NotBlank(message="Ce champ ne peut être vide")
      */
     private $pseudo;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(message="Adresse mail invalide")
      */
     private $email;
 
@@ -35,15 +44,16 @@ class User implements UserInterface
      */
     private $hash;
 
+        /**
+     * @Assert\EqualTo(propertyPath="hash", message="Les mots de passe ne correspondent pas")
+     */
+    public $passwordConfirm;
+
     /**
      * @ORM\Column(type="integer")
      */
-    private $status;
+    private $status = 0;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $token;
 
     /**
      * @ORM\ManyToMany(targetEntity=Role::class, mappedBy="users")
@@ -107,19 +117,6 @@ class User implements UserInterface
 
         return $this;
     }
-
-    public function getToken(): ?string
-    {
-        return $this->token;
-    }
-
-    public function setToken(string $token): self
-    {
-        $this->token = $token;
-
-        return $this;
-    }
-
 
     public function getRoles()
     {

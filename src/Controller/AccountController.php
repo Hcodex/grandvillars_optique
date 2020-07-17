@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\PasswordUpdate;
+use App\Entity\User;
 use App\Form\PasswordUpdateType;
+use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
@@ -84,5 +86,40 @@ class AccountController extends AbstractController
         return $this->render('admin/account/password.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+        /**
+     * Affiche le formulaire d'inscription
+     * 
+     * @Route("/admin/register", name="account_register")
+     * @IsGranted("ROLE_ADMIN")
+     * 
+     * @return Response
+     */
+    public function register(Request $request,  EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder){
+        $user = new User();
+
+        $form = $this->createForm(RegistrationType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $hash = $encoder->encodePassword($user, $user->getHash());
+            $user->setHash($hash);
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "Votre compte a bien été crée !"
+            );
+
+            return $this->redirectToRoute("admin_dashboard");
+        }
+
+        return $this->render('admin/account/registration.html.twig', [
+            'form' => $form->createView()
+        ]);
+
     }
 }
