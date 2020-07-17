@@ -6,6 +6,15 @@
 {% block body %}
 	<main data-spy="scroll" data-target="#navbar" data-offset="0">
 		<h1 class="mt-5 pt-5 text-center">Panneau d'administration</h1>
+<section>
+<div class="container my-5">
+<p>Connecté en tant que <span class="text-primary">{{app.user.pseudo}}</span></p>
+<a class="btn btn-primary" href="password-update" role="button">Changer de mot de passe</a>
+</div>
+</section>
+
+
+
 		<section>
 			<div class="container my-5">
 				<h2 class="text-primary">Jours de fermeture</h2>
