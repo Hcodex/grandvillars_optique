@@ -33,6 +33,7 @@ class EditUserType extends AbstractType
             ])
             ->add('userRoles', EntityType::class, [
                 'class' => Role::class,
+                'label' => 'Rôles',
                 'choice_label' => 'title',
                 'multiple' => 'true',
                 'expanded' => true,

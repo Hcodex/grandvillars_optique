@@ -12,7 +12,6 @@
 					<span class="text-primary">{{app.user.pseudo}}</span>
 				</p>
 				<a class="btn btn-primary" href="password-update" role="button">Changer de mot de passe</a>
-				<a class="btn btn-primary" href="register" role="button">Créer un utilisateur</a>
 			</div>
 		</section>
 
@@ -143,6 +142,7 @@
 		<section class="mt-5">
 			<div class="container mt-5 text-primary">
 				<h2>Utilisateurs</h2>
+				<a class="btn btn-primary my-3" href="register" role="button">Créer un utilisateur</a>
 				<table class="table">
 					<thead>
 						<tr class="bg-info">
@@ -153,16 +153,21 @@
 					</thead>
 					<tbody>
 						{% for user in users %}
-							{% set userClass = "btn-primary" %}
+							{% set userClass = "" %}
 							{% if app.user == user %}
 								{% set userClass = "btn-secondary disabled" %}
 							{% endif %}
+							{% set deleteMessage = "L'utilisateur <strong> " ~ user.pseudo ~ "</strong> sera définitivement supprimé" %}
+
 							<tr>
 								<td>{{user.pseudo}}</td>
 								<td>{{user.roles|join(' - ')}}</td>
 								<td>
-									<a class="btn {{userClass}}" href="edit-user/{{user.id}}" role="button">
+									<a class="btn btn-primary {{userClass}}" href="{{path('admin_user_edit', {'id' : user.id})}}" role="button">
 										<span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span>
+									</a>
+									<a class="showConfirm btn btn-danger text-white {{userClass}}" data-link="{{path('admin_user_delete', {'id' : user.id})}}" data-message="{{deleteMessage}}">
+										<span class="iconify" data-icon="ic:baseline-delete" data-inline="false"></span>
 									</a>
 								</td>
 							</tr>

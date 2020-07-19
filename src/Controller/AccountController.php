@@ -113,7 +113,7 @@ class AccountController extends AbstractController
             
             $this->addFlash(
                 'success',
-                "Votre compte a bien été crée !"
+                "Utilisateur créé avec succès !"
             );
 
             return $this->redirectToRoute("admin_dashboard");
@@ -128,7 +128,7 @@ class AccountController extends AbstractController
         /**
      * Permet d'éditer un utilisateur
      * 
-     * @Route("/admin/edit-user/{id}", name="user_edit")
+     * @Route("/admin/user/{id}/edit", name="admin_user_edit")
      * @Security("is_granted('ROLE_ADMIN') and user.getId() != editedUser.getId()", message="Vous ne pouvez pas modifier votre propre profil")
 
      * 
@@ -145,7 +145,7 @@ class AccountController extends AbstractController
             
             $this->addFlash(
                 'success',
-                "Utilisateur modifié"
+                "Utilisateur modifié avec succès"
             );
 
             return $this->redirectToRoute("admin_dashboard");
@@ -155,5 +155,26 @@ class AccountController extends AbstractController
             'form' => $form->createView(),
             'user' => $editedUser,
         ]);
+    }
+
+     /**
+     * Delete user
+     * 
+     * @Route("/admin/user/{id}/delete", name="admin_user_delete")
+     * @Security("is_granted('ROLE_ADMIN') and user.getId() != deletedUser.getId()", message="Vous ne pouvez pas supprimer votre propre profil")
+     *
+     * @return Response
+     */
+    public function deleteClosingDay(User $deletedUser, EntityManagerInterface $manager)
+    {
+        $manager->remove($deletedUser);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            "Utilisateur supprimé avec succès"
+        );
+
+        return $this->redirectToRoute('admin_dashboard');
     }
 }

@@ -56,7 +56,7 @@ class RegistrationType extends AbstractType
             ])
             ->add('userRoles', EntityType::class, [
                 'class' => Role::class,
-                'label' => 'Rôle',
+                'label' => 'Rôles',
                 'choice_label' => 'title',
                 'multiple' => 'true',
                 'expanded' => true,
