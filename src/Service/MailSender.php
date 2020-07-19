@@ -58,7 +58,7 @@ class MailSender
     public function SendResetPasswordMail($to, $token, $lifetime)
     {
         $email = (new TemplatedEmail())
-            ->from(new Address('mailer@grandvillars-optique.fr', 'Mailer Grandvilar Optique'))
+            ->from(new Address('mailer@grandvillars-optique.fr', 'Mailer Grandvillars Optique'))
             ->to($to)
             ->subject('Demande de réinitialisation de mot de passe')
             ->htmlTemplate('emails/resetpassword.html.twig')
