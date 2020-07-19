@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Role;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -23,7 +25,7 @@ class RegistrationType extends AbstractType
                     'placeholder' => 'Pseudo de l\'utilisateur',
                 ],
             ])
-            ->add('email', EmailType::class,[
+            ->add('email', EmailType::class, [
                 'label' => 'email',
                 'attr' => [
                     'placeholder' => 'email de connexion',
@@ -52,7 +54,12 @@ class RegistrationType extends AbstractType
                     'placeholder' => 'Confirmez le mot de passe de l\'utilisateur',
                 ],
             ])
-        ;
+            ->add('userRoles', EntityType::class, [
+                'class' => Role::class,
+                'choice_label' => 'title',
+                'multiple' => 'true',
+            ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

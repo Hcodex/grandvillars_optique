@@ -56,7 +56,8 @@ class User implements UserInterface
 
 
     /**
-     * @ORM\ManyToMany(targetEntity=Role::class, mappedBy="users")
+     * @ORM\ManyToMany(targetEntity=Role::class)
+     * @ORM\JoinTable(name="role_user")
      */
     private $userRoles;
 

@@ -89,7 +89,7 @@ class AccountController extends AbstractController
     }
 
         /**
-     * Affiche le formulaire d'inscription
+     * Permet de créer un utilisateur
      * 
      * @Route("/admin/register", name="account_register")
      * @IsGranted("ROLE_ADMIN")
@@ -108,7 +108,7 @@ class AccountController extends AbstractController
             $user->setHash($hash);
             $manager->persist($user);
             $manager->flush();
-
+            
             $this->addFlash(
                 'success',
                 "Votre compte a bien été crée !"
