@@ -25,8 +25,9 @@ class Role
     private $title;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="userRoles")
-     */
+    * @ORM\ManyToMany(targetEntity=User::class)
+    * @ORM\JoinTable(name="role_user")
+    */
     private $users;
 
     public function __construct()

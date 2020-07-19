@@ -2,18 +2,20 @@
 
 namespace App\Controller;
 
-use App\Entity\PasswordUpdate;
 use App\Entity\User;
-use App\Form\PasswordUpdateType;
+use App\Form\EditUserType;
+use App\Entity\PasswordUpdate;
 use App\Form\RegistrationType;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\PasswordUpdateType;
 use Symfony\Component\Form\FormError;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AccountController extends AbstractController
 {
@@ -121,5 +123,37 @@ class AccountController extends AbstractController
             'form' => $form->createView()
         ]);
 
+    }
+
+        /**
+     * Permet d'éditer un utilisateur
+     * 
+     * @Route("/admin/edit-user/{id}", name="user_edit")
+     * @Security("is_granted('ROLE_ADMIN') and user.getId() != editedUser.getId()", message="Vous ne pouvez pas modifier votre propre profil")
+
+     * 
+     * @return Response
+     */
+    public function editUser(User $editedUser, Request $request,  EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder){
+        $form = $this->createForm(EditUserType::class, $editedUser);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($editedUser);
+            $manager->flush();
+            
+            $this->addFlash(
+                'success',
+                "Utilisateur modifié"
+            );
+
+            return $this->redirectToRoute("admin_dashboard");
+        }
+
+        return $this->render('admin/account/editUser.html.twig', [
+            'form' => $form->createView(),
+            'user' => $editedUser,
+        ]);
     }
 }

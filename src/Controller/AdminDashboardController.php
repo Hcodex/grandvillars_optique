@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ClosingDays;
 use App\Form\ClosingDaysType;
 use App\Repository\ClosingDaysRepository;
+use App\Repository\UserRepository;
 use App\Service\PublicHollydays;
 use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -20,7 +21,7 @@ class AdminDashboardController extends AbstractController
      * @Route("/admin/", name="admin_dashboard")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function index(Request $request, EntityManagerInterface $manager, ClosingDaysRepository $closingDayRepo)
+    public function index(Request $request, EntityManagerInterface $manager, ClosingDaysRepository $closingDayRepo, UserRepository $userRepo)
     {
         $addClosingDay = new ClosingDays;
 
@@ -40,16 +41,16 @@ class AdminDashboardController extends AbstractController
 
 
         $recurrentClosingDays = $closingDayRepo->getRecurentClosingDays();
-        foreach ($recurrentClosingDays as $recurrentClosingDay){
+        foreach ($recurrentClosingDays as $recurrentClosingDay) {
             $recurrentClosingDay->forceYear();
         }
-        
+
         return $this->render('admin/dashboard/index.html.twig', [
             'form' =>  $closingDaysForm->createView(),
             'closingDays'  => array_merge($closingDayRepo->getClosingDays(), $recurrentClosingDays),
             'time' => date("Y-m-d H:i:s"),
             'publicHollydays' => PublicHollydays::getHollydays(),
-
+            'users' => $userRepo->findAll(),
         ]);
     }
 
@@ -84,7 +85,7 @@ class AdminDashboardController extends AbstractController
     {
         $year = date("Y", $targetDate);
         $recurrentClosingDays = $closingDayRepo->getRecurentClosingDays();
-        foreach ($recurrentClosingDays as $recurrentClosingDay){
+        foreach ($recurrentClosingDays as $recurrentClosingDay) {
             $recurrentClosingDay->forceYear($year);
         }
         return $this->render('admin/partials/modalCalendar.html.twig', [

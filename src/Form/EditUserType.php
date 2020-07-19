@@ -14,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class RegistrationType extends AbstractType
+class EditUserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -31,32 +31,8 @@ class RegistrationType extends AbstractType
                     'placeholder' => 'email de connexion',
                 ],
             ])
-            ->add('hash', PasswordType::class, [
-                'label' => 'Mot de passe',
-                'attr' => [
-                    'placeholder' => 'mot de passe de l\'utilisateur',
-                ],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Ce champ ne peut être vide',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Votre mot de passe doit comporter au moins  {{ limit }} caratères',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-            ])
-            ->add('passwordConfirm', PasswordType::class, [
-                'label' => 'Confirmation du mot de passe',
-                'attr' => [
-                    'placeholder' => 'Confirmez le mot de passe de l\'utilisateur',
-                ],
-            ])
             ->add('userRoles', EntityType::class, [
                 'class' => Role::class,
-                'label' => 'Rôle',
                 'choice_label' => 'title',
                 'multiple' => 'true',
                 'expanded' => true,

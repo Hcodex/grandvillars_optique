@@ -140,6 +140,37 @@
 				</table>
 			</div>
 		</section>
+		<section class="mt-5">
+			<div class="container mt-5 text-primary">
+				<h2>Utilisateurs</h2>
+				<table class="table">
+					<thead>
+						<tr class="bg-info">
+							<th scope="col">Pseudo</th>
+							<th scope="col">Rôles</th>
+							<th scope="col">Editer</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for user in users %}
+							{% set userClass = "btn-primary" %}
+							{% if app.user == user %}
+								{% set userClass = "btn-secondary disabled" %}
+							{% endif %}
+							<tr>
+								<td>{{user.pseudo}}</td>
+								<td>{{user.roles|join(' - ')}}</td>
+								<td>
+									<a class="btn {{userClass}}" href="edit-user/{{user.id}}" role="button">
+										<span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span>
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</section>
 
 		<section>
 			<div class="container mt-5 text-primary">
