@@ -53,3 +53,5 @@
 .env
 .env.test
 composer.lock
+symfony.lock
+config/packages/doctrine_migrations.yaml
