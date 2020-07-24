@@ -4,6 +4,13 @@
 {% endblock %}
 
 {% block body %}
+
+	{% set timeTable = {}  %}
+
+	{% for horaire in content %}
+		{% set timeTable = timeTable|merge({(horaire.title) : horaire.content}) %}
+	{% endfor %}
+	
 	<main data-spy="scroll" data-target="#navbar" data-offset="0">
 		<h1 class="mt-5 pt-5 text-center">Panneau d'administration</h1>
 		<section>
@@ -117,23 +124,23 @@
 					<tbody>
 						<tr>
 							<th scope="row">Matin</th>
-							<td>Fermé</td>
-							<td>9h-12</td>
-							<td>9h-12</td>
-							<td>9h-12</td>
-							<td>9h-12</td>
-							<td>9h-12</td>
-							<td>Fermé</td>
+							<td>{{timeTable.MON_AM}}</td>
+							<td>{{timeTable.TUE_AM}}</td>
+							<td>{{timeTable.WED_AM}}</td>
+							<td>{{timeTable.THU_AM}}</td>
+							<td>{{timeTable.FRI_AM}}</td>
+							<td>{{timeTable.SAT_AM}}</td>
+							<td>{{timeTable.SUN_AM}}</td>
 						</tr>
 						<tr>
 							<th scope="row">Après-midi</th>
-							<td>14h-19</td>
-							<td>14h-19</td>
-							<td>14h-19</td>
-							<td>14h-19</td>
-							<td>14h-19</td>
-							<td>Fermé</td>
-							<td>Fermé</td>
+							<td>{{timeTable.MON_PM}}</td>
+							<td>{{timeTable.TUE_PM}}</td>
+							<td>{{timeTable.WED_PM}}</td>
+							<td>{{timeTable.THU_PM}}</td>
+							<td>{{timeTable.FRI_PM}}</td>
+							<td>{{timeTable.SAT_PM}}</td>
+							<td>{{timeTable.SUN_PM}}</td>
 						</tr>
 					</tbody>
 				</table>

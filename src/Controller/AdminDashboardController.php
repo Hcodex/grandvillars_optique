@@ -9,6 +9,7 @@ use App\Service\PublicHollydays;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ClosingDaysRepository;
+use App\Repository\ContentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,7 +23,7 @@ class AdminDashboardController extends AbstractController
      * @Route("/admin/", name="admin_dashboard")
      * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
      */
-    public function index(Request $request, EntityManagerInterface $manager, ClosingDaysRepository $closingDayRepo, UserRepository $userRepo)
+    public function index(Request $request, EntityManagerInterface $manager, ClosingDaysRepository $closingDayRepo, UserRepository $userRepo, ContentRepository $contentRepo)
     {
         $addClosingDay = new ClosingDays;
 
@@ -52,6 +53,7 @@ class AdminDashboardController extends AbstractController
             'time' => date("Y-m-d H:i:s"),
             'publicHollydays' => PublicHollydays::getHollydays(),
             'users' => $userRepo->findAll(),
+            'content' => $contentRepo->findAll(),
         ]);
     }
 

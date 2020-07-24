@@ -46,8 +46,8 @@ class AppFixtures extends Fixture
         $week = array(
             'MON_AM' => "FERME",
             'MON_PM' => "14h-19h",
-            'THU_AM' => "9h-12h",
-            'THU_PM' => "14h-19h",
+            'TUE_AM' => "9h-12h",
+            'TUE_PM' => "14h-19h",
             'WED_AM' => "9h-12h",
             'WED_PM' => "14h-19h",
             'THU_AM' => "9h-12h",
