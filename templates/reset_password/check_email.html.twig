@@ -1,0 +1,20 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Réinitialisation de mot de passe
+{% endblock %}
+
+{% block body %}
+	<main data-spy="scroll" data-target="#navbar" data-offset="0">
+		<h1 class="mt-5 pt-5 text-center">Réinitialisation de mot de passe</h1>
+		<section>
+			<div class="container my-5">
+
+				<p>Un email contenant un lien pour réinitialiser votre mot de passé vous a été envoyé. Ce lien expirera dans
+					{{ tokenLifetime|date('g') }}
+					heure.</p>
+				<p>Si vous n'avez pas reçu d'email vérifiez dans votre dossier spam ou 
+					<a class="text-primary" href="{{ path('app_forgot_password_request') }}">cliquer ici</a> pour essayer à nouveau.</p>
+			</div>
+		</section>
+	</main>
+{% endblock %}

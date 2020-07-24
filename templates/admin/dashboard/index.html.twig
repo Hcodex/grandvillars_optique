@@ -1,0 +1,186 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Panneau d'administration
+{% endblock %}
+
+{% block body %}
+	<main data-spy="scroll" data-target="#navbar" data-offset="0">
+		<h1 class="mt-5 pt-5 text-center">Panneau d'administration</h1>
+		<section>
+			<div class="container my-5">
+				<p>Connecté en tant que
+					<span class="text-primary">{{app.user.pseudo}}</span>
+				</p>
+				<a class="btn btn-primary" href="password-update" role="button">Changer de mot de passe</a>
+			</div>
+		</section>
+
+		<section>
+			<div class="container my-5">
+				<h2 class="text-primary">Jours de fermeture</h2>
+				<div class="row">
+					<div class="col-6 mt-3">
+						<div class="card h-100 " data-toggle="modal" data-target="#modalClosingDays">
+							<div class="card-body text-center d-flex text-center">
+								<h3 class="h1 align-self-center mx-auto">
+									<span class="iconify" data-icon="bx:bx-calendar-plus" data-inline="false" data-width="80" data-height="80"></span>
+								</h3>
+							</div>
+							<div class="card-footer text-center bg-primary text-white">
+								Ajouter
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 mt-3">
+						<div class="card h-100" data-toggle="modal" data-target="#modalCalendar">
+							<div class="card-body text-center d-flex text-center">
+								<h3 class="h3 align-self-center mx-auto">
+									<span class="iconify" data-icon="clarity:calendar-line" data-inline="false" data-width="80" data-height="80"></span>
+								</h3>
+							</div>
+							<div class="card-footer text-center card-footer text-center bg-primary text-white">
+								Calendrier
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row row-cols-1 row-cols-md-5 mt-3">
+					{% for closingDay in closingDays|sort((a, b) => a.startDate <=> b.startDate) %}
+						{% set startMonth = closingDay.startDate|format_date(pattern="MMM", locale='fr') %}
+						{% set startDay = closingDay.startDate|format_date(pattern="EEEE", locale='fr') %}
+						{% set startDayNum = closingDay.startDate|date("d") %}
+						{% set year = closingDay.startDate|date("Y") %}
+						{% set endMonth = closingDay.endDate|format_date(pattern="MMM", locale='fr') %}
+						{% set endDayNum = closingDay.endDate|date("d") %}
+
+						{% if closingDay.type == 0 %}
+							{% set cardClass = "bg-info" %}
+						{% elseif closingDay.type == 1 %}
+							{% set cardClass = "bg-dark text-white" %}
+							{% set startDay, year  = "Récurrent","Récurrent" %}
+						{% endif %}
+
+						{% if closingDay.startDate == closingDay.endDate %}
+							{% set deleteMessage = 'Le <strong>' ~ closingDay.startDate|format_date(pattern=' d MMMM YYYY', locale='fr') ~' </strong> sera supprimé de la liste des jours de fermeture'%}
+							{% set cardContent %}
+							<h3 class="h1">{{startDayNum}}</h3>
+							<p class="card-text h3">{{startMonth}}</p>
+							<small>{{~ year}}</small>
+							{% endset %}
+						{% else %}
+							{% set deleteMessage = "Le congé du <strong>" ~ closingDay.startDate|format_date(pattern=' d MMMM YYYY', locale='fr') ~ "</strong> au <strong> " ~ closingDay.endDate|format_date(pattern=' d MMMM YYYY', locale='fr') ~ "</strong> sera supprimé de la liste des jours de fermeture" %}
+							{% set cardContent %}
+							<h3 class="h3">{{~ startDayNum ~ " " ~ startMonth}}</h3>
+							<hr>
+							<h3 class="h3">{{~ endDayNum ~ " " ~ endMonth}}</h3>
+							<small>{{~ year}}</small>
+							{% endset %}
+						{% endif %}
+
+						<div class="col mt-3">
+							<div class="card h-100">
+								<h5 class="card-title {{cardClass}} p-3 text-center">{{startDay}}</h5>
+								<div class="card-body text-center">{{cardContent}}</div>
+								<a class="showConfirm" data-link="{{path('admin_closingday_delete', {'id' : closingDay.id})}}" data-message="{{deleteMessage}}">
+									<div class="card-footer text-center">
+										Supprimer
+									</div>
+								</a>
+							</div>
+						</div>
+
+					{% endfor %}
+				</div>
+			</div>
+
+		</section>
+		{% include 'admin/partials/modalClosingDays.html.twig' %}
+
+		{% include 'admin/partials/modalCalendar.html.twig' %}
+
+		<section class="mt-5">
+			<div class="container mt-5 text-primary">
+				<h2>Horaires</h2>
+				<table class="table">
+					<thead>
+						<tr class="bg-info">
+							<th scope="col"></th>
+							<th scope="col">Lundi</th>
+							<th scope="col">Mardi</th>
+							<th scope="col">Mercredi</th>
+							<th scope="col">Jeudi</th>
+							<th scope="col">Vendredi</th>
+							<th scope="col">Samedi</th>
+							<th scope="col">Dimanche</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">Matin</th>
+							<td>Fermé</td>
+							<td>9h-12</td>
+							<td>9h-12</td>
+							<td>9h-12</td>
+							<td>9h-12</td>
+							<td>9h-12</td>
+							<td>Fermé</td>
+						</tr>
+						<tr>
+							<th scope="row">Après-midi</th>
+							<td>14h-19</td>
+							<td>14h-19</td>
+							<td>14h-19</td>
+							<td>14h-19</td>
+							<td>14h-19</td>
+							<td>Fermé</td>
+							<td>Fermé</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+		<section class="mt-5">
+			<div class="container mt-5 text-primary">
+				<h2>Utilisateurs</h2>
+				<a class="btn btn-primary my-3" href="register" role="button">Créer un utilisateur</a>
+				<table class="table">
+					<thead>
+						<tr class="bg-info">
+							<th scope="col">Pseudo</th>
+							<th scope="col">Rôles</th>
+							<th scope="col">Editer</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for user in users %}
+							{% set userClass = "" %}
+							{% if app.user == user %}
+								{% set userClass = "btn-secondary disabled" %}
+							{% endif %}
+							{% set deleteMessage = "L'utilisateur <strong> " ~ user.pseudo ~ "</strong> sera définitivement supprimé" %}
+
+							<tr>
+								<td>{{user.pseudo}}</td>
+								<td>{{user.roles|join(' - ')}}</td>
+								<td>
+									<a class="btn btn-primary {{userClass}}" href="{{path('admin_user_edit', {'id' : user.id})}}" role="button">
+										<span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span>
+									</a>
+									<a class="showConfirm btn btn-danger text-white {{userClass}}" data-link="{{path('admin_user_delete', {'id' : user.id})}}" data-message="{{deleteMessage}}">
+										<span class="iconify" data-icon="ic:baseline-delete" data-inline="false"></span>
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</section>
+
+		<section>
+			<div class="container mt-5 text-primary">
+				<h2>Gestion des images</h2>
+			</div>
+		</section>
+		{% include 'admin/partials/modalConfirm.html.twig' %}</main>
+{% endblock %}

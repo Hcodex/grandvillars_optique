@@ -2,10 +2,10 @@
 
 namespace App\Service;
 
-class ClosedDays
+class PublicHollydays
 {
 
-    public function getHollydays()
+    static function getHollydays()
     {
 
         $year = intval(date('Y'));

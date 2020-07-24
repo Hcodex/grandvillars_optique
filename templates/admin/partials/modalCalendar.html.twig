@@ -1,0 +1,82 @@
+{% set closingDates = [] %}
+{% set recurentClosingDates = [] %}
+
+{% for closingDay in closingDays %}
+	{% set interval = date( date(closingDay.startDate) ).diff(date(closingDay.endDate)) %}
+	{% for day in 0 .. interval.days %}
+		{% set closingDates = closingDates|merge([closingDay.startDate|date_modify("+" ~ day ~ " days")|date('Y-m-d')]) %}
+	{% endfor %}
+{% endfor %}
+
+{% set nextMonth = time|date_modify("+1 month")|date("U") %}
+{% set prevMonth = time|date_modify("-1 month")|date("U") %}
+{% set time = time|date("U") %}
+
+<div class="modal fade" id="modalCalendar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+		<div class="modal-content p-3">
+			<div id="calendar">
+				<div class="modal-header">
+					<a id="testbtn" class="btn btn-dark" href="#" role="button" onclick="showMonth('{{prevMonth}}')">
+						<span class="iconify" data-icon="bi:chevron-left" data-inline="false"></span>
+					</a>
+					<h3 class="text-center mx-auto">{{ time|format_date(pattern= "MMMM Y", locale='fr')| capitalize  }}</h3>
+					<a id="testbtn" class="btn btn-dark" href="#" role="button" onclick="showMonth('{{nextMonth}}')">
+						<span class="iconify" data-icon="bi:chevron-right" data-inline="false"></span>
+					</a>
+				</div>
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr class="center">
+								<th width="14%">Lun.</th>
+								<th width="14%">Mar.</th>
+								<th width="14%">Mer.</th>
+								<th width="14%">Jeu.</th>
+								<th width="14%">Ven.</th>
+								<th width="14%">Sam.</th>
+								<th width="14%">Dim.</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% set daysInMonth = time|date('t') %}
+							{% set startDow = time|date('F 1\\s\\t Y')|date('N') -1 %}
+							{% set dow = startDow %}
+							<tr>
+								{% for day in range(1,daysInMonth) %}
+									{% set dateOfDay = time|date_modify("+"~ (loop.index - time|date('d') ) ~ " day")|date('Y-m-d') %}
+									{% set dayClass = "" %}
+									{% if (dateOfDay in publicHollydays) %}
+										{% set dayClass = "bg-secondary text-grey" %}
+									{% elseif (dateOfDay in closingDates) %}
+										{% set dayClass = "bg-primary text-white" %}
+									{% endif %}
+									{% if (dateOfDay == "now"|date('Y-m-d')) %}
+										{% set dayClass = dayClass ~ "font-weight-bold border border-info"%}
+									{% endif %}
+
+									{% if loop.first and startDow != 0 %}
+										<td colspan="{{ startDow }}"></td>
+									{% endif %}
+									<td class="text-center {{dayClass}}">
+										<div>{{ day }}</div>
+									</td>
+									{% if loop.last and dow != 6 %}
+										<td colspan="{{ 6 - dow }}">&nbsp;</td>
+									{% endif %}
+									{% if dow == 6 %}
+										{% set dow = 0 %}
+									</tr>
+									<tr>
+									{% else %}
+										{% set dow = dow + 1 %}
+								{% endif %}
+							{% endfor %}
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div></div>

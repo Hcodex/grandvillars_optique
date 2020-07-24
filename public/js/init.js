@@ -163,3 +163,38 @@ $('#nextbtn').on('click', function (e) {
         }
     });
 });
+
+$('.showConfirm').on('click', function (e) {
+    event.preventDefault();
+    data = $(this).data("link");
+    message = $(this).data("message");
+    $("#modalConfirm #confirmBtn").attr('href', data);
+    $("#modalConfirm .modal-body").html('<p>' + message + '</p>');
+    $("#modalConfirm").modal();
+})
+
+function showMonth(date) {
+    $.ajax({
+        type: 'GET',
+        url: "calendar/" + date,
+        dataType: "html",
+        success: function (response) {
+            var innerHTML = $(response).find('#calendar').html();
+            $('#calendar').html(innerHTML);
+        },
+        error: function (errorThrown) {
+            console.log(errorThrown);
+            console.log("There is an error with AJAX!");
+        }
+    });
+}
+
+$('#closing_days_startDate').change(function (e) {
+    $('#closing_days_endDate').val(this.value);
+});
+
+$('#closing_days_endDate').change(function (e) {
+    if (this.value < $('#closing_days_startDate').val()) {
+        $('#closing_days_startDate').val(this.value);
+    }
+});
