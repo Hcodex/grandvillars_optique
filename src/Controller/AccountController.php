@@ -129,8 +129,8 @@ class AccountController extends AbstractController
      * Permet d'éditer un utilisateur
      * 
      * @Route("/admin/user/{id}/edit", name="admin_user_edit")
-     * @Security("is_granted('ROLE_ADMIN') and user.getId() != editedUser.getId()", message="Vous ne pouvez pas modifier votre propre profil")
-
+     * @Security("is_granted('ROLE_ADMIN')", message="Vous n'êtes pas autorisé à accéder à cette page")
+     * @Security("user.getId() != editedUser.getId()", message="Vous ne pouvez pas modifier votre propre profil")
      * 
      * @return Response
      */
@@ -161,7 +161,8 @@ class AccountController extends AbstractController
      * Delete user
      * 
      * @Route("/admin/user/{id}/delete", name="admin_user_delete")
-     * @Security("is_granted('ROLE_ADMIN') and user.getId() != deletedUser.getId()", message="Vous ne pouvez pas supprimer votre propre profil")
+     * @Security("is_granted('ROLE_ADMIN')", message="Vous n'êtes pas autorisé à accéder à cette page")
+     * @Security("user.getId() != deletedUser.getId()", message="Vous ne pouvez pas supprimer votre propre profil")
      *
      * @return Response
      */

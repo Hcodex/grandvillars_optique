@@ -2,24 +2,25 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\ClosingDays;
 use App\Form\ClosingDaysType;
-use App\Repository\ClosingDaysRepository;
-use App\Repository\UserRepository;
 use App\Service\PublicHollydays;
-use DateTime;
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\ClosingDaysRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminDashboardController extends AbstractController
 {
     /**
      * @Route("/admin/", name="admin_dashboard")
-     * @IsGranted("ROLE_ADMIN")
+     * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
      */
     public function index(Request $request, EntityManagerInterface $manager, ClosingDaysRepository $closingDayRepo, UserRepository $userRepo)
     {
@@ -58,7 +59,7 @@ class AdminDashboardController extends AbstractController
      * Delete a closing day
      * 
      * @Route("/admin/closingday/{id}/delete", name="admin_closingday_delete")
-     * @IsGranted("ROLE_ADMIN")
+     * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
      *
      * @param ClosingDays $closingDays
      * @param EntityManagerInterface $manager
@@ -79,7 +80,7 @@ class AdminDashboardController extends AbstractController
 
     /**
      * @Route("admin/calendar/{targetDate}", name="calendar")
-     * @IsGranted("ROLE_ADMIN")
+    * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
      */
     public function _ajaxCalendarNextMonth($targetDate, ClosingDaysRepository $closingDayRepo)
     {
