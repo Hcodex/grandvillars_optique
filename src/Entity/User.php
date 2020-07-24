@@ -44,7 +44,7 @@ class User implements UserInterface
      */
     private $hash;
 
-        /**
+    /**
      * @Assert\EqualTo(propertyPath="hash", message="Les mots de passe ne correspondent pas")
      */
     public $passwordConfirm;
@@ -57,7 +57,7 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity=Role::class)
-      * @ORM\JoinTable(name="role_user",
+     * @ORM\JoinTable(name="role_user",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *       inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")})                         
      */
@@ -128,7 +128,7 @@ class User implements UserInterface
         $roles = $this->userRoles->map(function ($role) {
             return $role->getTitle();
         })->toArray();
-        
+
         $roles[] = 'ROLE_USER';
 
         return $roles;
