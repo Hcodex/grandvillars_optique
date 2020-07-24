@@ -25,9 +25,12 @@ class Role
     private $title;
 
     /**
-    * @ORM\ManyToMany(targetEntity=User::class)
-    * @ORM\JoinTable(name="role_user")
-    */
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="userRoles")
+     * @ORM\JoinTable(name="role_user",
+     *       joinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")},
+     *       inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")})                         
+     */
+
     private $users;
 
     public function __construct()
