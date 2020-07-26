@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\ClosingDays;
+use App\Entity\TimeTable;
 use App\Form\ClosingDaysType;
+use App\Form\TimeTableType;
 use App\Service\PublicHollydays;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ClosingDaysRepository;
 use App\Repository\ContentRepository;
+use App\Repository\TimeTableRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,7 +26,7 @@ class AdminDashboardController extends AbstractController
      * @Route("/admin/", name="admin_dashboard")
      * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
      */
-    public function index(Request $request, EntityManagerInterface $manager, ClosingDaysRepository $closingDayRepo, UserRepository $userRepo, ContentRepository $contentRepo)
+    public function index(Request $request, EntityManagerInterface $manager, ClosingDaysRepository $closingDayRepo, UserRepository $userRepo, TimeTableRepository $timeTableRepo)
     {
         $addClosingDay = new ClosingDays;
 
@@ -53,7 +56,7 @@ class AdminDashboardController extends AbstractController
             'time' => date("Y-m-d H:i:s"),
             'publicHollydays' => PublicHollydays::getHollydays(),
             'users' => $userRepo->findAll(),
-            'content' => $contentRepo->findAll(),
+            'timeTable' => $timeTableRepo->find(1),
         ]);
     }
 
@@ -82,7 +85,7 @@ class AdminDashboardController extends AbstractController
 
     /**
      * @Route("admin/calendar/{targetDate}", name="calendar")
-    * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
+     * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
      */
     public function _ajaxCalendarNextMonth($targetDate, ClosingDaysRepository $closingDayRepo)
     {
@@ -95,6 +98,40 @@ class AdminDashboardController extends AbstractController
             'closingDays'  => array_merge($closingDayRepo->getClosingDays(), $recurrentClosingDays),
             'time' => date("Y-m-d", $targetDate),
             'publicHollydays' => PublicHollydays::getHollydays(),
+        ]);
+    }
+
+
+
+    /**
+     * Permet d'éditer le tableau des horaires
+     * 
+     * @Route("/admin/timeTable/{id}/edit", name="admin_timeTable_edit")
+     * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
+     * 
+     * @return Response
+     */
+    public function editTimeTable(TimeTable $editedTimeTable, Request $request,  EntityManagerInterface $manager)
+    {
+        $form = $this->createForm(TimeTableType::class, $editedTimeTable);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($editedTimeTable);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "Horaires modifiées"
+            );
+
+            return $this->redirectToRoute("admin_dashboard");
+        }
+
+        return $this->render('admin/editTimeTable.html.twig', [
+            'form' => $form->createView(),
+            'timeTable' => $editedTimeTable,
         ]);
     }
 }

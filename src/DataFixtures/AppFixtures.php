@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Content;
 use App\Entity\ContentCategory;
 use App\Entity\Role;
+use App\Entity\TimeTable;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -43,6 +44,25 @@ class AppFixtures extends Fixture
         $category->setName('HORAIRES');
         $manager->persist($category);
 
+
+        $timeTable = new TimeTable;
+        $timeTable->setMonAm('Fermé');
+        $timeTable->setMonPm('14h-19h');
+        $timeTable->setTueAm('8h-12h');
+        $timeTable->setTuePm('14h-19h');
+        $timeTable->setWedAm('8h-12h');
+        $timeTable->setWedPm('14h-19h');
+        $timeTable->setThuAm('8h-12h');
+        $timeTable->setThuPm('14h-19h');
+        $timeTable->setFriAm('8h-12h');
+        $timeTable->setFriPm('14h-19h');
+        $timeTable->setSatAm('8h-12h');
+        $timeTable->setSatPm('14h-18h');
+        $timeTable->setSunAm('Fermé');
+        $timeTable->setSunPm('Fermé');
+        $manager->persist($timeTable);
+
+        /*
         $week = array(
             'MON_AM' => "FERME",
             'MON_PM' => "14h-19h",
@@ -59,6 +79,7 @@ class AppFixtures extends Fixture
             'SUN_AM' => "FERME",
             'SUN_PM' => "FERME",
         );
+        
 
         foreach ($week as $day => $value) {
             $content = new Content;
@@ -67,7 +88,7 @@ class AppFixtures extends Fixture
             $content->setContentCategory($category);
             $manager->persist($content);
         }
-
+*/
 
 
         $manager->flush();
