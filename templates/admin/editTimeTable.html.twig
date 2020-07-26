@@ -7,10 +7,10 @@
 	<main data-spy="scroll" data-target="#navbar" data-offset="0">
 		<h1 class="mt-5 pt-5 text-center">Editer les horaires</h1>
 		<section>
-			<div class="container">
+			<div class="container my-5">
 				{{form_start(form)}}
-				{{form_widget(form)}}
-				<button type="submit" class="btn btn-success">Confirmer</button>
+					{{ form_widget(form, { 'attr': {'class': 'form-row'} }) }}
+				<button type="submit" class="btn btn-primary">Confirmer</button>
 				{{form_end(form)}}
 			</div>
 		</section>
