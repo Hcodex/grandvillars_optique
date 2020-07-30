@@ -56,7 +56,7 @@ class AdminDashboardController extends AbstractController
             'time' => date("Y-m-d H:i:s"),
             'publicHollydays' => PublicHollydays::getHollydays(),
             'users' => $userRepo->findAll(),
-            'timeTable' => $timeTableRepo->find(1),
+            'timeTable' => $timeTableRepo->find(3),
         ]);
     }
 

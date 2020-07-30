@@ -4,3 +4,9 @@
     width : 70%;
     left : 15%;
 }
+
+.btn-edit{
+    position :absolute !important;
+    top : -10px;
+    right : -5px;
+}
