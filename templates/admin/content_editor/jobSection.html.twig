@@ -7,7 +7,7 @@
 			<h3 class="align-self-center mx-auto text-center font-weight-light font-cursive">{{item.jobItemContent.content|raw}}</h3>
 		</div>
 		<button class="btn btn-info btn-edit" type="button" data-toggle="modal" data-target="#modaljobitem{{item.jobItemContent.id}}Form">
-			<span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span>
+			<span class="iconify" data-icon="clarity:edit-solid"></span>
 		</button>
 	</div>
 </div>
@@ -23,7 +23,8 @@
 			</div>
 			<div class="modal-body ">
 				{{form_start(item.jobItemForm, {'action': path('admin_content_update', {'id' : item.jobItemContent.id}), 'method': 'POST', 'attr':{'data-id': item.jobItemContent.id, 'data-section' : 'jobItem' ~ item.jobItemContent.id }})}}
-				{{form_widget(item.jobItemForm)}}
+				{{ form_row(item.jobItemForm.title, {'label': 'Icone'}) }}
+				{{ form_row(item.jobItemForm.content, {'label': 'Texte'}) }}
 				<button type="submit" data-toggle="modal" data-target="#modaljobitem{{item.jobItemContent.id}}Form" aria-expanded="false" aria-controls="collapseExample" class="btn btn-success">Modifier</button>
 				<button class="btn btn-darker" type="button" data-toggle="modal" data-target="#modaljobitem{{item.jobItemContent.id}}Form" aria-expanded="false" aria-controls="collapseExample">Annuler</button>
 				{{form_end(item.jobItemForm)}}
