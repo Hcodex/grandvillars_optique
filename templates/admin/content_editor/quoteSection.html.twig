@@ -3,8 +3,8 @@
 		<div class="media">
 			<img src="/img/cedric.jpg" alt="Cedric Hinterlang" width="100px" class="rounded-circle align-self-center mr-3">
 			<div class="media-body">
-				<p>"{{quoteContent.content}}"</p>
-				<small>{{quoteContent.title}}</small>
+				<p>"{{quoteSectionContent.content}}"</p>
+				<small>{{quoteSectionContent.title}}</small>
 				<button class="btn btn-primary btn-edit" type="button" data-toggle="modal" data-target="#modalquoteContentForm">
 					<span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span>
 				</button>
@@ -23,12 +23,12 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					{{form_start(quoteForm, {'action': path('admin_content_update', {'id' : quoteContent.id}), 'method': 'POST', 'attr':{'data-id': quoteContent.id, 'data-section' : 'quote'}})}}
-					{{ form_row(quoteForm.title, {'label': 'Auteur'}) }}
-					{{ form_row(quoteForm.content, {'label': 'Contenu'}) }}
+					{{form_start(quoteSectionForm, {'action': path('admin_content_update', {'id' : quoteSectionContent.id}), 'method': 'POST', 'attr':{'data-id': quoteSectionContent.id, 'data-section' : 'quote'}})}}
+					{{ form_row(quoteSectionForm.title, {'label': 'Auteur'}) }}
+					{{ form_row(quoteSectionForm.content, {'label': 'Contenu'}) }}
 					<button type="submit" data-toggle="modal" data-target="#modalquoteContentForm" aria-expanded="false" aria-controls="collapseExample" class="btn btn-success">Modifier</button>
 					<button class="btn btn-darker" type="button" data-toggle="modal" data-target="#modalquoteContentForm" aria-expanded="false" aria-controls="collapseExample">Annuler</button>
-					{{form_end(quoteForm)}}
+					{{form_end(quoteSectionForm)}}
 				</div>
 			</div>
 		</div>

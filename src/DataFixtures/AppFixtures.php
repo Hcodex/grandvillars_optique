@@ -94,7 +94,7 @@ class AppFixtures extends Fixture
     public function loadContent(ObjectManager $manager)
     {
         $quoteCategory = new ContentCategory;
-        $quoteCategory->setName('QuoteSection');
+        $quoteCategory->setName('quoteSection');
         $manager->persist($quoteCategory);
 
         $quoteSectionContent = new Content;
@@ -112,6 +112,17 @@ class AppFixtures extends Fixture
         $serviceSectionContent->setContent("Mauris vel tincidunt nisi. Fusce vestibulum quam libero, eget lobortis enim consectetur vitae. Mauris tristique justo leo, eu mattis metus varius ut. Curabitur pretium mauris diam, sit amet placerat diam eleifend nec. Sed id faucibus turpis. Pellentesque hendrerit nulla vitae ligula pellentesque congue. Curabitur arcu est, rhoncus sollicitudin finibus ut, hendrerit id ligula. Nunc tincidunt purus quis diam congue pellentesque.");
         $serviceSectionContent->setContentCategory($serviceCategory);
         $manager->persist($serviceSectionContent);
+
+
+        $activisuCategory = new ContentCategory;
+        $activisuCategory->setName('activisuSection');
+        $manager->persist($activisuCategory);
+
+        $activisuSectionContent = new Content;
+        $activisuSectionContent->setTitle("Dans notre magasin : Activisu");
+        $activisuSectionContent->setContent("Dans notre magasin, bénéficiez de l'Activisu avec la technologie Eyecode. C'est un appareil de prise de mesure automatique avec lequel vous pouvez prendre une photo et une séquence vidéo pour voir la monture de profil et de face sur votre visage.");
+        $activisuSectionContent->setContentCategory($activisuCategory);
+        $manager->persist($activisuSectionContent);
 
     }
 }

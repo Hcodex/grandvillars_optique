@@ -19,19 +19,17 @@ class AdminContentEditorController extends AbstractController
      */
     public function index(ContentRepository $contentRepo)
     {
-        $quoteContent = $contentRepo->findOneByCategoryField('quoteSection');
-        $quoteForm = $this->createForm(ContentType::class, $quoteContent);
+        $items = ["quoteSection", "serviceSection", "activisuSection"];
 
-        $serviceContent = $contentRepo->findOneByCategoryField('serviceSection');
-        $serviceForm = $this->createForm(ContentType::class, $serviceContent);
+        $arg = array();
+        foreach ($items as $item) {
+            ${$item . 'Content'} = $contentRepo->findOneByCategoryField($item);
+            ${$item . 'Form'} = $this->createForm(ContentType::class, ${$item . 'Content'});
+            $arg = array_merge($arg, array($item . 'Form' => ${$item . 'Form'}->createView()));
+            $arg = array_merge($arg, array($item . 'Content' => ${$item . 'Content'}));
+        }
 
-        return $this->render('admin/content_editor/index.html.twig', [
-            'quoteForm' => $quoteForm->createView(),
-            'quoteContent' => $quoteContent,
-            'serviceForm' => $serviceForm->createView(),
-            'serviceContent' => $serviceContent,
-            'controller_name' => 'AdminContentEditorController',
-        ]);
+        return $this->render('admin/content_editor/index.html.twig', $arg );
     }
 
 
@@ -86,6 +84,12 @@ class AdminContentEditorController extends AbstractController
                         return $this->render('admin/content_editor/serviceSection.html.twig', [
                             'serviceForm' => $form->createView(),
                             'serviceContent' => $content,
+                        ]);
+                        break;
+                    case "activisuSection":
+                        return $this->render('admin/content_editor/activisuSection.html.twig', [
+                            'activisuForm' => $form->createView(),
+                            'activisuContent' => $content,
                         ]);
                         break;
                 }

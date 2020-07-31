@@ -84,21 +84,7 @@
 		</section>
 
 		<section id="activisu">
-			<div class="row mx-0">
-				<div class="col-sm-2 col-md-1 col-xl-2 d-none d-sm-block d-lg-none d-xl-block order-3 order-xl-1 my-5 align-self-center text-center ">
-					<img class="img-activisu " src="/img/activisu.png" alt="Activisu">
-				</div>
-				<div class="col-sm-10 col-lg-6 col-xl-5 order-2 order-xl-2 my-5 align-self-center ">
-					<h3>Dans notre magasin : Activisu</h3>
-					<p>Dans notre magasin, bénéficiez de l'Activisu avec la technologie Eyecode. C'est un appareil de prise de mesure automatique avec lequel vous pouvez prendre une photo et une séquence vidéo pour voir la monture de profil et de face sur votre visage.</p>
-				</div>
-				<div class="col-lg-6 col-xl-5 order-1 order-xl-3 p-0">
-					<video class="w-100 d-block" autoplay loop muted>
-						<source src="/media/eyecode.mp4" type="video/mp4">
-						Sorry, your browser doesn't support embedded videos.
-					</video>
-				</div>
-			</div>
+			{% include '/admin/content_editor/activisuSection.html.twig' %}
 		</section>
 
 		<section id="magasin" class="my-5">

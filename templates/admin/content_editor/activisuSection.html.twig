@@ -1,0 +1,38 @@
+<div class="row mx-0 position-relative">
+	<div class="col-sm-2 col-md-1 col-xl-2 d-none d-sm-block d-lg-none d-xl-block order-3 order-xl-1 my-5 align-self-center text-center ">
+		<img class="img-activisu " src="/img/activisu.png" alt="Activisu">
+	</div>
+	<div class="col-sm-10 col-lg-6 col-xl-5 order-2 order-xl-2 my-5 align-self-center ">
+		<h3>{{activisuSectionContent.title}}</h3>
+		<p>{{activisuSectionContent.content}}</p>
+		<button class="btn btn-info btn-edit" type="button" data-toggle="modal" data-target="#modalactivisuContentForm">
+			<span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span>
+		</button>
+	</div>
+	<div class="col-lg-6 col-xl-5 order-1 order-xl-3 p-0">
+		<video class="w-100 d-block" autoplay loop muted>
+			<source src="/media/eyecode.mp4" type="video/mp4">
+			Sorry, your browser doesn't support embedded videos.
+		</video>
+	</div>
+</div>
+
+<div class="modal fade text-darker" id="modalactivisuContentForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Editer le contenu</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body ">
+				{{form_start(activisuSectionForm, {'action': path('admin_content_update', {'id' : activisuSectionContent.id}), 'method': 'POST', 'attr':{'data-id': activisuSectionContent.id, 'data-section' : 'activisu'}})}}
+				{{form_widget(activisuSectionForm)}}
+				<button type="submit" data-toggle="modal" data-target="#modalactivisuContentForm" aria-expanded="false" aria-controls="collapseExample" class="btn btn-success">Modifier</button>
+				<button class="btn btn-darker" type="button" data-toggle="modal" data-target="#modalactivisuContentForm" aria-expanded="false" aria-controls="collapseExample">Annuler</button>
+				{{form_end(activisuSectionForm)}}
+			</div>
+		</div>
+	</div>
+</div>
