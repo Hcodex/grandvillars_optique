@@ -36,29 +36,29 @@
 					</div>
 				</div>
 			</div>
-
 		</p>
 
 
-<div class="modal fade" id="modalquoteContentForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
-		<div class="modal-content">
-        		<div class="modal-header">
-			<h5 class="modal-title">Editer le contenu</h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
+		<div class="modal fade" id="modalquoteContentForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Editer le contenu</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						{{form_start(quoteForm, {'action': path('admin_content_update', {'id' : quoteContent.id}), 'method': 'POST'})}}
+						{{ form_row(quoteForm.title, {'label': 'Auteur'}) }}
+						{{ form_row(quoteForm.content, {'label': 'Contenu'}) }}
+						<button type="submit" data-toggle="modal" data-target="#modalquoteContentForm" aria-expanded="false" aria-controls="collapseExample" class="btn btn-success">Modifier</button>
+						<button class="btn btn-darker" type="button" data-toggle="modal" data-target="#modalquoteContentForm" aria-expanded="false" aria-controls="collapseExample">Annuler</button>
+						{{form_end(quoteForm)}}
+					</div>
+				</div>
+			</div>
 		</div>
-              <div class="modal-body">
-				{{form_start(quoteForm)}}
-				{{form_widget(quoteForm)}}
-				<button type="submit" data-toggle="modal" data-target="#modalquoteContentForm" aria-expanded="false" aria-controls="collapseExample" class="btn btn-success">Modifier</button>
-				<button class="btn btn-darker" type="button" data-toggle="modal" data-target="#modalquoteContentForm" aria-expanded="false" aria-controls="collapseExample">Annuler</button>
-				{{form_end(quoteForm)}}
-            </div>
-		</div>
-	</div>
-</div>
 
 	</section>
 
@@ -114,9 +114,12 @@
 
 
 	<section id="services">
-		<div class="container my-5">
-			<h2>Nos services</h2>
-			<p>Mauris vel tincidunt nisi. Fusce vestibulum quam libero, eget lobortis enim consectetur vitae. Mauris tristique justo leo, eu mattis metus varius ut. Curabitur pretium mauris diam, sit amet placerat diam eleifend nec. Sed id faucibus turpis. Pellentesque hendrerit nulla vitae ligula pellentesque congue. Curabitur arcu est, rhoncus sollicitudin finibus ut, hendrerit id ligula. Nunc tincidunt purus quis diam congue pellentesque.</p>
+		<div class="container my-5 position-relative">
+			<h2>{{serviceContent.title}}</h2>
+			<p>{{serviceContent.content}}</p>
+			<button class="btn btn-primary btn-edit" type="button" data-toggle="modal" data-target="#modalserviceContentForm">
+				<span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span>
+			</button>
 			<div class="row row-cols-1 row-cols-xl-2">
 				<div class="col mb-4">
 					<div class="card h-100 border-primary">
@@ -197,6 +200,29 @@
 				</div>
 			</div>
 		</div>
+
+
+		<div class="modal fade" id="modalserviceContentForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Editer le contenu</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						{{form_start(serviceForm, {'action': path('admin_content_update', {'id' : serviceContent.id}), 'method': 'POST'})}}
+						{{form_widget(serviceForm)}}
+						<button type="submit" data-toggle="modal" data-target="#modalserviceContentForm" aria-expanded="false" aria-controls="collapseExample" class="btn btn-success">Modifier</button>
+						<button class="btn btn-darker" type="button" data-toggle="modal" data-target="#modalserviceContentForm" aria-expanded="false" aria-controls="collapseExample">Annuler</button>
+						{{form_end(serviceForm)}}
+					</div>
+				</div>
+			</div>
+		</div>
+
+
 	</section>
 
 	<section id="activisu">

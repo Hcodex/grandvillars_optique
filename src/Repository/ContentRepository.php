@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Content;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,22 +20,21 @@ class ContentRepository extends ServiceEntityRepository
         parent::__construct($registry, Content::class);
     }
 
-    // /**
-    //  * @return Content[] Returns an array of Content objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     
+    /** 
+    * Récupère le contenu d'un bloc pas sa catégorie
+    */
+    public function findOneByCategoryField($value)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
+            ->leftJoin('c.content_category','d')
+            ->andWhere('d.name = :val')
             ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
+            ->getSingleResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Content
