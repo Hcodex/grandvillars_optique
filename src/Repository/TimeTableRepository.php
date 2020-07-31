@@ -36,6 +36,14 @@ class TimeTableRepository extends ServiceEntityRepository
     }
     */
 
+    public function getFirst()
+    {
+        return $this->createQueryBuilder('c')
+            ->getQuery()
+            ->getSingleResult()
+        ;
+    }
+
     /*
     public function findOneBySomeField($value): ?TimeTable
     {

@@ -62,7 +62,7 @@ class HomeController extends AbstractController
             'form2' => $rdvForm->createView(),
             'closingDays'  => array_merge($closingDayRepo->getClosingDays(), $recurrentClosingDays),
             'publicHollydays' => PublicHollydays::getHollydays(),
-            'timeTable' => $timeTableRepo->find(3),
+            'timeTable' => $timeTableRepo->getFirst(),
         ]);
     }
 
