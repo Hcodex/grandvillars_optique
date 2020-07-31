@@ -1,0 +1,36 @@
+
+	<div class="container position-relative">
+		<div class="media">
+			<img src="/img/cedric.jpg" alt="Cedric Hinterlang" width="100px" class="rounded-circle align-self-center mr-3">
+			<div class="media-body">
+				<p>"{{quoteContent.content}}"</p>
+				<small>{{quoteContent.title}}</small>
+				<button class="btn btn-primary btn-edit" type="button" data-toggle="modal" data-target="#modalquoteContentForm">
+					<span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span>
+				</button>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" id="modalquoteContentForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Editer le contenu</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					{{form_start(quoteForm, {'action': path('admin_content_update', {'id' : quoteContent.id}), 'method': 'POST', 'attr':{'data-id': quoteContent.id, 'data-section' : 'quote'}})}}
+					{{ form_row(quoteForm.title, {'label': 'Auteur'}) }}
+					{{ form_row(quoteForm.content, {'label': 'Contenu'}) }}
+					<button type="submit" data-toggle="modal" data-target="#modalquoteContentForm" aria-expanded="false" aria-controls="collapseExample" class="btn btn-success">Modifier</button>
+					<button class="btn btn-darker" type="button" data-toggle="modal" data-target="#modalquoteContentForm" aria-expanded="false" aria-controls="collapseExample">Annuler</button>
+					{{form_end(quoteForm)}}
+				</div>
+			</div>
+		</div>
+	</div>
+

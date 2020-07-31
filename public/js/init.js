@@ -198,3 +198,22 @@ $('#closing_days_endDate').change(function (e) {
         $('#closing_days_startDate').val(this.value);
     }
 });
+
+$(document).on('submit','form[name="content"]', function (e) {
+    e.preventDefault();
+    targetSection = $(this).data('section')
+    $.ajax({
+        type: 'POST',
+        url: '/admin/content/'+ $(this).data('id')+'/axjaxUpdate',
+        data: new FormData(this),
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            $('#'+ targetSection).html(data);
+            showAlert("<strong>Contenu modifié</strong>", "success", 5000);
+        },
+        error: function (data) {
+            showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);
+        }
+    });
+});

@@ -23,320 +23,179 @@
 				<button class="btn btn-info p-2 mx-2 my-2" data-toggle="modal" data-target="#modalRdv">Prendre rendez-vous</button>
 			</div>
 		</div>
+
 		<section id="quote" class="d-none d-md-block bg-secondary py-5">
-			<div class="container position-relative">
-				<div class="media">
-					<img src="/img/cedric.jpg" alt="Cedric Hinterlang" width="100px" class="rounded-circle align-self-center mr-3">
-					<div class="media-body">
-						<p>"{{quoteContent.content}}"</p>
-						<small>{{quoteContent.title}}</small>
-						<button class="btn btn-primary btn-edit" type="button" data-toggle="modal" data-target="#modalquoteContentForm">
-							<span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span>
-						</button>
-					</div>
-				</div>
-			</div>
-		</p>
-
-
-		<div class="modal fade" id="modalquoteContentForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">Editer le contenu</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						{{form_start(quoteForm, {'action': path('admin_content_update', {'id' : quoteContent.id}), 'method': 'POST'})}}
-						{{ form_row(quoteForm.title, {'label': 'Auteur'}) }}
-						{{ form_row(quoteForm.content, {'label': 'Contenu'}) }}
-						<button type="submit" data-toggle="modal" data-target="#modalquoteContentForm" aria-expanded="false" aria-controls="collapseExample" class="btn btn-success">Modifier</button>
-						<button class="btn btn-darker" type="button" data-toggle="modal" data-target="#modalquoteContentForm" aria-expanded="false" aria-controls="collapseExample">Annuler</button>
-						{{form_end(quoteForm)}}
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</section>
-
-	<section id="metier" class="my-5">
-		<div class="container">
-			<h2 class="my-5 text-center">Notre métier</h2>
-			<div class="row row-cols-2 row-cols-md-4 mt-5">
-				<div class="col mb-4">
-					<div class="card h-100  border-0">
-						<div class="text-white text-center">
-							<i class="iconify rounded-circle bg-primary p-4" data-icon="mdi:glasses" data-inline="false" data-width="120px"></i>
-						</div>
-						<div class="card-body d-flex p-3">
-							<h3 class="align-self-center mx-auto text-center font-weight-light font-cursive">Lunettes<br>
-								de vue</h3>
-						</div>
-					</div>
-				</div>
-				<div class="col mb-4">
-					<div class="card h-100 border-0">
-						<div class="text-center">
-							<i class="iconify rounded-circle bg-secondary p-4" data-icon="mdi:sunglasses" data-inline="false" data-width="120px"></i>
-						</div>
-						<div class="card-body d-flex text-center p-3">
-							<h3 class="align-self-center  mx-auto text-center font-weight-light font-cursive">Solaires</h3>
-						</div>
-					</div>
-				</div>
-				<div class="col mb-4">
-					<div class="card h-100 border-0">
-						<div class="text-center">
-							<i class="iconify rounded-circle bg-info p-4" data-icon="mdi:ear-hearing" data-inline="false" data-width="120px"></i>
-						</div>
-						<div class="card-body d-flex text-center p-3">
-							<h3 class="align-self-center  mx-auto text-center font-weight-light font-cursive">Audition</h3>
-						</div>
-					</div>
-				</div>
-
-				<div class="col mb-4">
-					<div class="card h-100 border-0">
-						<div class="text-center text-white">
-							<i class="iconify rounded-circle bg-dark p-4" data-icon="mdi:eye-circle-outline" data-inline="false" data-width="120px"></i>
-						</div>
-						<div class="card-body d-flex text-center p-3">
-							<h3 class="align-self-center  mx-auto text-center font-weight-light font-cursive">Lentilles</h3>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-
-	<section id="services">
-		<div class="container my-5 position-relative">
-			<h2>{{serviceContent.title}}</h2>
-			<p>{{serviceContent.content}}</p>
-			<button class="btn btn-primary btn-edit" type="button" data-toggle="modal" data-target="#modalserviceContentForm">
-				<span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span>
-			</button>
-			<div class="row row-cols-1 row-cols-xl-2">
-				<div class="col mb-4">
-					<div class="card h-100 border-primary">
-						<div class="card-body media">
-							<i class="iconify align-self-center mr-3 text-primary d-none d-sm-block" data-icon="whh:gears" data-inline="false" data-width="50"></i>
-							<div class="media-body">
-								<h3>Verres ophtalmiques</h3>
-								<hr class="bg-primary">
-								<p>Nous disposons d'une gamme de verre ophtalmiques apportant une réponse aux pathologies simples comme complexes</p>
-								<ul>
-									<li>unifocaux, double foyers</li>
-									<li>progressifs</li>
-									<li>traitements des verres : anti buée, anti reflet, photochromique, ...</li>
-								</ul>
+			{% include '/admin/content_editor/quoteSection.html.twig' %}
+		</section>
+		
+		<section id="metier" class="my-5">
+			<div class="container">
+				<h2 class="my-5 text-center">Notre métier</h2>
+				<div class="row row-cols-2 row-cols-md-4 mt-5">
+					<div class="col mb-4">
+						<div class="card h-100  border-0">
+							<div class="text-white text-center">
+								<i class="iconify rounded-circle bg-primary p-4" data-icon="mdi:glasses" data-inline="false" data-width="120px"></i>
+							</div>
+							<div class="card-body d-flex p-3">
+								<h3 class="align-self-center mx-auto text-center font-weight-light font-cursive">Lunettes<br>
+									de vue</h3>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col mb-4">
-					<div class="card h-100 border-grey">
-						<div class="card-body media">
-							<i class="iconify align-self-center mr-3 text-grey  d-none d-sm-block" data-icon="mdi:ear-hearing" data-inline="false" data-width="50"></i>
-							<div class="media-body">
-								<h3>Prothèses audio</h3>
-								<hr class="bg-grey">
-								<p>Grandvillars Optique dispose d'un audioprothésiste Diplômé d'Etat dans son équipé pour réaliser votre équipement auditif :
-								</p>
-								<ul>
-									<li>Conception</li>
-									<li>Réalisation</li>
-									<li>Positionnement</li>
-									<li>Réglages</li>
-								</ul>
+					<div class="col mb-4">
+						<div class="card h-100 border-0">
+							<div class="text-center">
+								<i class="iconify rounded-circle bg-secondary p-4" data-icon="mdi:sunglasses" data-inline="false" data-width="120px"></i>
+							</div>
+							<div class="card-body d-flex text-center p-3">
+								<h3 class="align-self-center  mx-auto text-center font-weight-light font-cursive">Solaires</h3>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col mb-4">
-					<div class="card h-100 border-info">
-						<div class="card-body media">
-							<i class="iconify align-self-center mr-3 text-info  d-none d-sm-block" data-icon="mdi:wrench" data-inline="false" data-width="50"></i>
-							<div class="media-body">
-								<h3>Atelier</h3>
-								<hr class="bg-info">
-								<p>Notre équipe dispose des compétences et outils pour la création ou la réparation de vos lunettes et équipements auditifs</p>
-								<ul>
-									<li>Réparation</li>
-									<li>montage</li>
-									<li>Réglage</li>
-								</ul>
+					<div class="col mb-4">
+						<div class="card h-100 border-0">
+							<div class="text-center">
+								<i class="iconify rounded-circle bg-info p-4" data-icon="mdi:ear-hearing" data-inline="false" data-width="120px"></i>
+							</div>
+							<div class="card-body d-flex text-center p-3">
+								<h3 class="align-self-center  mx-auto text-center font-weight-light font-cursive">Audition</h3>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col mb-4">
-					<div class="card h-100 border-dark">
-						<div class="card-body media">
-							<i class="iconify align-self-center mr-3 text-dark  d-none d-sm-block" data-icon="mdi-ballot" data-inline="false" data-width="50"></i>
-							<div class="media-body">
-								<h3>Dépistages</h3>
-								<hr class="bg-dark">
-								<p>Notre magasin dispose de tout l'équiment nécessaire pour effectuer les dépistages et évaluer votre besoin en équipement visuel ou auditif</p>
-								<div class="row">
-									<div class="col-12 col-md-6">
-										<ul>
-											<li>Bilans visuels</li>
-											<li>Mesures d'accuité</li>
-											<li>Depistage gratuit</li>
-										</ul>
-									</div>
-									<div class="col-12 col-md-6">
-										<button class="btn btn-primary p-3 mx-2 float-md-right" data-toggle="modal" data-target="#modalRdv">Prendre rendez-vous</button>
-									</div>
-								</div>
+
+					<div class="col mb-4">
+						<div class="card h-100 border-0">
+							<div class="text-center text-white">
+								<i class="iconify rounded-circle bg-dark p-4" data-icon="mdi:eye-circle-outline" data-inline="false" data-width="120px"></i>
+							</div>
+							<div class="card-body d-flex text-center p-3">
+								<h3 class="align-self-center  mx-auto text-center font-weight-light font-cursive">Lentilles</h3>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</section>
 
 
-		<div class="modal fade" id="modalserviceContentForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">Editer le contenu</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
+		<section id="service">
+			{% include '/admin/content_editor/serviceSection.html.twig' %}
+		</section>
+
+		<section id="activisu">
+			<div class="row mx-0">
+				<div class="col-sm-2 col-md-1 col-xl-2 d-none d-sm-block d-lg-none d-xl-block order-3 order-xl-1 my-5 align-self-center text-center ">
+					<img class="img-activisu " src="/img/activisu.png" alt="Activisu">
+				</div>
+				<div class="col-sm-10 col-lg-6 col-xl-5 order-2 order-xl-2 my-5 align-self-center ">
+					<h3>Dans notre magasin : Activisu</h3>
+					<p>Dans notre magasin, bénéficiez de l'Activisu avec la technologie Eyecode. C'est un appareil de prise de mesure automatique avec lequel vous pouvez prendre une photo et une séquence vidéo pour voir la monture de profil et de face sur votre visage.</p>
+				</div>
+				<div class="col-lg-6 col-xl-5 order-1 order-xl-3 p-0">
+					<video class="w-100 d-block" autoplay loop muted>
+						<source src="/media/eyecode.mp4" type="video/mp4">
+						Sorry, your browser doesn't support embedded videos.
+					</video>
+				</div>
+			</div>
+		</section>
+
+		<section id="magasin" class="my-5">
+			<div class="row  mx-0">
+				<div id="carouselExampleIndicators" class="carousel slide carousel-fade col-6 px-5 d-none d-xl-block" data-ride="carousel">
+					<ol class="carousel-indicators">
+						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+					</ol>
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<img src="/img/magasin.jpg" class="d-block w-100" alt="...">
+						</div>
+						<div class="carousel-item">
+							<img src="/img/magasin2.jpg" class="d-block w-100" alt="...">
+						</div>
+						<div class="carousel-item">
+							<img src="/img/magasin3.jpg" class="d-block w-100" alt="...">
+						</div>
 					</div>
-					<div class="modal-body">
-						{{form_start(serviceForm, {'action': path('admin_content_update', {'id' : serviceContent.id}), 'method': 'POST'})}}
-						{{form_widget(serviceForm)}}
-						<button type="submit" data-toggle="modal" data-target="#modalserviceContentForm" aria-expanded="false" aria-controls="collapseExample" class="btn btn-success">Modifier</button>
-						<button class="btn btn-darker" type="button" data-toggle="modal" data-target="#modalserviceContentForm" aria-expanded="false" aria-controls="collapseExample">Annuler</button>
-						{{form_end(serviceForm)}}
+					<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+
+				<div class="col-12 col-xl-6 align-self-center pr-5">
+					<h2>Les + Grandvillars Optique</h2>
+					<p>Votre opticien Grandvillars Optique vous souhaite la bienvenue. Notre équipe de quatre personnes, dont trois opticiens lunetiers diplômés, vous accueille depuis 2002 au centre du village de Grandvillars, dans le Territoire de Belfort.</p>
+					<div class="d-flex flex-wrap">
+						<div class="col-12 col-md-6">
+							<h3 class="h4">Satisfaction client</h3>
+							<ul>
+								<li>Vaste choix de montures</li>
+								<li>Offre Qualissime Essilor</li>
+								<li>Délais de réalisation très courts</li>
+								<li>Montage rapide sur place</li>
+							</ul>
+						</div>
+						<div class="col-12 col-md-6">
+							<h3 class="h4">Prendre soin de votre bugdet</h3>
+							<ul>
+								<li>La 2ème paire à 1€</li>
+								<li>Paiement en 4x sans frais</li>
+								<li>Tiers payant mutuelle</li>
+							</ul>
+						</div>
+						<div class="col-12 col-md-6">
+							<h3 class="h4">Engagements</h3>
+							<ul>
+								<li>Garantie anti-casse 2 ans</li>
+								<li>Service après vente</li>
+							</ul>
+						</div>
+						<div class="col-12 col-md-6">
+							<h3 class="h4">Espace enfants</h3>
+							<ul>
+								<li>Vaste choix de montures adaptés</li>
+								<li>Divertissements</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</section>
 
-
-	</section>
-
-	<section id="activisu">
-		<div class="row mx-0">
-			<div class="col-sm-2 col-md-1 col-xl-2 d-none d-sm-block d-lg-none d-xl-block order-3 order-xl-1 my-5 align-self-center text-center ">
-				<img class="img-activisu " src="/img/activisu.png" alt="Activisu">
-			</div>
-			<div class="col-sm-10 col-lg-6 col-xl-5 order-2 order-xl-2 my-5 align-self-center ">
-				<h3>Dans notre magasin : Activisu</h3>
-				<p>Dans notre magasin, bénéficiez de l'Activisu avec la technologie Eyecode. C'est un appareil de prise de mesure automatique avec lequel vous pouvez prendre une photo et une séquence vidéo pour voir la monture de profil et de face sur votre visage.</p>
-			</div>
-			<div class="col-lg-6 col-xl-5 order-1 order-xl-3 p-0">
-				<video class="w-100 d-block" autoplay loop muted>
-					<source src="/media/eyecode.mp4" type="video/mp4">
-					Sorry, your browser doesn't support embedded videos.
-				</video>
-			</div>
-		</div>
-	</section>
-
-	<section id="magasin" class="my-5">
-		<div class="row  mx-0">
-			<div id="carouselExampleIndicators" class="carousel slide carousel-fade col-6 px-5 d-none d-xl-block" data-ride="carousel">
-				<ol class="carousel-indicators">
-					<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-					<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-					<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-				</ol>
-				<div class="carousel-inner">
-					<div class="carousel-item active">
-						<img src="/img/magasin.jpg" class="d-block w-100" alt="...">
-					</div>
-					<div class="carousel-item">
-						<img src="/img/magasin2.jpg" class="d-block w-100" alt="...">
-					</div>
-					<div class="carousel-item">
-						<img src="/img/magasin3.jpg" class="d-block w-100" alt="...">
-					</div>
+		<section id="certifs" class="bg-secondary py-5">
+			<h3 class="text-center text-uppercase px-3">
+				Notre savoir faire est reconnu
+			</h3>
+			<div class="d-flex justify-content-center mt-5">
+				<div class="col-5 col-sm-4 col-md-2 col-xl-1">
+					<img src="/img/opticien-engage-essilor-2020.png" class="img-fluid" alt="essilor opticien engagé 2020">
 				</div>
-				<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="sr-only">Previous</span>
-				</a>
-				<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="sr-only">Next</span>
-				</a>
-			</div>
-
-			<div class="col-12 col-xl-6 align-self-center pr-5">
-				<h2>Les + Grandvillars Optique</h2>
-				<p>Votre opticien Grandvillars Optique vous souhaite la bienvenue. Notre équipe de quatre personnes, dont trois opticiens lunetiers diplômés, vous accueille depuis 2002 au centre du village de Grandvillars, dans le Territoire de Belfort.</p>
-				<div class="d-flex flex-wrap">
-					<div class="col-12 col-md-6">
-						<h3 class="h4">Satisfaction client</h3>
-						<ul>
-							<li>Vaste choix de montures</li>
-							<li>Offre Qualissime Essilor</li>
-							<li>Délais de réalisation très courts</li>
-							<li>Montage rapide sur place</li>
-						</ul>
-					</div>
-					<div class="col-12 col-md-6">
-						<h3 class="h4">Prendre soin de votre bugdet</h3>
-						<ul>
-							<li>La 2ème paire à 1€</li>
-							<li>Paiement en 4x sans frais</li>
-							<li>Tiers payant mutuelle</li>
-						</ul>
-					</div>
-					<div class="col-12 col-md-6">
-						<h3 class="h4">Engagements</h3>
-						<ul>
-							<li>Garantie anti-casse 2 ans</li>
-							<li>Service après vente</li>
-						</ul>
-					</div>
-					<div class="col-12 col-md-6">
-						<h3 class="h4">Espace enfants</h3>
-						<ul>
-							<li>Vaste choix de montures adaptés</li>
-							<li>Divertissements</li>
-						</ul>
-					</div>
+				<div class="d-none d-md-block col-md-6 text-center align-self-center">
+					<h4 class="font-cursive h5">
+						<span class="iconify" data-icon="emojione-v1:left-check-mark"></span>
+						Opticien partenaire mutuelles
+					</h4>
+					<h4 class="font-cursive h5">
+						<span class="iconify" data-icon="emojione-v1:left-check-mark"></span>
+						Partenaire Essilor : opticien engagé
+					</h4>
+					<h4 class="font-cursive h5">
+						<span class="iconify" data-icon="emojione-v1:left-check-mark"></span>
+						Certifié AFNOR qualité service
+					</h4>
+				</div>
+				<div class="col-5 col-sm-4 col-md-2 col-xl-1">
+					<img src="/img/afnor-certification.png" class="img-fluid" alt="Certifiaction Afnor qualité en optique">
 				</div>
 			</div>
-		</div>
-	</section>
-
-	<section id="certifs" class="bg-secondary py-5">
-		<h3 class="text-center text-uppercase px-3">
-			Notre savoir faire est reconnu
-		</h3>
-		<div class="d-flex justify-content-center mt-5">
-			<div class="col-5 col-sm-4 col-md-2 col-xl-1">
-				<img src="/img/opticien-engage-essilor-2020.png" class="img-fluid" alt="essilor opticien engagé 2020">
-			</div>
-			<div class="d-none d-md-block col-md-6 text-center align-self-center">
-				<h4 class="font-cursive h5">
-					<span class="iconify" data-icon="emojione-v1:left-check-mark"></span>
-					Opticien partenaire mutuelles
-				</h4>
-				<h4 class="font-cursive h5">
-					<span class="iconify" data-icon="emojione-v1:left-check-mark"></span>
-					Partenaire Essilor : opticien engagé
-				</h4>
-				<h4 class="font-cursive h5">
-					<span class="iconify" data-icon="emojione-v1:left-check-mark"></span>
-					Certifié AFNOR qualité service
-				</h4>
-			</div>
-			<div class="col-5 col-sm-4 col-md-2 col-xl-1">
-				<img src="/img/afnor-certification.png" class="img-fluid" alt="Certifiaction Afnor qualité en optique">
-			</div>
-		</div>
-	</section>
-</main>{% endblock %}
+		</section>
+	</main>
+{% endblock %}
