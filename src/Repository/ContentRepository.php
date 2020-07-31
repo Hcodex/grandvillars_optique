@@ -35,6 +35,16 @@ class ContentRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByCategoryField($value)
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.content_category','d')
+            ->andWhere('d.name = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     /*
     public function findOneBySomeField($value): ?Content

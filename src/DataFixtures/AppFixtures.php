@@ -124,5 +124,18 @@ class AppFixtures extends Fixture
         $activisuSectionContent->setContentCategory($activisuCategory);
         $manager->persist($activisuSectionContent);
 
+        $jobItemCategory = new ContentCategory;
+        $jobItemCategory->setName('jobItem');
+        $manager->persist($jobItemCategory);
+
+        $jobs = ["lunettes de vue", "solaires", "Audition", "Lentilles"];
+        foreach($jobs as $job){
+        $jobItemContent = new Content;
+        $jobItemContent->setTitle("Test");
+        $jobItemContent->setContent($job);
+        $jobItemContent->setContentCategory($jobItemCategory);
+        $manager->persist($jobItemContent);
+        }
+
     }
 }

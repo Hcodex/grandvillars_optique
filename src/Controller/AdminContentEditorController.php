@@ -19,17 +19,31 @@ class AdminContentEditorController extends AbstractController
      */
     public function index(ContentRepository $contentRepo)
     {
-        $items = ["quoteSection", "serviceSection", "activisuSection"];
+        $sections = ["quoteSection", "serviceSection", "activisuSection"];
+        $itemCategories = ["jobItem"];
 
         $arg = array();
-        foreach ($items as $item) {
-            ${$item . 'Content'} = $contentRepo->findOneByCategoryField($item);
-            ${$item . 'Form'} = $this->createForm(ContentType::class, ${$item . 'Content'});
-            $arg = array_merge($arg, array($item . 'Form' => ${$item . 'Form'}->createView()));
-            $arg = array_merge($arg, array($item . 'Content' => ${$item . 'Content'}));
+        foreach ($sections as $section) {
+            ${$section . 'Content'} = $contentRepo->findOneByCategoryField($section);
+            ${$section . 'Form'} = $this->createForm(ContentType::class, ${$section . 'Content'});
+            $arg = array_merge($arg, array($section . 'Form' => ${$section . 'Form'}->createView()));
+            $arg = array_merge($arg, array($section . 'Content' => ${$section . 'Content'}));
         }
 
-        return $this->render('admin/content_editor/index.html.twig', $arg );
+        foreach ($itemCategories as $itemCategorie) {
+            $items = $contentRepo->findByCategoryField($itemCategorie);
+            $i = 1;
+            foreach ($items as $item) {
+                $arg2 = array();
+                ${$itemCategorie . $i . 'Form'} = $this->createForm(ContentType::class, $item);
+                $arg2 = array_merge($arg2, array($itemCategorie . 'Form' => ${$itemCategorie . $i . 'Form'}->createView()));
+                $arg2 = array_merge($arg2, array($itemCategorie . 'Content' => $item));
+                $arg[$itemCategorie][$i] =  $arg2;
+                $i++;
+            }
+        }
+
+        return $this->render('admin/content_editor/index.html.twig', $arg);
     }
 
 
@@ -76,20 +90,26 @@ class AdminContentEditorController extends AbstractController
                 switch ($content->getContentCategory()->getName()) {
                     case "quoteSection":
                         return $this->render('admin/content_editor/quoteSection.html.twig', [
-                            'quoteForm' => $form->createView(),
-                            'quoteContent' => $content,
+                            'quoteSectionForm' => $form->createView(),
+                            'quoteSectionContent' => $content,
                         ]);
                         break;
                     case "serviceSection":
                         return $this->render('admin/content_editor/serviceSection.html.twig', [
-                            'serviceForm' => $form->createView(),
-                            'serviceContent' => $content,
+                            'serviceSectionForm' => $form->createView(),
+                            'serviceSectionContent' => $content,
                         ]);
                         break;
                     case "activisuSection":
                         return $this->render('admin/content_editor/activisuSection.html.twig', [
-                            'activisuForm' => $form->createView(),
-                            'activisuContent' => $content,
+                            'activisuSectionForm' => $form->createView(),
+                            'activisuSectionContent' => $content,
+                        ]);
+                        break;
+                    case "jobItem":
+                        return $this->render('admin/content_editor/jobSection.html.twig', [
+                            'item'=> array('jobItemForm' => $form->createView(),
+                            'jobItemContent' => $content,)
                         ]);
                         break;
                 }

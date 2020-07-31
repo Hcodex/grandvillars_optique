@@ -11,6 +11,7 @@
 {% endblock %}
 
 {% block body %}
+
 	<main data-spy="scroll" data-target="#navbar" data-offset="0">
 		<div id="slider" class="vh-100 d-flex align-content-end flex-wrap">
 			<div id='title' class="mb-5">
@@ -27,53 +28,18 @@
 		<section id="quote" class="d-none d-md-block bg-secondary py-5">
 			{% include '/admin/content_editor/quoteSection.html.twig' %}
 		</section>
-		
-		<section id="metier" class="my-5">
+
+		<section id="job" class="my-5">
 			<div class="container">
 				<h2 class="my-5 text-center">Notre métier</h2>
 				<div class="row row-cols-2 row-cols-md-4 mt-5">
-					<div class="col mb-4">
-						<div class="card h-100  border-0">
-							<div class="text-white text-center">
-								<i class="iconify rounded-circle bg-primary p-4" data-icon="mdi:glasses" data-inline="false" data-width="120px"></i>
-							</div>
-							<div class="card-body d-flex p-3">
-								<h3 class="align-self-center mx-auto text-center font-weight-light font-cursive">Lunettes<br>
-									de vue</h3>
-							</div>
-						</div>
-					</div>
-					<div class="col mb-4">
-						<div class="card h-100 border-0">
-							<div class="text-center">
-								<i class="iconify rounded-circle bg-secondary p-4" data-icon="mdi:sunglasses" data-inline="false" data-width="120px"></i>
-							</div>
-							<div class="card-body d-flex text-center p-3">
-								<h3 class="align-self-center  mx-auto text-center font-weight-light font-cursive">Solaires</h3>
-							</div>
-						</div>
-					</div>
-					<div class="col mb-4">
-						<div class="card h-100 border-0">
-							<div class="text-center">
-								<i class="iconify rounded-circle bg-info p-4" data-icon="mdi:ear-hearing" data-inline="false" data-width="120px"></i>
-							</div>
-							<div class="card-body d-flex text-center p-3">
-								<h3 class="align-self-center  mx-auto text-center font-weight-light font-cursive">Audition</h3>
-							</div>
-						</div>
-					</div>
 
-					<div class="col mb-4">
-						<div class="card h-100 border-0">
-							<div class="text-center text-white">
-								<i class="iconify rounded-circle bg-dark p-4" data-icon="mdi:eye-circle-outline" data-inline="false" data-width="120px"></i>
-							</div>
-							<div class="card-body d-flex text-center p-3">
-								<h3 class="align-self-center  mx-auto text-center font-weight-light font-cursive">Lentilles</h3>
-							</div>
+					{% for item in jobItem %}
+						<div id="jobItem{{item.jobItemContent.id}}">
+							{% include '/admin/content_editor/jobSection.html.twig' %}
 						</div>
-					</div>
+					{% endfor %}
+
 				</div>
 			</div>
 		</section>
