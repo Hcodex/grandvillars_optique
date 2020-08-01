@@ -20,7 +20,7 @@ class AdminContentEditorController extends AbstractController
     public function index(ContentRepository $contentRepo)
     {
         $sections = ["quoteSection", "serviceSection", "activisuSection"];
-        $itemCategories = ["jobItem"];
+        $itemCategories = ["jobItem", "serviceItem"];
 
         $arg = array();
         foreach ($sections as $section) {
@@ -108,8 +108,18 @@ class AdminContentEditorController extends AbstractController
                         break;
                     case "jobItem":
                         return $this->render('admin/content_editor/jobSection.html.twig', [
-                            'item'=> array('jobItemForm' => $form->createView(),
-                            'jobItemContent' => $content,)
+                            'item' => array(
+                                'jobItemForm' => $form->createView(),
+                                'jobItemContent' => $content,
+                            )
+                        ]);
+                        break;
+                    case "serviceItem":
+                        return $this->render('admin/content_editor/serviceItem.html.twig', [
+                            'service' => array(
+                                'serviceItemForm' => $form->createView(),
+                                'serviceItemContent' => $content,
+                            )
                         ]);
                         break;
                 }

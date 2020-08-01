@@ -1,0 +1,37 @@
+<div class="col mb-4">
+	<div class="card h-100 border-primary">
+		<div class="card-body media">
+			<i class="iconify align-self-center mr-3 text-primary d-none d-sm-block" data-icon="whh:gears" data-inline="false" data-width="50"></i>
+			<div class="media-body">
+				<h3>{{service.serviceItemContent.title}}</h3>
+				<button class="btn btn-info btn-edit" type="button" data-toggle="modal" data-target="#modalServiceItem{{service.serviceItemContent.id}}Form">
+					<span class="iconify" data-icon="clarity:edit-solid"></span>
+				</button>
+				<hr class="bg-primary">
+				{{service.serviceItemContent.content|raw}}
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal fade text-darker" id="modalServiceItem{{service.serviceItemContent.id}}Form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Editer le contenu</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body ">
+				{{form_start(service.serviceItemForm, {'action': path('admin_content_update', {'id' : service.serviceItemContent.id}), 'method': 'POST', 'attr':{'data-id': service.serviceItemContent.id, 'data-section' : 'jobItem' ~ service.serviceItemContent.id }})}}
+				{{ form_row(service.serviceItemForm.title, {'label': 'Icone'}) }}
+				{{ form_row(service.serviceItemForm.content, {'label': 'Texte'}) }}
+				<button type="submit" data-toggle="modal" data-target="#modalServiceItem{{service.serviceItemContent.id}}Form" aria-expanded="false" aria-controls="collapseExample" class="btn btn-success">Modifier</button>
+				<button class="btn btn-darker" type="button" data-toggle="modal" data-target="#modalServiceItem{{service.serviceItemContent.id}}Form" aria-expanded="false" aria-controls="collapseExample">Annuler</button>
+				{{form_end(service.serviceItemForm)}}
+			</div>
+		</div>
+	</div>
+</div>
