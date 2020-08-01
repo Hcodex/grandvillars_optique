@@ -1,0 +1,25 @@
+{%- set now = "now"|date('Y-m-d') -%}
+{% set displayClosingDays = [] %}
+{%- for closingDay in closingDays -%}
+	{% set interval = date(now).diff(closingDay.startDate) %}
+	{% if interval.days < 10  and interval.days > 0 %}
+		{% if closingDay.startDate == closingDay.endDate %}
+			{% set displayClosingDays = displayClosingDays|merge([closingDay.startDate|format_date(pattern="EEEE d MMMM", locale='fr')|raw]) %}
+		{% else %}
+			{% set displayClosingDays = displayClosingDays|merge(["du " ~ closingDay.startDate|format_date(pattern="EEEE d MMMM", locale='fr')|raw ~ " au " ~ closingDay.endDate|format_date(pattern="EEEE d MMMM", locale='fr')| raw]) %}
+		{% endif %}
+	{% endif %}
+{% endfor %}
+
+{% if displayClosingDays|length > 0 %}
+	<div class="bg-info p-2 text-center">Fermeture(s) exeptionnelle(s) à venir :
+		<p class="m-0">
+			{% for displayClosingDay in displayClosingDays %}
+				{% if  not loop.first %}
+					/
+				{% endif %}
+				{{displayClosingDay}}
+			{% endfor %}
+		</p>
+	</div>
+{% endif %}
