@@ -68,7 +68,6 @@ class AppFixtures extends Fixture
 
         $manager->persist($adminUser);
         $manager->persist($staffUser);
-
     }
 
     public function loadTimeTable(ObjectManager $manager)
@@ -128,14 +127,33 @@ class AppFixtures extends Fixture
         $jobItemCategory->setName('jobItem');
         $manager->persist($jobItemCategory);
 
-        $jobs = ["lunettes de vue", "solaires", "Audition", "Lentilles"];
-        foreach($jobs as $job){
-        $jobItemContent = new Content;
-        $jobItemContent->setTitle("Test");
-        $jobItemContent->setContent($job);
-        $jobItemContent->setContentCategory($jobItemCategory);
-        $manager->persist($jobItemContent);
+        $jobs = array("lunettes de vue" => 'mdi:glasses', "solaires" => 'mdi:sunglasses', "Audition" => 'mdi:ear-hearing', "Lentilles" => 'mdi:eye-circle-outline');
+
+        foreach ($jobs as $jobTitle => $jobIcon) {
+            $jobItemContent = new Content;
+            $jobItemContent->setTitle($jobIcon);
+            $jobItemContent->setContent($jobTitle);
+            $jobItemContent->setContentCategory($jobItemCategory);
+            $manager->persist($jobItemContent);
         }
 
+        $serviceItemCategory = new ContentCategory;
+        $serviceItemCategory->setName('serviceItem');
+        $manager->persist($serviceItemCategory);
+
+        $services = array(
+            "Verres ophtalmiques" => '<p>Nous disposons d\'une gamme de verre ophtalmiques apportant une réponse aux pathologies simples comme complexes</p><ul><li>unifocaux, double foyers</li><li>progressifs</li><li>traitements des verres : anti buée, anti reflet, photochromique, ...</li></ul>',
+            "Prothèses audio" => '<p>Grandvillars Optique dispose d\'un audioprothésiste Diplômé d\'Etat dans son équipé pour réaliser votre équipement auditif :</p><ul><li>Conception</li><li>Réalisation</li><li>Positionnement</li><li>Réglages</li></ul>',
+            "Atelier" => '<p>Notre équipe dispose des compétences et outils pour la création ou la réparation de vos lunettes et équipements auditifs</p><ul><li>Réparation</li><li>montage</li><li>Réglage</li></ul>',
+            "Dépistages" => '<p>Notre magasin dispose de tout l\'équiment nécessaire pour effectuer les dépistages et évaluer votre besoin en équipement visuel ou auditif</p><div class="row"><div class="col-12 col-md-6"><ul><li>Bilans visuels</li><li>Mesures d\'accuité</li><li>Depistage gratuit</li></ul>'
+        );
+
+        foreach ($services as $serviceTitle => $serviceContent) {
+            $serviceItemContent = new Content;
+            $serviceItemContent->setTitle($serviceTitle);
+            $serviceItemContent->setContent($serviceContent);
+            $serviceItemContent->setContentCategory($serviceItemCategory);
+            $manager->persist($serviceItemContent);
+        }
     }
 }
