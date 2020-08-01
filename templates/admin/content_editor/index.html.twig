@@ -26,6 +26,7 @@
 		</div>
 
 		<section id="quote" class="d-none d-md-block bg-secondary py-5">
+			{% set item = quoteSection|first %}
 			{% include '/admin/content_editor/quoteSection.html.twig' %}
 		</section>
 
@@ -35,8 +36,8 @@
 				<div class="row row-cols-2 row-cols-md-4 mt-5">
 
 					{% for item in jobItem %}
-						<div id="jobItem{{item.jobItemContent.id}}">
-							{% include '/admin/content_editor/jobSection.html.twig' %}
+						<div id="jobItem{{item.entity.id}}">
+							{% include '/admin/content_editor/jobItem.html.twig' %}
 						</div>
 					{% endfor %}
 
@@ -46,12 +47,12 @@
 
 
 		<section id="service">
+			{% set item = serviceSection|first %}
 			{% include '/admin/content_editor/serviceSection.html.twig' %}
 			<div class="container">
 				<div class="row row-cols-1 row-cols-xl-2">
-					
-						{% for service in serviceItem %}
-							<div id="jobItem{{service.serviceItemContent.id}}">
+						{% for item in serviceItem %}
+							<div id="jobItem{{item.entity.id}}">
 								{% include '/admin/content_editor/serviceItem.html.twig' %}
 							</div>
 						{% endfor %}
@@ -61,6 +62,7 @@
 		</section>
 
 		<section id="activisu">
+			{% set item = activisuSection|first %}
 			{% include '/admin/content_editor/activisuSection.html.twig' %}
 		</section>
 

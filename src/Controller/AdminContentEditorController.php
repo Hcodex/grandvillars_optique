@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Content;
 use App\Form\ContentType;
+use App\Repository\ContentCategoryRepository;
 use App\Repository\ContentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,31 +18,23 @@ class AdminContentEditorController extends AbstractController
     /**
      * @Route("/admin/contentEditor", name="admin_content_editor")
      */
-    public function index(ContentRepository $contentRepo)
+    public function index(ContentRepository $contentRepo, ContentCategoryRepository $contentCategoryRepo)
     {
-        $sections = ["quoteSection", "serviceSection", "activisuSection"];
-        $itemCategories = ["jobItem", "serviceItem"];
 
-        $arg = array();
-        foreach ($sections as $section) {
-            ${$section . 'Content'} = $contentRepo->findOneByCategoryField($section);
-            ${$section . 'Form'} = $this->createForm(ContentType::class, ${$section . 'Content'});
-            $arg = array_merge($arg, array($section . 'Form' => ${$section . 'Form'}->createView()));
-            $arg = array_merge($arg, array($section . 'Content' => ${$section . 'Content'}));
-        }
+        $categories = $contentCategoryRepo->findAll();
 
-        foreach ($itemCategories as $itemCategorie) {
-            $items = $contentRepo->findByCategoryField($itemCategorie);
-            $i = 1;
+        foreach ($categories as $categorie) {
+            $items = $contentRepo->findByCategoryField($categorie->getName());
+
             foreach ($items as $item) {
-                $arg2 = array();
-                ${$itemCategorie . $i . 'Form'} = $this->createForm(ContentType::class, $item);
-                $arg2 = array_merge($arg2, array($itemCategorie . 'Form' => ${$itemCategorie . $i . 'Form'}->createView()));
-                $arg2 = array_merge($arg2, array($itemCategorie . 'Content' => $item));
-                $arg[$itemCategorie][$i] =  $arg2;
-                $i++;
+                $itemForm = $this->createForm(ContentType::class, $item)->createView();
+                $arg[$categorie->getName()][$item->getId()] = [
+                    'form' => $itemForm,
+                    'entity' => $item
+                ];
             }
         }
+        dump($arg);
 
         return $this->render('admin/content_editor/index.html.twig', $arg);
     }
@@ -87,42 +80,14 @@ class AdminContentEditorController extends AbstractController
                 $manager->persist($content);
                 $manager->flush();
 
-                switch ($content->getContentCategory()->getName()) {
-                    case "quoteSection":
-                        return $this->render('admin/content_editor/quoteSection.html.twig', [
-                            'quoteSectionForm' => $form->createView(),
-                            'quoteSectionContent' => $content,
-                        ]);
-                        break;
-                    case "serviceSection":
-                        return $this->render('admin/content_editor/serviceSection.html.twig', [
-                            'serviceSectionForm' => $form->createView(),
-                            'serviceSectionContent' => $content,
-                        ]);
-                        break;
-                    case "activisuSection":
-                        return $this->render('admin/content_editor/activisuSection.html.twig', [
-                            'activisuSectionForm' => $form->createView(),
-                            'activisuSectionContent' => $content,
-                        ]);
-                        break;
-                    case "jobItem":
-                        return $this->render('admin/content_editor/jobSection.html.twig', [
-                            'item' => array(
-                                'jobItemForm' => $form->createView(),
-                                'jobItemContent' => $content,
-                            )
-                        ]);
-                        break;
-                    case "serviceItem":
-                        return $this->render('admin/content_editor/serviceItem.html.twig', [
-                            'service' => array(
-                                'serviceItemForm' => $form->createView(),
-                                'serviceItemContent' => $content,
-                            )
-                        ]);
-                        break;
-                }
+                $categorie = $content->getContentCategory()->getName();
+
+                $arg['item'] = [
+                        'form' => $form->createView(),
+                        'entity' => $content
+                ];
+
+                return $this->render('admin/content_editor/' . $categorie . '.html.twig', $arg);
             }
         }
 

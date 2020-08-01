@@ -3,19 +3,19 @@
 		<div class="card-body media">
 			<i class="iconify align-self-center mr-3 text-primary d-none d-sm-block" data-icon="whh:gears" data-inline="false" data-width="50"></i>
 			<div class="media-body">
-				<h3>{{service.serviceItemContent.title}}</h3>
-				<button class="btn btn-info btn-edit" type="button" data-toggle="modal" data-target="#modalServiceItem{{service.serviceItemContent.id}}Form">
+				<h3>{{item.entity.title}}</h3>
+				<button class="btn btn-info btn-edit" type="button" data-toggle="modal" data-target="#modalServiceItem{{item.entity.id}}Form">
 					<span class="iconify" data-icon="clarity:edit-solid"></span>
 				</button>
 				<hr class="bg-primary">
-				{{service.serviceItemContent.content|raw}}
+				{{item.entity.content|raw}}
 			</div>
 
 		</div>
 	</div>
 </div>
 
-<div class="modal fade text-darker" id="modalServiceItem{{service.serviceItemContent.id}}Form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade text-darker" id="modalServiceItem{{item.entity.id}}Form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -25,12 +25,12 @@
 				</button>
 			</div>
 			<div class="modal-body ">
-				{{form_start(service.serviceItemForm, {'action': path('admin_content_update', {'id' : service.serviceItemContent.id}), 'method': 'POST', 'attr':{'data-id': service.serviceItemContent.id, 'data-section' : 'jobItem' ~ service.serviceItemContent.id }})}}
-				{{ form_row(service.serviceItemForm.title, {'label': 'Icone'}) }}
-				{{ form_row(service.serviceItemForm.content, {'label': 'Texte'}) }}
-				<button type="submit" data-toggle="modal" data-target="#modalServiceItem{{service.serviceItemContent.id}}Form" aria-expanded="false" aria-controls="collapseExample" class="btn btn-success">Modifier</button>
-				<button class="btn btn-darker" type="button" data-toggle="modal" data-target="#modalServiceItem{{service.serviceItemContent.id}}Form" aria-expanded="false" aria-controls="collapseExample">Annuler</button>
-				{{form_end(service.serviceItemForm)}}
+				{{form_start(item.form, {'action': path('admin_content_update', {'id' : item.entity.id}), 'method': 'POST', 'attr':{'data-id': item.entity.id, 'data-section' : 'jobItem' ~ item.entity.id }})}}
+				{{ form_row(item.form.title, {'label': 'Icone'}) }}
+				{{ form_row(item.form.content, {'label': 'Texte'}) }}
+				<button type="submit" data-toggle="modal" data-target="#modalServiceItem{{item.entity.id}}Form" aria-expanded="false" aria-controls="collapseExample" class="btn btn-success">Modifier</button>
+				<button class="btn btn-darker" type="button" data-toggle="modal" data-target="#modalServiceItem{{item.entity.id}}Form" aria-expanded="false" aria-controls="collapseExample">Annuler</button>
+				{{form_end(item.form)}}
 			</div>
 		</div>
 	</div>

@@ -3,8 +3,8 @@
 		<img class="img-activisu " src="/img/activisu.png" alt="Activisu">
 	</div>
 	<div class="col-sm-10 col-lg-6 col-xl-5 order-2 order-xl-2 my-5 align-self-center ">
-		<h3>{{activisuSectionContent.title}}</h3>
-		<p>{{activisuSectionContent.content}}</p>
+		<h3>{{item.entity.title}}</h3>
+		<p>{{item.entity.content}}</p>
 		<button class="btn btn-info btn-edit" type="button" data-toggle="modal" data-target="#modalactivisuContentForm">
 			<span class="iconify" data-icon="clarity:edit-solid"></span>
 		</button>
@@ -27,11 +27,11 @@
 				</button>
 			</div>
 			<div class="modal-body ">
-				{{form_start(activisuSectionForm, {'action': path('admin_content_update', {'id' : activisuSectionContent.id}), 'method': 'POST', 'attr':{'data-id': activisuSectionContent.id, 'data-section' : 'activisu'}})}}
-				{{form_widget(activisuSectionForm)}}
+				{{form_start(item.form, {'action': path('admin_content_update', {'id' : item.entity.id}), 'method': 'POST', 'attr':{'data-id': item.entity.id, 'data-section' : 'activisu'}})}}
+				{{form_widget(item.form)}}
 				<button type="submit" data-toggle="modal" data-target="#modalactivisuContentForm" aria-expanded="false" aria-controls="collapseExample" class="btn btn-success">Modifier</button>
 				<button class="btn btn-darker" type="button" data-toggle="modal" data-target="#modalactivisuContentForm" aria-expanded="false" aria-controls="collapseExample">Annuler</button>
-				{{form_end(activisuSectionForm)}}
+				{{form_end(item.form)}}
 			</div>
 		</div>
 	</div>
