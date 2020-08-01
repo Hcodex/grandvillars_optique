@@ -5,9 +5,12 @@
 
 {% block body %}
 
-	
+
 	<main data-spy="scroll" data-target="#navbar" data-offset="0">
-		<h1 class="mt-5 pt-5 text-center">Panneau d'administration</h1>
+		<h1 class="my-5 pt-5 text-center">Panneau d'administration</h1>
+		<div class="text-center">
+			<a class="btn btn-info p-3" href="{{path('admin_content_editor')}}" role="button">Editeur de contenu</a>
+		</div>
 		<section>
 			<div class="container my-5">
 				<p>Connecté en tant que
@@ -16,6 +19,7 @@
 				<a class="btn btn-primary" href="password-update" role="button">Changer de mot de passe</a>
 			</div>
 		</section>
+
 
 		<section>
 			<div class="container my-5">
@@ -103,7 +107,7 @@
 		<section class="mt-5">
 			<div class="container mt-5 text-primary">
 				<h2>Horaires</h2>
-				<a class="btn btn-primary my-3"  href="{{path('admin_timeTable_edit', {'id' : '1'})}}" role="button">Editer les horaires</a>
+				<a class="btn btn-primary my-3" href="{{path('admin_timeTable_edit', {'id' : timeTable.id})}}" role="button">Editer les horaires</a>
 				<table class="table">
 					<thead>
 						<tr class="bg-info">
