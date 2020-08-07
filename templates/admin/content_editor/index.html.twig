@@ -47,8 +47,10 @@
 
 
 		<section id="service">
-			{% set item = serviceSection|first %}
-			{% include '/admin/content_editor/serviceSection.html.twig' %}
+			<div id="serviceSection">
+				{% set item = serviceSection|first %}
+				{% include '/admin/content_editor/serviceSection.html.twig' %}
+			</div>
 			<div class="container">
 				<div class="row row-cols-1 row-cols-xl-2">
 					{% for item in serviceItem %}
