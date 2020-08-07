@@ -98,7 +98,7 @@ class AppFixtures extends Fixture
 
         $quoteSectionContent = new Content;
         $quoteSectionContent->setTitle("Cédric Hinterlang - Opticien");
-        $quoteSectionContent->setContent("Bienvenue chez GRANDVILLARS OPTIQUE et AUDITION, depuis près de 20 ans nous sommes a votre disposition pour la réalisation de vos équipements visuels et auditifs , nous vous remercions pour cette confiance et soyez assuré qu avec toute mon équipe nous mettons toutes nos compétences et notre savoir faire a votre service pour que votre satisfaction soit maximum");
+        $quoteSectionContent->setContent("Bienvenue chez GRANDVILLARS OPTIQUE et AUDITION, depuis près de 20 ans nous sommes a votre disposition pour la réalisation de vos équipements visuels et auditifs , nous vous remercions pour cette confiance et soyez assuré qu avec toute mon équipe nous mettons toutes nos compétences et notre savoir faire a votre shop pour que votre satisfaction soit maximum");
         $quoteSectionContent->setContentCategory($quoteCategory);
         $manager->persist($quoteSectionContent);
 
@@ -154,6 +154,35 @@ class AppFixtures extends Fixture
             $serviceItemContent->setContent($serviceContent);
             $serviceItemContent->setContentCategory($serviceItemCategory);
             $manager->persist($serviceItemContent);
+        }
+
+        $shopCategory = new ContentCategory;
+        $shopCategory->setName('shopSection');
+        $manager->persist($shopCategory);
+
+        $shopSectionContent = new Content;
+        $shopSectionContent->setTitle("Les + Grandvillars Optique");
+        $shopSectionContent->setContent("Votre opticien Grandvillars Optique vous souhaite la bienvenue. Notre équipe de quatre personnes, dont trois opticiens lunetiers diplômés, vous accueille depuis 2002 au centre du village de Grandvillars, dans le Territoire de Belfort.");
+        $shopSectionContent->setContentCategory($shopCategory);
+        $manager->persist($shopSectionContent);
+
+        $shopItemCategory = new ContentCategory;
+        $shopItemCategory->setName('shopItem');
+        $manager->persist($shopItemCategory);
+
+        $shops = array(
+            "Satisfaction client" => '<ul><li>Vaste choix de montures</li><li>Offre Qualissime Essilor</li><li>Délais de réalisation très courts</li><li>Montage rapide sur place</li></ul>',
+            "Prendre soin de votre bugdet" => '<ul><li>La 2ème paire à 1€</li><li>Paiement en 4x sans frais</li><li>Tiers payant mutuelle</li></ul>',
+            "Engagements" => '<ul><li>Garantie anti-casse 2 ans</li><li>Service après vente</li></ul>',
+            "Espace enfants" => '<ul><li>Vaste choix de montures adaptées</li><li>Divertissements</li></ul>'
+        );
+
+        foreach ($shops as $shopTitle => $shopContent) {
+            $shopItemContent = new Content;
+            $shopItemContent->setTitle($shopTitle);
+            $shopItemContent->setContent($shopContent);
+            $shopItemContent->setContentCategory($shopItemCategory);
+            $manager->persist($shopItemContent);
         }
     }
 }

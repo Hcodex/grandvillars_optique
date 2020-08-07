@@ -51,12 +51,12 @@
 			{% include '/admin/content_editor/serviceSection.html.twig' %}
 			<div class="container">
 				<div class="row row-cols-1 row-cols-xl-2">
-						{% for item in serviceItem %}
-							<div id="jobItem{{item.entity.id}}">
-								{% include '/admin/content_editor/serviceItem.html.twig' %}
-							</div>
-						{% endfor %}
-					
+					{% for item in serviceItem %}
+						<div id="jobItem{{item.entity.id}}">
+							{% include '/admin/content_editor/serviceItem.html.twig' %}
+						</div>
+					{% endfor %}
+
 				</div>
 			</div>
 		</section>
@@ -96,40 +96,18 @@
 				</div>
 
 				<div class="col-12 col-xl-6 align-self-center pr-5">
-					<h2>Les + Grandvillars Optique</h2>
-					<p>Votre opticien Grandvillars Optique vous souhaite la bienvenue. Notre équipe de quatre personnes, dont trois opticiens lunetiers diplômés, vous accueille depuis 2002 au centre du village de Grandvillars, dans le Territoire de Belfort.</p>
+					<div id="shop">
+						{% set item = shopSection|first %}
+						{% include '/admin/content_editor/shopSection.html.twig' %}
+					</div>
 					<div class="d-flex flex-wrap">
-						<div class="col-12 col-md-6">
-							<h3 class="h4">Satisfaction client</h3>
-							<ul>
-								<li>Vaste choix de montures</li>
-								<li>Offre Qualissime Essilor</li>
-								<li>Délais de réalisation très courts</li>
-								<li>Montage rapide sur place</li>
-							</ul>
-						</div>
-						<div class="col-12 col-md-6">
-							<h3 class="h4">Prendre soin de votre bugdet</h3>
-							<ul>
-								<li>La 2ème paire à 1€</li>
-								<li>Paiement en 4x sans frais</li>
-								<li>Tiers payant mutuelle</li>
-							</ul>
-						</div>
-						<div class="col-12 col-md-6">
-							<h3 class="h4">Engagements</h3>
-							<ul>
-								<li>Garantie anti-casse 2 ans</li>
-								<li>Service après vente</li>
-							</ul>
-						</div>
-						<div class="col-12 col-md-6">
-							<h3 class="h4">Espace enfants</h3>
-							<ul>
-								<li>Vaste choix de montures adaptés</li>
-								<li>Divertissements</li>
-							</ul>
-						</div>
+						{% for item in shopItem %}
+							<div class="col-12 col-md-6">
+								<div id="shopItem{{item.entity.id}}">
+									{% include '/admin/content_editor/shopItem.html.twig' %}
+								</div>
+							</div>
+						{% endfor %}
 					</div>
 				</div>
 			</div>
