@@ -12,11 +12,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class AdminContentEditorController extends AbstractController
 {
     /**
      * @Route("/admin/contentEditor", name="admin_content_editor")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(ContentRepository $contentRepo, ContentCategoryRepository $contentCategoryRepo)
     {
@@ -42,6 +44,7 @@ class AdminContentEditorController extends AbstractController
 
     /**
      * @Route("/admin/content/{id}/update", name="admin_content_update")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function updateContent(Content $content, Request $request, EntityManagerInterface $manager)
     {
@@ -68,6 +71,7 @@ class AdminContentEditorController extends AbstractController
 
     /**
      * @Route("/admin/content/{id}/axjaxUpdate", name="admin_content_ajaxUpdate")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function _ajaxUpdateContent(Content $content, Request $request, EntityManagerInterface $manager)
     {
@@ -83,8 +87,8 @@ class AdminContentEditorController extends AbstractController
                 $categorie = $content->getContentCategory()->getName();
 
                 $arg['item'] = [
-                        'form' => $form->createView(),
-                        'entity' => $content
+                    'form' => $form->createView(),
+                    'entity' => $content
                 ];
 
                 return $this->render('admin/content_editor/' . $categorie . '.html.twig', $arg);
