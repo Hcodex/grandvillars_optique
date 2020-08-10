@@ -27,45 +27,45 @@
 
 		<section id="quote" class="d-none d-md-block bg-secondary py-5">
 			{% set item = quoteSection|first %}
-			{% include '/admin/content_editor/quoteSection.html.twig' %}
+			<div id="content{{item.entity.id}}">
+				{% include '/admin/content_editor/quoteSection.html.twig' %}
+			</div>
 		</section>
 
 		<section id="job" class="my-5">
 			<div class="container">
 				<h2 class="my-5 text-center">Notre métier</h2>
 				<div class="row row-cols-2 row-cols-md-4 mt-5">
-
 					{% for item in jobItem %}
-						<div id="jobItem{{item.entity.id}}">
+						<div id="content{{item.entity.id}}">
 							{% include '/admin/content_editor/jobItem.html.twig' %}
 						</div>
 					{% endfor %}
-
 				</div>
 			</div>
 		</section>
 
-
 		<section id="service">
-			<div id="serviceSection">
-				{% set item = serviceSection|first %}
+			{% set item = serviceSection|first %}
+			<div id="content{{item.entity.id}}">
 				{% include '/admin/content_editor/serviceSection.html.twig' %}
 			</div>
 			<div class="container">
 				<div class="row row-cols-1 row-cols-xl-2">
 					{% for item in serviceItem %}
-						<div id="jobItem{{item.entity.id}}">
+						<div id="content{{item.entity.id}}">
 							{% include '/admin/content_editor/serviceItem.html.twig' %}
 						</div>
 					{% endfor %}
-
 				</div>
 			</div>
 		</section>
 
 		<section id="activisu">
 			{% set item = activisuSection|first %}
-			{% include '/admin/content_editor/activisuSection.html.twig' %}
+			<div id="content{{item.entity.id}}">
+				{% include '/admin/content_editor/activisuSection.html.twig' %}
+			</div>
 		</section>
 
 		<section id="magasin" class="my-5">
@@ -98,14 +98,14 @@
 				</div>
 
 				<div class="col-12 col-xl-6 align-self-center pr-5">
-					<div id="shop">
-						{% set item = shopSection|first %}
+					{% set item = shopSection|first %}
+					<div id="content{{item.entity.id}}">
 						{% include '/admin/content_editor/shopSection.html.twig' %}
 					</div>
 					<div class="d-flex flex-wrap">
 						{% for item in shopItem %}
 							<div class="col-12 col-md-6">
-								<div id="shopItem{{item.entity.id}}">
+								<div id="content{{item.entity.id}}">
 									{% include '/admin/content_editor/shopItem.html.twig' %}
 								</div>
 							</div>
