@@ -1,9 +1,9 @@
 <div class="container my-5 position-relative">
 	<h2>{{item.entity.title}}</h2>
 	<p>{{item.entity.content}}</p>
-	<button class="btn btn-primary btn-edit" type="button" data-toggle="modal" data-target="#modalForm{{item.entity.id}}">
+	<button class="btn btn-primary btn-edit" type="button" data-id="{{item.entity.id}}">
 		<span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span>
 	</button>
 </div>
 
-{% include '/admin/content_editor/modalContentForm.html.twig' %}
+

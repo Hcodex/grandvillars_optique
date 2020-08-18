@@ -4,7 +4,7 @@
 			<i class="iconify align-self-center mr-3 text-primary d-none d-sm-block" data-icon="whh:gears" data-inline="false" data-width="50"></i>
 			<div class="media-body">
 				<h3>{{item.entity.title}}</h3>
-				<button class="btn btn-info btn-edit" type="button" data-toggle="modal" data-target="#modalForm{{item.entity.id}}">
+				<button class="btn btn-info btn-edit" type="button" data-id="{{item.entity.id}}">
 					<span class="iconify" data-icon="clarity:edit-solid"></span>
 				</button>
 				<hr class="bg-primary">
@@ -15,4 +15,3 @@
 	</div>
 </div>
 
-{% include '/admin/content_editor/modalContentForm.html.twig' %}

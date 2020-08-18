@@ -97,4 +97,43 @@ class AdminContentEditorController extends AbstractController
 
         return new Response('This is not ajax!', 400);
     }
+
+
+    /**
+     * @Route("/admin/content/{id}/axjaxContentFormCreate", name="admin_content_ajaxFormCreate")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function _ajaxContentFormCreate(Content $content, Request $request)
+    {
+        if ($request->isXMLHttpRequest()) {
+
+            $form = $this->createForm(ContentType::class, $content);
+
+            $categoryName = $content->getContentCategory()->getName();
+
+            switch ($categoryName) {
+                case "quoteSection":
+                    $arg['labels'] = [
+                        "title" => "Auteur",
+                        "content" => "Texte",
+                    ];
+                    break;
+                case "jobItem":
+                    $arg['labels'] = [
+                        "title" => "Icône",
+                        "content" => "Texte",
+                    ];
+                    break;
+            }
+
+            $arg['item'] = [
+                'form' => $form->createView(),
+                'entity' => $content,
+            ];
+
+            return $this->render('admin/content_editor/modalContentForm.html.twig', $arg);
+        }
+
+        return new Response('This is not ajax!', 400);
+    }
 }
