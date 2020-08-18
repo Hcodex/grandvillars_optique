@@ -3,7 +3,7 @@
 		<div class="media">
 			<img src="/img/cedric.jpg" alt="Cedric Hinterlang" width="100px" class="rounded-circle align-self-center mr-3">
 			<div class="media-body">
-				<p>"{{item.entity.content}}"</p>
+				{{item.entity.content|raw}}
 				<small>{{item.entity.title}}</small>
 				<button class="btn btn-primary btn-edit" type="button" data-id="{{item.entity.id}}">
 					<span class="iconify" data-icon="clarity:edit-solid"></span>
@@ -11,4 +11,3 @@
 			</div>
 		</div>
 	</div>
-

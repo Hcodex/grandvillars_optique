@@ -29,7 +29,6 @@
 			{% set item = quoteSection|first %}
 			<div id="content{{item.entity.id}}">
 				{% include '/admin/content_editor/quoteSection.html.twig' %}
-				{% include '/admin/content_editor/modalContentForm.html.twig' %}
 			</div>
 		</section>
 
@@ -143,6 +142,6 @@
 				</div>
 			</div>
 		</section>
-
+				{% include '/admin/content_editor/modalContentForm.html.twig' %}
 	</main>
 {% endblock %}

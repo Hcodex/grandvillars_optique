@@ -1,6 +1,6 @@
 <div class="position-relative">
 	<h2>{{item.entity.title}}</h2>
-	<p>{{item.entity.content}}</p>
+	{{item.entity.content|raw}}
 	<button class="btn btn-primary btn-edit" type="button" data-id="{{item.entity.id}}">
 		<span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span>
 	</button>
