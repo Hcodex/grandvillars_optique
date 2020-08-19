@@ -98,7 +98,7 @@ class AppFixtures extends Fixture
 
         $quoteSectionContent = new Content;
         $quoteSectionContent->setTitle("Cédric Hinterlang - Opticien");
-        $quoteSectionContent->setContent("Bienvenue chez GRANDVILLARS OPTIQUE et AUDITION, depuis près de 20 ans nous sommes a votre disposition pour la réalisation de vos équipements visuels et auditifs , nous vous remercions pour cette confiance et soyez assuré qu avec toute mon équipe nous mettons toutes nos compétences et notre savoir faire a votre shop pour que votre satisfaction soit maximum");
+        $quoteSectionContent->setContent("Bienvenue chez GRANDVILLARS OPTIQUE et AUDITION, depuis près de 20 ans nous sommes a votre disposition pour la réalisation de vos équipements visuels et auditifs , nous vous remercions pour cette confiance et soyez assuré qu avec toute mon équipe nous mettons toutes nos compétences et notre savoir faire a votre service pour que votre satisfaction soit maximum");
         $quoteSectionContent->setContentCategory($quoteCategory);
         $manager->persist($quoteSectionContent);
 
@@ -183,6 +183,35 @@ class AppFixtures extends Fixture
             $shopItemContent->setContent($shopContent);
             $shopItemContent->setContentCategory($shopItemCategory);
             $manager->persist($shopItemContent);
+        }
+
+        $certificationCategory = new ContentCategory;
+        $certificationCategory->setName('certificationSection');
+        $manager->persist($certificationCategory);
+
+        $certificationSectionContent = new Content;
+        $certificationSectionContent->setTitle("Notre savoir faire est reconnu ");
+        $certificationSectionContent->setContent("blabla");
+        $certificationSectionContent->setContentCategory($certificationCategory);
+        $manager->persist($certificationSectionContent);
+
+
+        $certificationItemCategory = new ContentCategory;
+        $certificationItemCategory->setName('certificationItem');
+        $manager->persist($certificationItemCategory);
+
+        $certifications = array(
+            "Opticien partenaire mutuelles" => 'emojione-v1:left-check-mark',
+            "Partenaire Essilor : opticien engagé" => 'emojione-v1:left-check-mark',
+            "Certifié AFNOR qualité service" => 'emojione-v1:left-check-mark',
+        );
+
+        foreach ($certifications as $certificationContent => $certificationIcon) {
+            $certificationItemContent = new Content;
+            $certificationItemContent->setTitle($certificationIcon);
+            $certificationItemContent->setContent($certificationContent);
+            $certificationItemContent->setContentCategory($certificationItemCategory);
+            $manager->persist($certificationItemContent);
         }
     }
 }
