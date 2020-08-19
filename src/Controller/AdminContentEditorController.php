@@ -118,7 +118,7 @@ class AdminContentEditorController extends AbstractController
                         "content" => "Texte",
                     ];
                     break;
-                case "jobItem":
+                case ($categoryName == "jobItem" || $categoryName == "certificationItem"):
                     $arg['labels'] = [
                         "title" => "Icône",
                         "content" => "Texte",

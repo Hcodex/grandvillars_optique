@@ -116,32 +116,27 @@
 		</section>
 
 		<section id="certifs" class="bg-secondary py-5">
-			<h3 class="text-center text-uppercase px-3">
-				Notre savoir faire est reconnu
-			</h3>
+			{% set item = certificationSection|first %}
+			<div id="content{{item.entity.id}}">
+				{% include '/admin/content_editor/certificationSection.html.twig' %}
+			</div>
+
 			<div class="d-flex justify-content-center mt-5">
 				<div class="col-5 col-sm-4 col-md-2 col-xl-1">
 					<img src="/img/opticien-engage-essilor-2020.png" class="img-fluid" alt="essilor opticien engagé 2020">
 				</div>
 				<div class="d-none d-md-block col-md-6 text-center align-self-center">
-					<h4 class="font-cursive h5">
-						<span class="iconify" data-icon="emojione-v1:left-check-mark"></span>
-						Opticien partenaire mutuelles
-					</h4>
-					<h4 class="font-cursive h5">
-						<span class="iconify" data-icon="emojione-v1:left-check-mark"></span>
-						Partenaire Essilor : opticien engagé
-					</h4>
-					<h4 class="font-cursive h5">
-						<span class="iconify" data-icon="emojione-v1:left-check-mark"></span>
-						Certifié AFNOR qualité service
-					</h4>
+						{% for item in certificationItem %}
+								<div id="content{{item.entity.id}}">
+									{% include '/admin/content_editor/certificationItem.html.twig' %}
+								</div>
+						{% endfor %}
 				</div>
 				<div class="col-5 col-sm-4 col-md-2 col-xl-1">
 					<img src="/img/afnor-certification.png" class="img-fluid" alt="Certifiaction Afnor qualité en optique">
 				</div>
 			</div>
 		</section>
-				{% include '/admin/content_editor/modalContentForm.html.twig' %}
+		{% include '/admin/content_editor/modalContentForm.html.twig' %}
 	</main>
 {% endblock %}
