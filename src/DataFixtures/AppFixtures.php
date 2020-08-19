@@ -98,7 +98,7 @@ class AppFixtures extends Fixture
 
         $quoteSectionContent = new Content;
         $quoteSectionContent->setTitle("Cédric Hinterlang - Opticien");
-        $quoteSectionContent->setContent("Bienvenue chez GRANDVILLARS OPTIQUE et AUDITION, depuis près de 20 ans nous sommes a votre disposition pour la réalisation de vos équipements visuels et auditifs , nous vous remercions pour cette confiance et soyez assuré qu avec toute mon équipe nous mettons toutes nos compétences et notre savoir faire a votre service pour que votre satisfaction soit maximum");
+        $quoteSectionContent->setContent("<p>Bienvenue chez GRANDVILLARS OPTIQUE et AUDITION, depuis près de 20 ans nous sommes a votre disposition pour la réalisation de vos équipements visuels et auditifs , nous vous remercions pour cette confiance et soyez assuré qu avec toute mon équipe nous mettons toutes nos compétences et notre savoir faire a votre service pour que votre satisfaction soit maximum</p>");
         $quoteSectionContent->setContentCategory($quoteCategory);
         $manager->persist($quoteSectionContent);
 
@@ -108,7 +108,7 @@ class AppFixtures extends Fixture
 
         $serviceSectionContent = new Content;
         $serviceSectionContent->setTitle("Nos services");
-        $serviceSectionContent->setContent("Mauris vel tincidunt nisi. Fusce vestibulum quam libero, eget lobortis enim consectetur vitae. Mauris tristique justo leo, eu mattis metus varius ut. Curabitur pretium mauris diam, sit amet placerat diam eleifend nec. Sed id faucibus turpis. Pellentesque hendrerit nulla vitae ligula pellentesque congue. Curabitur arcu est, rhoncus sollicitudin finibus ut, hendrerit id ligula. Nunc tincidunt purus quis diam congue pellentesque.");
+        $serviceSectionContent->setContent("<p>Mauris vel tincidunt nisi. Fusce vestibulum quam libero, eget lobortis enim consectetur vitae. Mauris tristique justo leo, eu mattis metus varius ut. Curabitur pretium mauris diam, sit amet placerat diam eleifend nec. Sed id faucibus turpis. Pellentesque hendrerit nulla vitae ligula pellentesque congue. Curabitur arcu est, rhoncus sollicitudin finibus ut, hendrerit id ligula. Nunc tincidunt purus quis diam congue pellentesque.</p>");
         $serviceSectionContent->setContentCategory($serviceCategory);
         $manager->persist($serviceSectionContent);
 
@@ -119,7 +119,7 @@ class AppFixtures extends Fixture
 
         $activisuSectionContent = new Content;
         $activisuSectionContent->setTitle("Dans notre magasin : Activisu");
-        $activisuSectionContent->setContent("Dans notre magasin, bénéficiez de l'Activisu avec la technologie Eyecode. C'est un appareil de prise de mesure automatique avec lequel vous pouvez prendre une photo et une séquence vidéo pour voir la monture de profil et de face sur votre visage.");
+        $activisuSectionContent->setContent("<p>Dans notre magasin, bénéficiez de l'Activisu avec la technologie Eyecode. C'est un appareil de prise de mesure automatique avec lequel vous pouvez prendre une photo et une séquence vidéo pour voir la monture de profil et de face sur votre visage.</p>");
         $activisuSectionContent->setContentCategory($activisuCategory);
         $manager->persist($activisuSectionContent);
 
@@ -162,7 +162,7 @@ class AppFixtures extends Fixture
 
         $shopSectionContent = new Content;
         $shopSectionContent->setTitle("Les + Grandvillars Optique");
-        $shopSectionContent->setContent("Votre opticien Grandvillars Optique vous souhaite la bienvenue. Notre équipe de quatre personnes, dont trois opticiens lunetiers diplômés, vous accueille depuis 2002 au centre du village de Grandvillars, dans le Territoire de Belfort.");
+        $shopSectionContent->setContent("<p>Votre opticien Grandvillars Optique vous souhaite la bienvenue. Notre équipe de quatre personnes, dont trois opticiens lunetiers diplômés, vous accueille depuis 2002 au centre du village de Grandvillars, dans le Territoire de Belfort.</p>");
         $shopSectionContent->setContentCategory($shopCategory);
         $manager->persist($shopSectionContent);
 
