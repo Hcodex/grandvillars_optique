@@ -11,6 +11,15 @@ $(document).ready(function () {
         $(".dropdown-menu li:visible").length === 0 ? $('#mutuellesNoResult').removeClass("d-none") : $('#mutuellesNoResult').addClass("d-none");
     });
 
+    $("#healthInsuranceSearchField").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#healthInsurances tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        }).length;
+
+        $("#healthInsurances tr:visible").length === 0 ? $('#mutuellesNoResult').removeClass("d-none") : $('#mutuellesNoResult').addClass("d-none");
+    });
+
 });
 
 
@@ -218,14 +227,17 @@ $(document).on('submit','form[name="content"]', function (e) {
     });
 });
 
-$(document).on('click', '.btn-edit', function (e) {
+$(document).on('click', '.healtInsuranceSetStatus', function (e) {
     e.preventDefault();
+    target = $(this);
     $.ajax({
         type: 'POST',
-        url: '/admin/content/'+ $(this).data('id')+'/axjaxContentFormCreate',
+        url: '/admin/healthInsurance/'+ $(this).data('id')+'/' + $(this).data('status'),
         success: function (data) {
-            $('#modalContentForm').replaceWith(data);
-            $("#modalContentForm").modal();
+            $(target).parent().children()
+            .addClass("bg-secondary border-secondary text-dark"),
+            $(target).removeClass("bg-secondary text-dark");
+            showAlert("<strong>Couverture modifiée</strong>", "success", 700);
         },
         error: function (data) {
             showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);

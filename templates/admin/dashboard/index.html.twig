@@ -154,8 +154,8 @@
 					<thead>
 						<tr class="bg-info">
 							<th scope="col">Pseudo</th>
-							<th scope="col">Rôles</th>
-							<th scope="col">Editer</th>
+							<th scope="col" class="text-center">Rôles</th>
+							<th scope="col" class="text-center">Editer</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -168,8 +168,8 @@
 
 							<tr>
 								<td>{{user.pseudo}}</td>
-								<td>{{user.roles|join(' - ')}}</td>
-								<td>
+								<td class="text-center">{{user.roles|join(' - ')}}</td>
+								<td class="text-center">
 									<a class="btn btn-primary {{userClass}}" href="{{path('admin_user_edit', {'id' : user.id})}}" role="button">
 										<span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span>
 									</a>
@@ -187,6 +187,66 @@
 		<section>
 			<div class="container mt-5 text-primary">
 				<h2>Gestion des images</h2>
+			</div>
+		</section>
+
+		<section>
+			<div class="container mt-5 text-primary">
+				<h2>Mutuelles</h2>
+
+
+				<div id="healthInsurances" class="col-12 p-0">
+					<div class="m-3 bg-white sticky-top shadow">
+						<input class="form-control " id="healthInsuranceSearchField" type="text" placeholder="Rechercher une mutuelle">
+					</div>
+
+					<div id="mutuellesNoResult" class="d-none">
+						<span class="iconify" data-icon="flat-color-icons:cancel"></span>
+						Aucun résultat ne correspond à votre recherche...
+					</div>
+
+					<table class="table">
+						<thead>
+							<tr class="bg-info">
+								<th scope="col">Mutuelle</th>
+								<th scope="col" class="text-center">Couverture</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for healthInsurance in healthInsurances %}
+								<tr >
+									<td>{{healthInsurance.name}}</td>
+									<td class="text-center">
+										{% set hideClass = "bg-secondary text-dark border-secondary"%}
+										{% set enableClass = "bg-secondary text-dark border-secondary"%}
+										{% set disableClass = "bg-secondary text-dark border-secondary "%}
+										{% if healthInsurance.status == 0 %}
+											{% set hideClass = ""%}
+										{% elseif healthInsurance.status == 1 %}
+											{% set enableClass = ""%}
+										{% elseif healthInsurance.status == 2 %}
+											{% set disableClass = ""%}
+										{% endif %}
+
+										<a class="btn btn-primary text-white {{hideClass}} healtInsuranceSetStatus" data-id="{{healthInsurance.id}}" data-status="0" role="button">
+											<span class="iconify" data-icon="clarity:eye-hide-line" data-inline="false"></span>
+										</a>
+										<a class="btn btn-success text-white {{enableClass}} healtInsuranceSetStatus" data-id="{{healthInsurance.id}}" data-status="1" role="button">
+											<span class="iconify" data-icon="bx:bx-check" data-inline="false"></span>
+										</a>
+										<a class="btn btn-danger text-white {{disableClass}} healtInsuranceSetStatus" data-id="{{healthInsurance.id}}" data-status="2" role="button">
+											<span class="iconify" data-icon="carbon:close" data-inline="false"></span>
+										</a>
+
+
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+
+
 			</div>
 		</section>
 		{% include 'admin/partials/modalConfirm.html.twig' %}</main>

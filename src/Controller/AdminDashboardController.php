@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\ClosingDays;
+use App\Entity\HealthInsurance;
 use App\Entity\TimeTable;
 use App\Form\ClosingDaysType;
 use App\Form\TimeTableType;
@@ -12,6 +13,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ClosingDaysRepository;
 use App\Repository\ContentRepository;
+use App\Repository\HealthInsuranceRepository;
 use App\Repository\TimeTableRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -19,6 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
 class AdminDashboardController extends AbstractController
 {
@@ -26,7 +29,7 @@ class AdminDashboardController extends AbstractController
      * @Route("/admin/", name="admin_dashboard")
      * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
      */
-    public function index(Request $request, EntityManagerInterface $manager, ClosingDaysRepository $closingDayRepo, UserRepository $userRepo, TimeTableRepository $timeTableRepo)
+    public function index(Request $request, EntityManagerInterface $manager, ClosingDaysRepository $closingDayRepo, UserRepository $userRepo, TimeTableRepository $timeTableRepo, HealthInsuranceRepository $healthInsuranceRepo)
     {
         $addClosingDay = new ClosingDays;
 
@@ -57,6 +60,7 @@ class AdminDashboardController extends AbstractController
             'publicHollydays' => PublicHollydays::getHollydays(),
             'users' => $userRepo->findAll(),
             'timeTable' => $timeTableRepo->getFirst(),
+            'healthInsurances' => $healthInsuranceRepo->findAll(),
         ]);
     }
 
@@ -134,4 +138,36 @@ class AdminDashboardController extends AbstractController
             'timeTable' => $editedTimeTable,
         ]);
     }
+
+
+
+    /**
+     * Edit le staut dun mutuelle
+     * 
+     * @Route("admin/healthInsurance/{id}/{status}", name="admin_healthInsurance_Status_Edit")
+     * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
+     */
+    public function _ajaxHealthInsuranceStatusEdit(HealthInsurance $healthInsurance, $status, Request $request, EntityManagerInterface $manager)
+    {
+
+        if ($request->isXMLHttpRequest()) {
+
+            $healthInsurance->setStatus($status);
+            $manager->persist($healthInsurance);
+            $manager->flush();
+                return new Response('Ok');
+            }
+
+        return new Response('This is not ajax!', 400);
+    }
+
+
+
+
+
+
+
+
+
+
 }
