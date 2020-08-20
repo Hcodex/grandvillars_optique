@@ -14,3 +14,8 @@
     padding : 0px;
     line-height : 30px;
 }
+
+#healthInsurances{
+    max-height : 600px;
+    overflow-y : scroll;
+}
