@@ -244,3 +244,18 @@ $(document).on('click', '.healtInsuranceSetStatus', function (e) {
         }
     });
 });
+
+$(document).on('click', '.btn-edit', function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: '/admin/content/'+ $(this).data('id')+'/axjaxContentFormCreate',
+        success: function (data) {
+            $('#modalContentForm').replaceWith(data);
+            $("#modalContentForm").modal();
+        },
+        error: function (data) {
+            showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);
+        }
+    });
+});
