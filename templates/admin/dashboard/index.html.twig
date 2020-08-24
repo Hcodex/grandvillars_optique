@@ -228,13 +228,13 @@
 											{% set disableClass = ""%}
 										{% endif %}
 
-										<a class="btn btn-primary text-white {{hideClass}} healtInsuranceSetStatus" data-id="{{healthInsurance.id}}" data-status="0" role="button">
+										<a class="btn btn-primary text-white {{hideClass}} healtInsuranceSetStatus" data-id="{{healthInsurance.id}}" data-status="hide" role="button">
 											<span class="iconify" data-icon="clarity:eye-hide-line" data-inline="false"></span>
 										</a>
-										<a class="btn btn-success text-white {{enableClass}} healtInsuranceSetStatus" data-id="{{healthInsurance.id}}" data-status="1" role="button">
+										<a class="btn btn-success text-white {{enableClass}} healtInsuranceSetStatus" data-id="{{healthInsurance.id}}" data-status="enable" role="button">
 											<span class="iconify" data-icon="bx:bx-check" data-inline="false"></span>
 										</a>
-										<a class="btn btn-danger text-white {{disableClass}} healtInsuranceSetStatus" data-id="{{healthInsurance.id}}" data-status="2" role="button">
+										<a class="btn btn-danger text-white {{disableClass}} healtInsuranceSetStatus" data-id="{{healthInsurance.id}}" data-status="disable" role="button">
 											<span class="iconify" data-icon="carbon:close" data-inline="false"></span>
 										</a>
 

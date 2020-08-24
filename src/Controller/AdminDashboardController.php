@@ -151,23 +151,24 @@ class AdminDashboardController extends AbstractController
     {
 
         if ($request->isXMLHttpRequest()) {
-
-            $healthInsurance->setStatus($status);
+            switch ($status) {
+                case "hide":
+                    $healthInsurance->setStatus(0);
+                    break;
+                case "enable":
+                    $healthInsurance->setStatus(1);
+                    break;
+                case "disable":
+                    $healthInsurance->setStatus(2);
+                    break;
+                default:
+                return new Response('Erreur', 400);
+            }
             $manager->persist($healthInsurance);
             $manager->flush();
-                return new Response('Ok');
-            }
+            return new Response('Ok');
+        }
 
         return new Response('This is not ajax!', 400);
     }
-
-
-
-
-
-
-
-
-
-
 }
