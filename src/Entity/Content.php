@@ -35,6 +35,11 @@ class Content
      */
     private $content_category;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $icon;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -72,6 +77,18 @@ class Content
     public function setContentCategory(?ContentCategory $content_category): self
     {
         $this->content_category = $content_category;
+
+        return $this;
+    }
+
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+
+    public function setIcon(?string $icon): self
+    {
+        $this->icon = $icon;
 
         return $this;
     }

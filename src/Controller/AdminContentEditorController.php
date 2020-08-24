@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Content;
+use App\Form\ContentIconType;
 use App\Form\ContentType;
 use App\Repository\ContentCategoryRepository;
 use App\Repository\ContentRepository;
@@ -77,7 +78,16 @@ class AdminContentEditorController extends AbstractController
     {
         if ($request->isXMLHttpRequest()) {
 
-            $form = $this->createForm(ContentType::class, $content);
+            $categoryName = $content->getContentCategory()->getName();
+
+            switch ($categoryName) {
+                case "serviceItem":
+                    $form = $this->createForm(ContentIconType::class, $content);
+                    break;
+                    default :
+                    $form = $this->createForm(ContentType::class, $content);
+            }
+
             $form->handleRequest($request);
 
             if ($form->isSubmitted() &&  $form->isValid()) {
@@ -107,7 +117,7 @@ class AdminContentEditorController extends AbstractController
     {
         if ($request->isXMLHttpRequest()) {
 
-            $form = $this->createForm(ContentType::class, $content);
+
 
             $categoryName = $content->getContentCategory()->getName();
 
@@ -124,6 +134,14 @@ class AdminContentEditorController extends AbstractController
                         "content" => "Texte",
                     ];
                     break;
+            }
+
+            switch ($categoryName) {
+                case "serviceItem":
+                    $form = $this->createForm(ContentIconType::class, $content);
+                    break;
+                    default :
+                    $form = $this->createForm(ContentType::class, $content);
             }
 
             $arg['item'] = [
