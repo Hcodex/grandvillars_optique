@@ -39,10 +39,8 @@ class AdminDashboardController extends AbstractController
         $closingDaysForm = $this->createForm(ClosingDaysType::class, $addClosingDay);
         $closingDaysForm->handleRequest($request);
 
-        $media = new Media;
 
-        $uploadForm = $this->createForm(UploadType::class, $media);
-        $uploadForm->handleRequest($request);
+        $uploadForm = $this->createForm(UploadType::class);
 
         if ($closingDaysForm->isSubmitted() && $closingDaysForm->isValid()) {
             $manager->persist($addClosingDay);
@@ -51,16 +49,6 @@ class AdminDashboardController extends AbstractController
             $this->addFlash(
                 'success',
                 "Le jour de fermeture a été ajouté"
-            );
-        }
-
-        if ($uploadForm->isSubmitted() && $uploadForm->isValid()) {
-            $manager->persist($media);
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                "Image ajoutée"
             );
         }
 
@@ -190,31 +178,4 @@ class AdminDashboardController extends AbstractController
         return new Response('This is not ajax!', 400);
     }
 
-
-
-
-
-
-    /**
-     * @Route("/admin/upload", name="ajax_upload")
-     * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
-     */
-    public function _ajaxUpload(Request $request, EntityManagerInterface $manager)
-    {
-        if ($request->isXMLHttpRequest()) {
-            $media = new Media;
-
-            $uploadForm = $this->createForm(UploadType::class, $media);
-            $uploadForm->handleRequest($request);
-
-            if ($uploadForm->isSubmitted() && $uploadForm->isValid()) {
-                $manager->persist($media);
-                $manager->flush();
-
-                return new Response('Ok');
-            }
-        }
-
-        return new Response('This is not ajax!', 400);
-    }
 }

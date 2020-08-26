@@ -79,11 +79,15 @@ $('#nextbtn').on('click', function (e) {
     });
 });
 
-$('.showConfirm').on('click', function (e) {
+$(document).on('click', '.showConfirm', function (e) {
     event.preventDefault();
     data = $(this).data("link");
+    ajax = $(this).data("ajax");
     message = $(this).data("message");
-    $("#modalConfirm #confirmBtn").attr('href', data);
+
+    $("#modalConfirm #confirmBtn")
+    .attr('href', data)
+    .addClass(ajax);
     $("#modalConfirm .modal-body").html('<p>' + message + '</p>');
     $("#modalConfirm").modal();
 })
@@ -218,6 +222,33 @@ $(document).on('submit', 'form[name="upload"]', function (e) {
                 }, true);
             }
             return xhr;
+        },//end upload progress
+        success: function (data) {
+            console.log(data);
+            $('#mediaTable tr:last').after(data);
+            $("#modalUploadForm").modal('hide');
+            showAlert("<strong>Upload terminé</strong>, L\'image a été ajoutée avec succès", "success", 5000);
         },
+        error: function (data) {
+            showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);
+        }
     });
 });
+
+$(document).on('click', '.ajaxDeleteMedia', function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: $(this).attr("href"),
+        success: function (data) {
+            console.log(data);
+            $("#mediaRow"+data).remove();
+            $("#modalConfirm").modal('hide')
+            showAlert("Média supprimé avec succès", "success", 5000);
+        },
+        error: function (data) {
+            showAlert("<strong>Erreur</>, la requête n'a pu aboutir", "danger", 5000);
+        }
+    });
+});
+

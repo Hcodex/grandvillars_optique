@@ -1,0 +1,21 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Editer une média
+{% endblock %}
+
+{% block body %}
+	<main>
+		<h1 class="mt-5 pt-5 text-center">Editer un média</h1>
+		<section>
+			<div class="container">
+				<div class="col-12 col-md-6 text-center mx-auto">
+					<img class="text-center" src="{{ vich_uploader_asset(media) }}" alt="{{ media.alt }}" class="img-fluid" alt="Responsive image">
+				</div>
+				{{form_start(form)}}
+				{{form_widget(form)}}
+				<button type="submit" class="btn btn-success">Confirmer</button>
+				{{form_end(form)}}
+			</div>
+		</section>
+	</main>
+{% endblock %}

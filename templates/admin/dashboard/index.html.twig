@@ -184,24 +184,22 @@
 			</div>
 		</section>
 
-		<section>
+		<section id="imagesAdmin">
 			<div class="container mt-5 text-primary">
 				<h2>Gestion des images</h2>
-				<table class="table">
+				<table id="mediaTable" class="table">
 					<thead>
 						<tr class="bg-info">
 							<th scope="col" class="col-1">Image</th>
 							<th scope="col" class="text-center">Fichier</th>
 							<th scope="col" class="text-center">Description</th>
+							<th scope="col" class="text-center">Catégorie</th>
+							<th scope="col" class="text-center">Editer</th>
 						</tr>
 					</thead>
 					<tbody>
 						{% for media in medias %}
-							<tr>
-								<td><img class="img-fluid" src="{{ vich_uploader_asset(media) }}" alt="{{ media.alt }}"/></td>
-								<td class="text-center">{{media.imageName}}</td>
-								<td class="text-center">{{media.alt}}</td>
-							</tr>
+							{% include 'admin/partials/mediaRow.html.twig' %}
 						{% endfor %}
 					</tbody>
 				</table>

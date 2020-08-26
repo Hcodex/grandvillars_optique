@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Content;
 use App\Entity\ContentCategory;
 use App\Entity\HealthInsurance;
+use App\Entity\MediaCategory;
 use App\Entity\Role;
 use App\Entity\TimeTable;
 use App\Entity\User;
@@ -30,6 +31,7 @@ class AppFixtures extends Fixture
 
         $this->loadContent($manager);
         $this->loadHealthInsurances($manager);
+        $this->loadMedias($manager);
         /*
         foreach ($week as $day => $value) {
             $content = new Content;
@@ -192,7 +194,7 @@ class AppFixtures extends Fixture
 
         $certificationSectionContent = new Content;
         $certificationSectionContent->setTitle("Notre savoir faire est reconnu ");
-        $certificationSectionContent->setContent("blabla");
+        $certificationSectionContent->setContent("<p style='text-align:center'><em>Notre magasin est engagé dans une démarche de certification de la qualité de service</em></p>");
         $certificationSectionContent->setContentCategory($certificationCategory);
         $manager->persist($certificationSectionContent);
 
@@ -216,6 +218,22 @@ class AppFixtures extends Fixture
         }
     }
 
+    public function loadMedias(ObjectManager $manager){
+
+        $categories = array(
+            "Marque",
+            "Mutuelle",
+            "Contact",
+            "Citation",
+        );
+
+        foreach ($categories as $categorie) {
+            $mediaCategorie = new MediaCategory;
+            $mediaCategorie->setName($categorie);
+            $manager->persist($mediaCategorie);
+        }
+
+    }
 
     public function loadHealthInsurances(ObjectManager $manager)
     {
