@@ -126,11 +126,11 @@
 					<img src="/img/opticien-engage-essilor-2020.png" class="img-fluid" alt="essilor opticien engagé 2020">
 				</div>
 				<div class="d-none d-md-block col-md-6 text-center align-self-center">
-						{% for item in certificationItem %}
-								<div id="content{{item.entity.id}}">
-									{% include '/admin/content_editor/certificationItem.html.twig' %}
-								</div>
-						{% endfor %}
+					{% for item in certificationItem %}
+						<div id="content{{item.entity.id}}">
+							{% include '/admin/content_editor/certificationItem.html.twig' %}
+						</div>
+					{% endfor %}
 				</div>
 				<div class="col-5 col-sm-4 col-md-2 col-xl-1">
 					<img src="/img/afnor-certification.png" class="img-fluid" alt="Certifiaction Afnor qualité en optique">

@@ -5,15 +5,18 @@ namespace App\Controller;
 use DateTime;
 use App\Entity\ClosingDays;
 use App\Entity\HealthInsurance;
+use App\Entity\Media;
 use App\Entity\TimeTable;
 use App\Form\ClosingDaysType;
 use App\Form\TimeTableType;
+use App\Form\UploadType;
 use App\Service\PublicHollydays;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ClosingDaysRepository;
 use App\Repository\ContentRepository;
 use App\Repository\HealthInsuranceRepository;
+use App\Repository\MediaRepository;
 use App\Repository\TimeTableRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -29,12 +32,17 @@ class AdminDashboardController extends AbstractController
      * @Route("/admin/", name="admin_dashboard")
      * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
      */
-    public function index(Request $request, EntityManagerInterface $manager, ClosingDaysRepository $closingDayRepo, UserRepository $userRepo, TimeTableRepository $timeTableRepo, HealthInsuranceRepository $healthInsuranceRepo)
+    public function index(Request $request, EntityManagerInterface $manager, ClosingDaysRepository $closingDayRepo, UserRepository $userRepo, TimeTableRepository $timeTableRepo, HealthInsuranceRepository $healthInsuranceRepo, MediaRepository $mediaRepo)
     {
         $addClosingDay = new ClosingDays;
 
         $closingDaysForm = $this->createForm(ClosingDaysType::class, $addClosingDay);
         $closingDaysForm->handleRequest($request);
+
+        $media = new Media;
+
+        $uploadForm = $this->createForm(UploadType::class, $media);
+        $uploadForm->handleRequest($request);
 
         if ($closingDaysForm->isSubmitted() && $closingDaysForm->isValid()) {
             $manager->persist($addClosingDay);
@@ -46,7 +54,15 @@ class AdminDashboardController extends AbstractController
             );
         }
 
+        if ($uploadForm->isSubmitted() && $uploadForm->isValid()) {
+            $manager->persist($media);
+            $manager->flush();
 
+            $this->addFlash(
+                'success',
+                "Image ajoutée"
+            );
+        }
 
         $recurrentClosingDays = $closingDayRepo->getRecurentClosingDays();
         foreach ($recurrentClosingDays as $recurrentClosingDay) {
@@ -61,6 +77,8 @@ class AdminDashboardController extends AbstractController
             'users' => $userRepo->findAll(),
             'timeTable' => $timeTableRepo->getFirst(),
             'healthInsurances' => $healthInsuranceRepo->findAll(),
+            'uploadForm' =>  $uploadForm->createView(),
+            'medias' => $mediaRepo->findAll(),
         ]);
     }
 
@@ -162,11 +180,39 @@ class AdminDashboardController extends AbstractController
                     $healthInsurance->setStatus(2);
                     break;
                 default:
-                return new Response('Erreur', 400);
+                    return new Response('Erreur', 400);
             }
             $manager->persist($healthInsurance);
             $manager->flush();
             return new Response('Ok');
+        }
+
+        return new Response('This is not ajax!', 400);
+    }
+
+
+
+
+
+
+    /**
+     * @Route("/admin/upload", name="ajax_upload")
+     * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
+     */
+    public function _ajaxUpload(Request $request, EntityManagerInterface $manager)
+    {
+        if ($request->isXMLHttpRequest()) {
+            $media = new Media;
+
+            $uploadForm = $this->createForm(UploadType::class, $media);
+            $uploadForm->handleRequest($request);
+
+            if ($uploadForm->isSubmitted() && $uploadForm->isValid()) {
+                $manager->persist($media);
+                $manager->flush();
+
+                return new Response('Ok');
+            }
         }
 
         return new Response('This is not ajax!', 400);

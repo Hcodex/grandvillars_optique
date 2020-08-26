@@ -26,7 +26,7 @@
 				<h2 class="text-primary">Jours de fermeture</h2>
 				<div class="row">
 					<div class="col-6 mt-3">
-						<div class="card h-100 " data-toggle="modal" data-target="#modalClosingDays">
+						<div class="card h-100 btn p-0" data-toggle="modal" data-target="#modalClosingDays">
 							<div class="card-body text-center d-flex text-center">
 								<h3 class="h1 align-self-center mx-auto">
 									<span class="iconify" data-icon="bx:bx-calendar-plus" data-inline="false" data-width="80" data-height="80"></span>
@@ -38,7 +38,7 @@
 						</div>
 					</div>
 					<div class="col-sm-6 mt-3">
-						<div class="card h-100" data-toggle="modal" data-target="#modalCalendar">
+						<div class="card h-100 btn p-0" data-toggle="modal" data-target="#modalCalendar">
 							<div class="card-body text-center d-flex text-center">
 								<h3 class="h3 align-self-center mx-auto">
 									<span class="iconify" data-icon="clarity:calendar-line" data-inline="false" data-width="80" data-height="80"></span>
@@ -187,6 +187,25 @@
 		<section>
 			<div class="container mt-5 text-primary">
 				<h2>Gestion des images</h2>
+				<table class="table">
+					<thead>
+						<tr class="bg-info">
+							<th scope="col" class="col-1">Image</th>
+							<th scope="col" class="text-center">Fichier</th>
+							<th scope="col" class="text-center">Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for media in medias %}
+							<tr>
+								<td><img class="img-fluid" src="{{ vich_uploader_asset(media) }}" alt="{{ media.alt }}"/></td>
+								<td class="text-center">{{media.imageName}}</td>
+								<td class="text-center">{{media.alt}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				<a class="btn btn-primary text-white" data-toggle="modal" data-target="#modalUploadForm">Ajouter une image</a>
 			</div>
 		</section>
 
@@ -214,7 +233,7 @@
 						</thead>
 						<tbody>
 							{% for healthInsurance in healthInsurances %}
-								<tr >
+								<tr>
 									<td>{{healthInsurance.name}}</td>
 									<td class="text-center">
 										{% set hideClass = "bg-secondary text-dark border-secondary"%}
@@ -249,5 +268,8 @@
 
 			</div>
 		</section>
-		{% include 'admin/partials/modalConfirm.html.twig' %}</main>
+
+		{% include 'admin/partials/modalConfirm.html.twig' %}
+		{% include 'admin/partials/modalUploadForm.html.twig' %}
+		</main>
 {% endblock %}
