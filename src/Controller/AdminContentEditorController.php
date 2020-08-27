@@ -7,6 +7,8 @@ use App\Form\ContentIconType;
 use App\Form\ContentType;
 use App\Repository\ContentCategoryRepository;
 use App\Repository\ContentRepository;
+use App\Repository\MediaCategoryRepository;
+use App\Repository\MediaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -28,47 +30,16 @@ class AdminContentEditorController extends AbstractController
 
         foreach ($categories as $categorie) {
             $items = $contentRepo->findByCategoryField($categorie->getName());
-
             foreach ($items as $item) {
-                $itemForm = $this->createForm(ContentType::class, $item)->createView();
-                $arg[$categorie->getName()][$item->getId()] = [
-                    'form' => $itemForm,
-                    'entity' => $item
-                ];
+                $arg[$categorie->getName()][$item->getId()] = $item;
             }
         }
+
         dump($arg);
 
         return $this->render('admin/content_editor/index.html.twig', $arg);
     }
 
-
-    /**
-     * @Route("/admin/content/{id}/update", name="admin_content_update")
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function updateContent(Content $content, Request $request, EntityManagerInterface $manager)
-    {
-        $form = $this->createForm(ContentType::class, $content);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() &&  $form->isValid()) {
-            $manager->persist($content);
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                "Contenu mis à jour"
-            );
-        } else {
-            $this->addFlash(
-                'danger',
-                "Erreur lors de la mise à jour"
-            );
-        }
-
-        return $this->redirectToRoute('admin_content_editor');
-    }
 
     /**
      * @Route("/admin/content/{id}/axjaxUpdate", name="admin_content_ajaxUpdate")
@@ -96,10 +67,7 @@ class AdminContentEditorController extends AbstractController
 
                 $categorie = $content->getContentCategory()->getName();
 
-                $arg['item'] = [
-                    'form' => $form->createView(),
-                    'entity' => $content
-                ];
+                $arg['item'] = $content;
 
                 return $this->render('admin/content_editor/' . $categorie . '.html.twig', $arg);
             }
@@ -116,8 +84,6 @@ class AdminContentEditorController extends AbstractController
     public function _ajaxContentFormCreate(Content $content, Request $request)
     {
         if ($request->isXMLHttpRequest()) {
-
-
 
             $categoryName = $content->getContentCategory()->getName();
 
@@ -143,13 +109,21 @@ class AdminContentEditorController extends AbstractController
                     default :
                     $form = $this->createForm(ContentType::class, $content);
             }
-
+/*
             $arg['item'] = [
                 'form' => $form->createView(),
                 'entity' => $content,
             ];
 
             return $this->render('admin/content_editor/modalContentForm.html.twig', $arg);
+
+*/
+
+            return $this->render('admin/content_editor/modalContentForm.html.twig', [
+                'form' =>   $form->createView(),
+                'entity' => $content,
+            ]);
+
         }
 
         return new Response('This is not ajax!', 400);

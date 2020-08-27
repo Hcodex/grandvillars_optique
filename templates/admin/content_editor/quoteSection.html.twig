@@ -1,13 +1,12 @@
-
-	<div class="container position-relative">
-		<div class="media">
-			<img src="/img/cedric.jpg" alt="Cedric Hinterlang" width="100px" class="rounded-circle align-self-center mr-3">
-			<div class="media-body">
-				{{item.entity.content|raw}}
-				<small>{{item.entity.title}}</small>
-				<button class="btn btn-primary btn-edit" type="button" data-id="{{item.entity.id}}">
-					<span class="iconify" data-icon="clarity:edit-solid"></span>
-				</button>
-			</div>
+<div class="container position-relative">
+	<div class="media">
+		<img src="/img/cedric.jpg" alt="Cedric Hinterlang" width="100px" class="rounded-circle align-self-center mr-3">
+		<div class="media-body">
+			{{item.content|raw}}
+			<small>{{item.title}}</small>
+			<button class="btn btn-primary btn-edit" type="button" data-id="{{item.id}}">
+				<span class="iconify" data-icon="clarity:edit-solid"></span>
+			</button>
 		</div>
 	</div>
+</div>

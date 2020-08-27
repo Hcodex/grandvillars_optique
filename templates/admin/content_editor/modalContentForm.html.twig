@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalContentForm" tabindex="-1" role="dialog" aria-labelledby="modalForm{{item.entity.id}}" aria-hidden="true">
+<div class="modal fade" id="modalContentForm" tabindex="-1" role="dialog" aria-labelledby="modalForm{{entity.id}}" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -8,16 +8,16 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				{{form_start(item.form, {'action': path('admin_content_update', {'id' : item.entity.id}), 'method': 'POST', 'attr':{'data-id': item.entity.id, 'data-section' : 'content' ~ item.entity.id }})}}
+				{{form_start(form, {'action': path('admin_content_ajaxUpdate', {'id' : entity.id}), 'method': 'POST', 'attr':{'data-id': entity.id, 'data-section' : 'content' ~ entity.id }})}}
 				{% if labels is defined %}
-					{{ form_row(item.form.title, {'label': labels.title}) }}
-					{{ form_row(item.form.content, {'label': labels.content}) }}
+					{{ form_row(form.title, {'label': labels.title}) }}
+					{{ form_row(form.content, {'label': labels.content}) }}
 				{% else %}
-					{{form_widget(item.form)}}
+					{{form_widget(form)}}
 				{% endif %}
 				<button type="submit" data-toggle="modal" data-target="#modalContentForm" aria-expanded="false" aria-controls="collapseExample" class="btn btn-success">Modifier</button>
 				<button class="btn btn-darker" type="button" data-toggle="modal" data-target="#modalContentForm" aria-expanded="false" aria-controls="collapseExample">Annuler</button>
-				{{form_end(item.form)}}
+				{{form_end(form)}}
 			</div>
 		</div>
 	</div>
