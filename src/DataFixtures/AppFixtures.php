@@ -221,10 +221,15 @@ class AppFixtures extends Fixture
     public function loadMedias(ObjectManager $manager){
 
         $categories = array(
-            "Marque",
-            "Mutuelle",
-            "Contact",
-            "Citation",
+            "marque",
+            "mutuelle",
+            "autre",
+            "site",
+            "contact",
+            "quote",
+            "activisu",
+            "certifs",
+            "cover"
         );
 
         foreach ($categories as $categorie) {

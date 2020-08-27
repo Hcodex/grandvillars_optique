@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Media;
 use App\Entity\MediaCategory;
+use App\Repository\MediaCategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +22,11 @@ class EditMediaType extends AbstractType
             'choice_label' => 'name',
             'multiple' => 'true',
             'expanded' => true,
-        ])
+            'query_builder' => function (MediaCategoryRepository $er) {
+                return $er->createQueryBuilder('u')
+                ->andWhere("u.name = 'Marque' OR u.name = 'Mutuelle' OR u.name = 'Autre' ");
+            }
+        ]);
         ;
     }
 

@@ -80,7 +80,7 @@ class AdminMediaController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    public function editUser(Media $media, Request $request,  EntityManagerInterface $manager){
+    public function editMedia(Media $media, Request $request,  EntityManagerInterface $manager){
 
         $form = $this->createForm(EditMediaType::class, $media);
 
