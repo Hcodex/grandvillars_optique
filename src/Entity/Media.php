@@ -69,6 +69,9 @@ class Media
 
     /**
      * @ORM\ManyToMany(targetEntity=MediaCategory::class, inversedBy="mediaId")
+     * @ORM\JoinTable(name="media_media_category",
+     *      joinColumns={@ORM\JoinColumn(name="media_id", referencedColumnName="id")},
+     *       inverseJoinColumns={@ORM\JoinColumn(name="media_category_id", referencedColumnName="id")})                         
      */
     private $mediaCategory;
 

@@ -1,6 +1,10 @@
 <div class="container position-relative">
 	<div class="media">
-		<img src="/img/cedric.jpg" alt="Cedric Hinterlang" width="100px" class="rounded-circle align-self-center mr-3">
+		{% if quoteMedia is defined %}
+			<img src="{{ vich_uploader_asset(quoteMedia|first) }}" alt="{{quoteMedia|first.alt }}" width="100px" class="rounded-circle align-self-center mr-3">
+		{% else %}
+			<img src="/img/cedric.jpg" alt="Cedric Hinterlang" width="100px" class="rounded-circle align-self-center mr-3">
+		{% endif %}
 		<div class="media-body">
 			{{item.content|raw}}
 			<small>{{item.title}}</small>

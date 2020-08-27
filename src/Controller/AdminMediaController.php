@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Media;
+use App\Entity\MediaCategory;
+use App\Form\DefineMediaType;
 use App\Form\EditMediaType;
 use App\Form\UploadType;
+use App\Repository\MediaCategoryRepository;
+use App\Repository\MediaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,12 +69,12 @@ class AdminMediaController extends AbstractController
                 "L'image'a été supprimée"
             );
 
-            return new Response ($mediaId);
+            return new Response($mediaId);
         }
         return new Response('This is not ajax!', 400);
     }
 
-            /**
+    /**
      * Permet d'éditer un média
      * 
      * @Route("/admin/media/{id}/edit", name="admin_media_edit")
@@ -80,7 +84,8 @@ class AdminMediaController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    public function editMedia(Media $media, Request $request,  EntityManagerInterface $manager){
+    public function editMedia(Media $media, Request $request,  EntityManagerInterface $manager)
+    {
 
         $form = $this->createForm(EditMediaType::class, $media);
 
@@ -89,7 +94,7 @@ class AdminMediaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($media);
             $manager->flush();
-            
+
             $this->addFlash(
                 'success',
                 "Média modifié avec succès"
@@ -104,4 +109,43 @@ class AdminMediaController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet d'éditer un média
+     * 
+     * @Route("/admin/media/{name}/define", name="admin_media_define")
+     * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
+     * 
+
+     */
+    public function defineMedia(MediaCategory $mediaCatagory, Request $request, EntityManagerInterface $manager, MediaRepository $mediaRepo)
+    {
+        /*$media->addMediaId();
+        $manager->persist($media);
+        $manager->flush();*/
+        dump($mediaCatagory);
+
+        $form = $this->createForm(DefineMediaType::class, $mediaCatagory);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            dump($mediaCatagory);
+
+            $manager->persist($mediaCatagory);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "Média modifié avec succès"
+            );
+
+            return $this->redirectToRoute("admin_dashboard", ['_fragment' => 'imagesAdmin']);
+        }
+
+        return $this->render('admin/dashboard/DefineMedia.html.twig', [
+            'form' => $form->createView(),
+            'mediaCategory' => $mediaCatagory,
+            'medias' => $mediaRepo->findByCategory('site')
+        ]);
+    }
 }

@@ -252,3 +252,12 @@ $(document).on('click', '.ajaxDeleteMedia', function (e) {
     });
 });
 
+$(document).on('click', '.mediaSingleSelector', function (e) {
+    console.log("clicl");
+    id = $(this).data('media_id');
+    $('.mediaSingleSelector').removeClass('border'),
+    $(this).addClass('border border-success');
+    $( "form input" ).prop( "checked", false );
+    $( "#define_media_mediaId_"+id ).prop( "checked", true );
+});
+

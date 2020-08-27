@@ -1,6 +1,13 @@
 <div class="row mx-0 position-relative">
 	<div class="col-sm-2 col-md-1 col-xl-2 d-none d-sm-block d-lg-none d-xl-block order-3 order-xl-1 my-5 align-self-center text-center ">
-		<img class="img-activisu " src="/img/activisu.png" alt="Activisu">
+
+		{% if activisuMedia is defined %}
+			<img class="img-activisu" src="{{ vich_uploader_asset(activisuMedia|first) }}" alt="{{activisuMedia|first.alt}}">
+		{% else %}
+			<img class="img-activisu" src="/img/activisu.png" alt="Activisu">
+		{% endif %}
+
+
 	</div>
 	<div class="col-sm-10 col-lg-6 col-xl-5 order-2 order-xl-2 my-5 align-self-center ">
 		<h3>{{item.title}}</h3>

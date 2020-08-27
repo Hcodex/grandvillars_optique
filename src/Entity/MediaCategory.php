@@ -26,6 +26,9 @@ class MediaCategory
 
     /**
      * @ORM\ManyToMany(targetEntity=Media::class, mappedBy="mediaCategory")
+     * @ORM\JoinTable(name="media_media_category",
+     *      joinColumns={@ORM\JoinColumn(name="media_category_id", referencedColumnName="id")},
+     *       inverseJoinColumns={@ORM\JoinColumn(name="media_id", referencedColumnName="id")})                         
      */
     private $mediaId;
 
@@ -77,5 +80,14 @@ class MediaCategory
         }
 
         return $this;
+    }
+
+    public function getMedias()
+    {
+        $medias= $this->mediaId->map(function ($media) {
+            return $media->getId();
+        })->toArray();
+
+        return  $medias;
     }
 }

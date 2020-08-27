@@ -23,7 +23,7 @@ class AdminContentEditorController extends AbstractController
      * @Route("/admin/contentEditor", name="admin_content_editor")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function index(ContentRepository $contentRepo, ContentCategoryRepository $contentCategoryRepo)
+    public function index(ContentRepository $contentRepo, ContentCategoryRepository $contentCategoryRepo, MediaRepository $mediaRepo)
     {
 
         $categories = $contentCategoryRepo->findAll();
@@ -34,6 +34,9 @@ class AdminContentEditorController extends AbstractController
                 $arg[$categorie->getName()][$item->getId()] = $item;
             }
         }
+
+        $arg['quoteMedia'] = $mediaRepo->findByCategory('quote');
+        $arg['activisuMedia'] = $mediaRepo->findByCategory('activisu');
 
         dump($arg);
 

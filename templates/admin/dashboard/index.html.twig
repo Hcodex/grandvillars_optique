@@ -187,6 +187,14 @@
 		<section id="imagesAdmin">
 			<div class="container mt-5 text-primary">
 				<h2>Gestion des images</h2>
+				<div class="my-4">
+					<a class="btn btn-primary" href="{{path('admin_media_define', {'name' : "quote"})}}" role="button">Definir l'image du bloc citation
+					</a>
+					<a class="btn btn-primary" href="{{path('admin_media_define', {'name' : "activisu"})}}" role="button">Definir l'image activisu
+					</a>
+					<a class="btn btn-primary" href="{{path('admin_media_define', {'name' : "cover"})}}" role="button">Definir l'image de couverture
+					</a>
+				</div>
 				<table id="mediaTable" class="table">
 					<thead>
 						<tr class="bg-info">
@@ -269,5 +277,5 @@
 
 		{% include 'admin/partials/modalConfirm.html.twig' %}
 		{% include 'admin/partials/modalUploadForm.html.twig' %}
-		</main>
+	</main>
 {% endblock %}
