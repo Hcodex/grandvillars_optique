@@ -35,8 +35,11 @@ class AdminContentEditorController extends AbstractController
             }
         }
 
-        $arg['quoteMedia'] = $mediaRepo->findByCategory('quote');
-        $arg['activisuMedia'] = $mediaRepo->findByCategory('activisu');
+        $mediaContentCategories = $this->getParameter('media.contentCategories');
+
+        foreach ($mediaContentCategories as $mediaContentCategorie) {
+            $arg[$mediaContentCategorie.'Media'] = $mediaRepo->findByCategory($mediaContentCategorie);
+        }
 
         dump($arg);
 

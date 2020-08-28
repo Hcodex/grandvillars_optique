@@ -1,4 +1,12 @@
 {% set deleteMessage = "L'image <strong> " ~ media.imageName ~ "</strong> sera définitivement supprimée" %}
+
+{% set disableDelete = "" %}
+{% for categorie in media.categories %}
+	{% if categorie in lockedMediaCategories %}
+		{% set disableDelete = "disabled" %}
+	{% endif %}
+{% endfor %}
+
 <tr id="mediaRow{{media.id}}">
 	<td><img class="img-fluid" src="{{ vich_uploader_asset(media) }}" alt="{{ media.alt }}"/></td>
 	<td class="text-center">{{media.imageName}}</td>
@@ -8,7 +16,8 @@
 		<a class="btn btn-primary" href="{{path('admin_media_edit', {'id' : media.id})}}" role="button">
 			<span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span>
 		</a>
-		<a class="showConfirm btn btn-danger text-white" data-link="{{path('admin_media_delete', {'id' : media.id})}}" data-message="{{deleteMessage}}" data-ajax="ajaxDeleteMedia">
+
+		<a class="showConfirm btn btn-danger text-white {{disableDelete}}" data-link="{{path('admin_media_delete', {'id' : media.id})}}" data-message="{{deleteMessage}}" data-ajax="ajaxDeleteMedia">
 			<span class="iconify" data-icon="ic:baseline-delete" data-inline="false"></span>
 		</a>
 	</td>

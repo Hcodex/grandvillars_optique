@@ -13,7 +13,11 @@
 {% block body %}
 
 	<main data-spy="scroll" data-target="#navbar" data-offset="0">
-		<div id="slider" class="vh-100 d-flex align-content-end flex-wrap">
+		{% if coverMedia is not empty %}
+				<div id="slider" class="vh-100 d-flex align-content-end flex-wrap" style="background-image:url('{{vich_uploader_asset(coverMedia|first) }}')">
+		{% else %}
+				<div id="slider" class="vh-100 d-flex align-content-end flex-wrap">
+		{% endif %}
 			<div id='title' class="mb-5">
 				<h1>
 					<span class="h1-1">Bienvenue chez</span>

@@ -117,21 +117,16 @@ class AdminMediaController extends AbstractController
      * 
 
      */
-    public function defineMedia(MediaCategory $mediaCatagory, Request $request, EntityManagerInterface $manager, MediaRepository $mediaRepo)
+    public function defineMedia(MediaCategory $mediaCategory, Request $request, EntityManagerInterface $manager, MediaRepository $mediaRepo)
     {
-        /*$media->addMediaId();
-        $manager->persist($media);
-        $manager->flush();*/
-        dump($mediaCatagory);
 
-        $form = $this->createForm(DefineMediaType::class, $mediaCatagory);
-
+        $form = $this->createForm(DefineMediaType::class, $mediaCategory);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($mediaCatagory);
+            dump($mediaCategory);
 
-            $manager->persist($mediaCatagory);
+            $manager->persist($mediaCategory);
             $manager->flush();
 
             $this->addFlash(
@@ -144,8 +139,8 @@ class AdminMediaController extends AbstractController
 
         return $this->render('admin/dashboard/DefineMedia.html.twig', [
             'form' => $form->createView(),
-            'mediaCategory' => $mediaCatagory,
-            'medias' => $mediaRepo->findByCategory('site')
+            'mediaCategory' => $mediaCategory,
+            'medias' => $mediaRepo->findAll()
         ]);
     }
 }

@@ -1,7 +1,7 @@
 <div class="row mx-0 position-relative">
 	<div class="col-sm-2 col-md-1 col-xl-2 d-none d-sm-block d-lg-none d-xl-block order-3 order-xl-1 my-5 align-self-center text-center ">
 
-		{% if activisuMedia is defined %}
+		{% if activisuMedia is not empty %}
 			<img class="img-activisu" src="{{ vich_uploader_asset(activisuMedia|first) }}" alt="{{activisuMedia|first.alt}}">
 		{% else %}
 			<img class="img-activisu" src="/img/activisu.png" alt="Activisu">

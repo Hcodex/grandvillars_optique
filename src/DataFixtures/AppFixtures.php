@@ -225,12 +225,13 @@ class AppFixtures extends Fixture
             "mutuelle",
             "autre",
             "site",
-            "contact",
+            "cover",
             "quote",
             "activisu",
-            "certifs",
-            "cover"
+            "carousel",
+            "certifs"
         );
+
 
         foreach ($categories as $categorie) {
             $mediaCategorie = new MediaCategory;
