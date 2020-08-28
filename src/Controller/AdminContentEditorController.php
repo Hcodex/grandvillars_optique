@@ -35,7 +35,7 @@ class AdminContentEditorController extends AbstractController
             }
         }
 
-        $mediaContentCategories = $this->getParameter('media.contentCategories');
+        $mediaContentCategories = $this->getParameter('media.lockedCategories');
 
         foreach ($mediaContentCategories as $mediaContentCategorie) {
             $arg[$mediaContentCategorie.'Media'] = $mediaRepo->findByCategory($mediaContentCategorie);
