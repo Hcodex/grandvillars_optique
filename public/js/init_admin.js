@@ -262,3 +262,9 @@ $(document).on('click', '.mediaSingleSelector', function (e) {
     $( "#define_media_mediaId_"+id ).prop( "checked", true );
 });
 
+$(document).on('click', '.mediaMultipleSelector', function (e) {
+    id = $(this).data('media_id');
+    $(this).toggleClass('border border-success'),
+    elem = $( "#define_media_mediaId_"+id );
+    elem.prop("checked", !elem.prop("checked"));
+});

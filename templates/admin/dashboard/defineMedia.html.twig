@@ -1,19 +1,23 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Editer une média
+{% block title %}Selection media
 {% endblock %}
 
 {% block body %}
 	<main>
-		<h1 class="mt-5 pt-5 text-center">Editer un média</h1>
+		<h1 class="mt-5 pt-5 text-center">Selection medias</h1>
 		<section>
 			<div class="container">
 				{% for media in medias %}
 					{% set selectClass = " " %}
-					{% if mediaCategory.medias|first == media.id %}
+					{% set selectorType = "mediaSingleSelector"%}
+					{% if mediaCategory.name == "carousel" %}
+						{% set selectorType = "mediaMultipleSelector" %}
+					{% endif %}
+					{% if media.id in mediaCategory.medias %}
 						{% set selectClass = "border border-success" %}
 					{% endif %}
-					<img class="text-center mediaSingleSelector {{selectClass}}" src="{{ vich_uploader_asset(media) }}" alt="{{ media.alt }}" data-media_id="{{ media.id }}" class="img-fluid" alt="Responsive image">
+					<img class="text-center {{selectorType}} {{selectClass}}" src="{{ vich_uploader_asset(media) }}" alt="{{ media.alt }}" data-media_id="{{ media.id }}" class="img-fluid" alt="Responsive image">
 				{% endfor %}
 
 				{{form_start(form)}}
