@@ -34,7 +34,6 @@
 # Assets and user uploads
 /web/bundles/
 /web/uploads/
-public/img/upload/
 
 # PHPUnit
 /app/phpunit.xml
@@ -54,3 +53,4 @@ public/img/upload/
 
 .env.test
 .env.local
+public/img/upload/
