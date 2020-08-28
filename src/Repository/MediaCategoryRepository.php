@@ -22,19 +22,15 @@ class MediaCategoryRepository extends ServiceEntityRepository
     // /**
     //  * @return MediaCategory[] Returns an array of MediaCategory objects
     //  */
-    /*
-    public function findByExampleField($value)
+    public function findByName($value)
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
+            ->andWhere('m.name = :val')
             ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?MediaCategory

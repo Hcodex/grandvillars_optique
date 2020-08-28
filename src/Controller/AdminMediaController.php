@@ -84,14 +84,21 @@ class AdminMediaController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    public function editMedia(Media $media, Request $request,  EntityManagerInterface $manager)
+    public function editMedia(Media $media, Request $request,  EntityManagerInterface $manager, MediaCategoryRepository $mediaCategoryRepo)
     {
 
-        $form = $this->createForm(EditMediaType::class, $media);
+        $lockedCategories = $this->getParameter('media.contentCategories');
+        $mediaLockedCategories=array_intersect($media->getCategories(), $lockedCategories);
 
+        $form = $this->createForm(EditMediaType::class, $media);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            foreach ($mediaLockedCategories as $categorie){
+                $media->addMediaCategory($mediaCategoryRepo->findByName($categorie));
+            }
+
             $manager->persist($media);
             $manager->flush();
 
