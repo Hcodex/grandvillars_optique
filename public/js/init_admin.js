@@ -227,6 +227,7 @@ $(document).on('submit', 'form[name="upload"]', function (e) {
             console.log(data);
             $('#mediaTable tr:last').after(data);
             $("#modalUploadForm").modal('hide');
+            $('.progress').addClass('d-none');
             showAlert("<strong>Upload terminé</strong>, L\'image a été ajoutée avec succès", "success", 5000);
         },
         error: function (data) {
