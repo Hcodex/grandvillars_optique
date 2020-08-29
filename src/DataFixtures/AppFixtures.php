@@ -96,7 +96,7 @@ class AppFixtures extends Fixture
     public function loadContent(ObjectManager $manager)
     {
         $quoteCategory = new ContentCategory;
-        $quoteCategory->setName('quoteSection');
+        $quoteCategory->setName('quoteSectionContent');
         $manager->persist($quoteCategory);
 
         $quoteSectionContent = new Content;
@@ -117,7 +117,7 @@ class AppFixtures extends Fixture
 
 
         $activisuCategory = new ContentCategory;
-        $activisuCategory->setName('activisuSection');
+        $activisuCategory->setName('activisuSectionContent');
         $manager->persist($activisuCategory);
 
         $activisuSectionContent = new Content;

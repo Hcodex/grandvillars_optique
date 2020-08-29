@@ -88,14 +88,14 @@ class AdminMediaController extends AbstractController
     {
 
         $lockedCategories = $this->getParameter('media.lockedCategories');
-        $mediaLockedCategories=array_intersect($media->getCategories(), $lockedCategories);
+        $mediaLockedCategories = array_intersect($media->getCategories(), $lockedCategories);
 
         $form = $this->createForm(EditMediaType::class, $media);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            foreach ($mediaLockedCategories as $categorie){
+            foreach ($mediaLockedCategories as $categorie) {
                 $media->addMediaCategory($mediaCategoryRepo->findByName($categorie));
             }
 
@@ -117,7 +117,7 @@ class AdminMediaController extends AbstractController
     }
 
     /**
-     * Permet d'éditer un média
+     * Permet de lier une catégorie spéciale à un média
      * 
      * @Route("/admin/media/{name}/define", name="admin_media_define")
      * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
@@ -149,5 +149,38 @@ class AdminMediaController extends AbstractController
             'mediaCategory' => $mediaCategory,
             'medias' => $mediaRepo->findAll()
         ]);
+    }
+
+    /**
+     * Permet de lier une catégorie spéciale à un média
+     * 
+     * @Route("/admin/media/{name}/axjaxMediaSelectorCreate", name="admin_media_selector_create")
+     * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
+     * 
+
+     */
+    public function _ajaxMediaSelectorCreate(MediaCategory $mediaCategory, EntityManagerInterface $manager,  Request $request,  MediaRepository $mediaRepo)
+    {
+        if ($request->isXMLHttpRequest()) {
+            
+            $form = $this->createForm(DefineMediaType::class, $mediaCategory);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $manager->persist($mediaCategory);
+                $manager->flush();
+                
+                return new Response('OK');
+            }
+
+            return $this->render('admin/content_editor/modalMediaSelector.html.twig', [
+                'form' =>   $form->createView(),
+                'medias' => $mediaRepo->findAll(),
+                'mediaCategory' => $mediaCategory,
+            ]);
+        }
+
+        return new Response('This is not ajax!', 400);
     }
 }

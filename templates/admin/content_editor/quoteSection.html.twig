@@ -1,16 +1,14 @@
 <div class="container position-relative">
 	<div class="media">
 		{% if quoteMedia is not empty %}
-			<img src="{{ vich_uploader_asset(quoteMedia|first) }}" alt="{{quoteMedia|first.alt }}" width="100px" class="rounded-circle align-self-center mr-3">
+			<img src="{{ vich_uploader_asset(quoteMedia|first) }}" alt="{{quoteMedia|first.alt }}" width="100px" class="rounded-circle align-self-center mr-3 quoteMedia">
 		{% else %}
 			<img src="/img/cedric.jpg" alt="Cedric Hinterlang" width="100px" class="rounded-circle align-self-center mr-3">
 		{% endif %}
-		<div class="media-body">
-			{{item.content|raw}}
-			<small>{{item.title}}</small>
-			<button class="btn btn-primary btn-edit" type="button" data-id="{{item.id}}">
-				<span class="iconify" data-icon="clarity:edit-solid"></span>
-			</button>
-		</div>
+		<span class="badge badge-secondary">		<button class="btn btn-primary btn-media-selector" type="button" data-mediacategory="quote">
+			<span class="iconify" data-icon="mdi:picture"></span>
+		</button></span>
+
+		{% include '/admin/content_editor/quoteSectionContent.html.twig' %}
 	</div>
 </div>

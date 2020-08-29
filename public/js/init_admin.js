@@ -128,7 +128,8 @@ $(document).on('submit', 'form[name="content"]', function (e) {
         contentType: false,
         processData: false,
         success: function (data) {
-            $('#' + targetSection).html(data);
+            $('#' + targetSection).replaceWith(data);
+            $("#modalContentForm").modal('hide');
             showAlert("<strong>Contenu modifié</strong>", "success", 5000);
         },
         error: function (data) {
@@ -149,6 +150,7 @@ $(document).on('submit', 'form[name="content_icon"]', function (e) {
         processData: false,
         success: function (data) {
             $('#' + targetSection).html(data);
+            $("#modalContentForm").modal('hide');
             showAlert("<strong>Contenu modifié</strong>", "success", 5000);
         },
         error: function (data) {
@@ -189,6 +191,50 @@ $(document).on('click', '.btn-edit', function (e) {
         }
     });
 });
+
+$(document).on('click', '.btn-media-selector', function (e) {
+    console.log( $(this).data('mediacategory'));
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: '/admin/media/' + $(this).data('mediacategory') + '/axjaxMediaSelectorCreate',
+        success: function (data) {
+            console.log(data);
+            $('#modalMediaSelector').replaceWith(data);
+            $("#modalMediaSelector").modal();
+        },
+        error: function (data) {
+            showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);
+        }
+    });
+});
+
+$(document).on('submit', 'form[name="define_media"]', function (e) {
+    e.preventDefault();
+    target= $(this).data('mediacategory');
+    selectedMedias=$("#modalMediaSelector .border-success").attr('src');
+    console.log( $(this).data('mediacategory'));
+    $.ajax({
+        type: 'POST',
+        url: '/admin/media/' + $(this).data('mediacategory') + '/axjaxMediaSelectorCreate',
+        data: new FormData(this),
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            console.log(data);
+            $("#modalMediaSelector").modal('hide');
+            $("#modalMediaSelector").html('');
+            showAlert("Média modifié avec succès", "success", 5000);
+            console.log($("." +target+"Media").attr('src'));
+            console.log("Selected : " +  selectedMedias);
+            $("." +target+"Media").attr('src', selectedMedias);
+        },
+        error: function (data) {
+            showAlert("<strong>Erreur</>, la requête n'a pu aboutir", "danger", 5000);
+        }
+    });
+});
+
 
 $(document).on('submit', 'form[name="upload"]', function (e) {
     e.preventDefault();
@@ -254,9 +300,9 @@ $(document).on('click', '.ajaxDeleteMedia', function (e) {
 });
 
 $(document).on('click', '.mediaSingleSelector', function (e) {
-    console.log("clicl");
+    console.log($(this).attr('src'));
     id = $(this).data('media_id');
-    $('.mediaSingleSelector').removeClass('border'),
+    $('.mediaSingleSelector').removeClass('border border-success'),
     $(this).addClass('border border-success');
     $( "form input" ).prop( "checked", false );
     $( "#define_media_mediaId_"+id ).prop( "checked", true );
