@@ -44,8 +44,10 @@ function showAlert(message, type, closeDelay) {
         window.setTimeout(function () { alert.alert("close") }, closeDelay);
 }
 
-
-
+$('#myTab a').on('click', function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  })
 
 
 $('#nextbtn').on('click', function (e) {

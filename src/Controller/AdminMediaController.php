@@ -170,7 +170,7 @@ class AdminMediaController extends AbstractController
 
                 $manager->persist($mediaCategory);
                 $manager->flush();
-                
+
                 return new Response('OK');
             }
 

@@ -8,6 +8,11 @@
 				</button>
 			</div>
 			<div class="modal-body">
+
+
+				{% set marquesTab = "" %}
+				{% set mutuellesTab = "" %}
+				{% set generalTab = "" %}
 				{% for media in medias %}
 					{% set selectClass = " " %}
 					{% set selectorType = "mediaSingleSelector"%}
@@ -17,11 +22,48 @@
 					{% if media.id in mediaCategory.medias %}
 						{% set selectClass = "border border-success" %}
 					{% endif %}
-					<img class="text-center {{selectorType}} {{selectClass}}" src="{{ vich_uploader_asset(media) }}" alt="{{ media.alt }}" data-media_id="{{ media.id }}" class="img-fluid" alt="Responsive image">
+
+					{% set img %}
+					<img class=" col-2 p-2 text-center {{selectorType}} {{selectClass}}" src="{{ vich_uploader_asset(media) }}" alt="{{ media.alt }}" data-media_id="{{ media.id }}" class="img-fluid" alt="Responsive image">
+					{% endset %}
+
+					{% set flag = false %}
+					{% for categorie in media.Categories %}
+						{% if categorie == "marque" %}
+							{% set marquesTab = marquesTab ~ img %}
+						{% elseif categorie == "mutuelle" %}
+							{% set mutuellesTab = mutuellesTab ~ img  %}
+						{% elseif flag == false %}
+							{% set generalTab = generalTab ~ img %}
+							{% set flag = true %}
+						{% endif %}
+					{% else %}
+						{% set generalTab = generalTab ~ img %}
+					{% endfor %}
 				{% endfor %}
 
-				{{form_start(form, {'attr':{'data-mediacategory' : mediaCategory.name }} )}}
-				{{form_widget(form)}}
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">General</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" id="marques-tab" data-toggle="tab" href="#marques" role="tab" aria-controls="marques" aria-selected="false">Marques</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" id="mutuelles-tab" data-toggle="tab" href="#mutuelles" role="tab" aria-controls="mutuelles" aria-selected="false">Mutuelles</a>
+					</li>
+				</ul>
+				<div class="tab-content" id="nav-tabContent">
+					<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">{{generalTab|raw}}</div>
+					<div class="tab-pane fade" id="marques" role="tabpanel" aria-labelledby="marques-tab">{{marquesTab|raw}}</div>
+					<div class="tab-pane fade" id="mutuelles" role="tabpanel" aria-labelledby="mutuelles-tab">{{mutuellesTab|raw}}</div>
+				</div>
+
+
+				{{form_start(form, {'attr':{'data-mediacategory' : mediaCategory.name }})}}
+				<div class="d-none">
+					{{form_widget(form)}}
+				</div>
 				<button type="submit" class="btn btn-success">Valider la sélection</button>
 				<button class="btn btn-darker" type="button" data-toggle="modal" data-target="#modalMediaSelector" aria-expanded="false" aria-controls="collapseExample">Annuler</button>
 				{{form_end(form)}}

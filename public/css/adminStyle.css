@@ -13,6 +13,7 @@
     height : 30px;
     padding : 0px;
     line-height : 30px;
+    z-index : 10;
 }
 
 .btn-media-selector{
@@ -23,11 +24,17 @@
     height : 30px;
     padding : 0px;
     line-height : 30px;
+    z-index : 10;
 }
 
 
 
 #healthInsurances{
+    max-height : 600px;
+    overflow-y : scroll;
+}
+
+#mediaTableContainer{
     max-height : 600px;
     overflow-y : scroll;
 }
