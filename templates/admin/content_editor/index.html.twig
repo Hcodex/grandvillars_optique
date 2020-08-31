@@ -47,6 +47,58 @@
 				</div>
 			</section>
 
+			<section id="horaires">
+				<div class="card-group bg-secondary">
+					<div class="card border-0 d-none d-xl-block">
+						{% if time1Media is not empty %}
+							<img src="{{ vich_uploader_asset(time1Media|first) }}" alt="{{time1Media|first.alt }}" width="100px" class="card-img-top time1Media">
+						{% else %}
+							<img src="/img/magasin5.jpg" class="card-img-top time1Media" alt="Intérieur grandvillars Optique">
+						{% endif %}
+						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="time1">
+							<span class="iconify" data-icon="mdi:picture"></span>
+						</button>
+					</div>
+					<div class="card border-0">
+						{% if time2Media is not empty %}
+							<img src="{{ vich_uploader_asset(time2Media|first) }}" alt="{{time2Media|first.alt }}" width="100px" class="card-img-top time2Media">
+						{% else %}
+							<img src="/img/magasin4.jpg" class="card-img-top time2Media" alt="Intérieur grandvillars Optique">
+						{% endif %}
+						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="time2">
+							<span class="iconify" data-icon="mdi:picture"></span>
+						</button>
+					</div>
+					<div class="card border-0 d-none d-xxl-block">
+						{% if time3Media is not empty %}
+							<img src="{{ vich_uploader_asset(time3Media|first) }}" alt="{{time3Media|first.alt }}" width="100px" class="card-img-top time3Media">
+						{% else %}
+							<img src="/img/magasin9.jpg" class="card-img-top time3Media" alt="Intérieur grandvillars Optique">
+						{% endif %}
+						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="time3">
+							<span class="iconify" data-icon="mdi:picture"></span>
+						</button>
+					</div>
+					<div class="card border-0 d-flex  align-self-center bg-transparent">
+						<div class="mx-auto">
+							<div class="text-center my-3">
+								<i class="iconify" data-icon="mdi:clock-outline" data-inline="false" data-width="70px"></i>
+							</div>
+						</div>
+					</div>
+					<div class="card border-0 d-none d-lg-block">
+						{% if time4Media is not empty %}
+							<img src="{{ vich_uploader_asset(time4Media|first) }}" alt="{{time4Media|first.alt }}" width="100px" class="card-img-top time4Media">
+						{% else %}
+							<img src="/img/magasin7.jpg" class="card-img-top time4Media" alt="Intérieur grandvillars Optique">
+						{% endif %}
+						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="time4">
+							<span class="iconify" data-icon="mdi:picture"></span>
+						</button>
+					</div>
+				</div>
+			</section>
+
 			<section id="service">
 				{% set item = serviceSection|first %}
 				<div id="content{{item.id}}">
@@ -125,7 +177,7 @@
 						{% if certif2Media is not empty %}
 							<img src="{{ vich_uploader_asset(certif2Media|first) }}" alt="{{certif2Media|first.alt }}" width="100px" class="img-fluid certif2Media">
 						{% else %}
-							<img  src="/img/afnor-certification.png" class="img-fluid" alt="Certifiaction Afnor qualité en optique">
+							<img src="/img/afnor-certification.png" class="img-fluid" alt="Certifiaction Afnor qualité en optique">
 						{% endif %}
 						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="certif2">
 							<span class="iconify" data-icon="mdi:picture"></span>
