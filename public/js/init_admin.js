@@ -251,6 +251,7 @@ $(document).on('click', '.btn-upload', function (e) {
             console.log(data);
             $('#modalUploadForm').replaceWith(data);
             $("#modalUploadForm").modal();
+            $("#modalUploadForm").attr("data-option", option);
             bsCustomFileInput.init()
         },
         error: function (data) {
@@ -261,6 +262,7 @@ $(document).on('click', '.btn-upload', function (e) {
 
 $(document).on('submit', 'form[name="media"]', function (e) {
     e.preventDefault();
+    option = $('#modalUploadForm').data('option');
     $.ajax({
         type: 'POST',
         url: $(this).attr('action'),
@@ -293,7 +295,12 @@ $(document).on('submit', 'form[name="media"]', function (e) {
         },//end upload progress
         success: function (data) {
             console.log(data);
-            $('#mediaTable tr:last').after(data);
+            if (option == "mutuelle"){
+                $('#partenaireMutuelleTable tr:last').after(data);
+            }
+            else{
+                $('#mediaTable tr:last').after(data);
+            };
             $("#modalUploadForm").modal('hide');
             $('.progress').addClass('d-none');
             showAlert("<strong>Upload terminé</strong>, L\'image a été ajoutée avec succès", "success", 5000);

@@ -32,22 +32,11 @@ class MediaType extends AbstractType
         if ($options["mutuelle"]) {
             $builder
                 ->add('title', TextType::class, [
-                    'label' => 'Titre (utilisé pour les mutuelles)',
+                    'label' => 'Titre',
                 ])
                 ->add('description', CKEditorType::class, [
                     'empty_data' => '',
-                    'label' => 'Description (utilisé pour les mutuelles)',
-                ])
-                ->add('mediaCategory', EntityType::class, [
-                    'class' => MediaCategory::class,
-                    'label' => 'Catégorie',
-                    'choice_label' => 'name',
-                    'multiple' => 'false',
-                    'expanded' => false,
-                    'query_builder' => function (MediaCategoryRepository $er) {
-                        return $er->createQueryBuilder('u')
-                            ->andWhere("u.name = 'Mutuelle'");
-                    }
+                    'label' => 'Description',
                 ]);
         } else {
             $builder
@@ -59,7 +48,7 @@ class MediaType extends AbstractType
                     'expanded' => true,
                     'query_builder' => function (MediaCategoryRepository $er) {
                         return $er->createQueryBuilder('u')
-                            ->andWhere("u.name = 'Marque' OR u.name = 'Mutuelle' OR u.name = 'Autre' ");
+                            ->andWhere("u.name = 'Marque' OR u.name = 'Autre' ");
                     }
                 ]);
         }

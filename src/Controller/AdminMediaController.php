@@ -26,7 +26,7 @@ class AdminMediaController extends AbstractController
      * @Route("/admin/upload/{type}", name="ajax_upload")
      * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
      */
-    public function _ajaxUpload(String $type, Request $request, EntityManagerInterface $manager)
+    public function _ajaxUpload(String $type, Request $request, EntityManagerInterface $manager, MediaCategoryRepository $mediaCategoryRepo)
     {
         if ($request->isXMLHttpRequest()) {
             $media = new Media;
@@ -36,6 +36,7 @@ class AdminMediaController extends AbstractController
                     "mutuelle"=> true,
                     "action"=> $this->generateUrl('ajax_upload', ['type' => "mutuelle"]),
                 ]);
+                $media->addMediaCategory($mediaCategoryRepo->findByName("mutuelle"));
             }
             else{
                 $uploadForm = $this->createForm(MediaType::class, $media, [
@@ -51,8 +52,9 @@ class AdminMediaController extends AbstractController
                 $manager->flush();
 
                 return $this->render('admin/partials/mediaRow.html.twig', [
-                    'media' => $media,
-                ]);
+                        'media' => $media,
+                    ]);
+
             }
 
             return $this->render('admin/partials/modalUploadForm.html.twig', [
@@ -82,11 +84,6 @@ class AdminMediaController extends AbstractController
             $manager->remove($media);
             $manager->flush();
 
-            $this->addFlash(
-                'success',
-                "L'image'a été supprimée"
-            );
-
             return new Response($mediaId);
         }
         return new Response('This is not ajax!', 400);
@@ -112,6 +109,7 @@ class AdminMediaController extends AbstractController
             $form = $this->createForm(MediaType::class, $media,  [
                 "mutuelle"=> true,
             ]);
+            $media->addMediaCategory($mediaCategoryRepo->findByName("mutuelle"));
         }
         else{
             $form = $this->createForm(MediaType::class, $media, [

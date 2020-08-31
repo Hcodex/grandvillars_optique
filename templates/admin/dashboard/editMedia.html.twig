@@ -7,13 +7,14 @@
 	<main>
 		<h1 class="mt-5 pt-5 text-center">Editer un média</h1>
 		<section>
-			<div class="container">
-				<div class="col-12 col-md-6 text-center mx-auto">
+			<div class="container py-3">
+				<div class="col-12 col-md-6 text-center mx-auto mb-3">
 					<img class="text-center img-fluid" src="{{ vich_uploader_asset(media) }}" alt="{{ media.alt }}" class="img-fluid" alt="Responsive image">
 				</div>
 				{{form_start(form, {'name': "media_edit_form"})}}
 				{{form_widget(form)}}
 				<button type="submit" class="btn btn-success">Confirmer</button>
+				<a class="btn btn-darker" href="{{path('admin_dashboard')}}">Retour</a>
 				{{form_end(form)}}
 			</div>
 		</section>

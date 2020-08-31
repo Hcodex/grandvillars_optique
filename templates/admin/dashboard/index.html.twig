@@ -196,12 +196,14 @@
 								<th scope="col" class="text-center">Fichier</th>
 								<th scope="col" class="text-center">Description</th>
 								<th scope="col" class="text-center">Catégorie</th>
-								<th scope="col" class="text-center">Editer</th>
+								<th scope="col" class="text-center col-2">Editer</th>
 							</tr>
 						</thead>
 						<tbody>
 							{% for media in medias %}
-								{% include 'admin/partials/mediaRow.html.twig' %}
+								{% if "mutuelle" not in media.categories %}
+									{% include 'admin/partials/mediaRow.html.twig' %}
+								{% endif %}
 							{% endfor %}
 						</tbody>
 					</table>
@@ -212,7 +214,29 @@
 		<section>
 			<div class="container mt-5 text-primary">
 				<h2>Mutuelles</h2>
+				<h3 class="mt-4 text-dark"> - Partenaires mutuelles -</h3>
 				<a class="btn btn-primary text-white my-3 btn-upload" data-formtype="mutuelle">Ajouter un partenaire mutuelle</a>
+				<div id="partenairesMutuelleTableContainer">
+					<table id="partenaireMutuelleTable" class="table">
+						<thead>
+							<tr class="bg-info">
+								<th scope="col" class="col-1">Image</th>
+								<th scope="col" class="text-center">Fichier</th>
+								<th scope="col" class="text-center">Description</th>
+								<th scope="col" class="text-center">Catégorie</th>
+								<th scope="col" class="text-center col-2">Editer</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for media in medias %}
+								{% if "mutuelle" in media.categories %}
+									{% include 'admin/partials/mediaRow.html.twig' %}
+								{% endif %}
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				<h3 class="mt-5 text-dark"> - Couvertures mutuelles -</h3>
 				<div id="healthInsurances" class="col-12 p-0 mb-3">
 					<div class="p-3 bg-white sticky-top shadow">
 						<input class="form-control" id="healthInsuranceSearchField" type="text" placeholder="Rechercher une mutuelle" data-option="mutuelle">
