@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Media;
 use App\Entity\MediaCategory;
+use App\Form\AddMutuelleType;
 use App\Form\DefineMediaType;
 use App\Form\EditMediaType;
+use App\Form\MediaType;
 use App\Form\UploadType;
 use App\Repository\MediaCategoryRepository;
 use App\Repository\MediaRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpParser\Node\Stmt\Else_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,17 +23,27 @@ class AdminMediaController extends AbstractController
 {
 
     /**
-     * @Route("/admin/upload", name="ajax_upload")
+     * @Route("/admin/upload/{type}", name="ajax_upload")
      * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
      */
-    public function _ajaxUpload(Request $request, EntityManagerInterface $manager)
+    public function _ajaxUpload(String $type, Request $request, EntityManagerInterface $manager)
     {
         if ($request->isXMLHttpRequest()) {
             $media = new Media;
 
+            if ($type == "mutuelle"){
+                $uploadForm = $this->createForm(MediaType::class, $media,  [
+                    "mutuelle"=> true,
+                    "action"=> $this->generateUrl('ajax_upload', ['type' => "mutuelle"]),
+                ]);
+            }
+            else{
+                $uploadForm = $this->createForm(MediaType::class, $media, [
+                    "mutuelle"=> false,
+                    "action"=> $this->generateUrl('ajax_upload', ['type' => "default" ]),
+                ]);
+            }
 
-
-            $uploadForm = $this->createForm(UploadType::class, $media);
             $uploadForm->handleRequest($request);
 
             if ($uploadForm->isSubmitted() && $uploadForm->isValid()) {
@@ -41,6 +54,11 @@ class AdminMediaController extends AbstractController
                     'media' => $media,
                 ]);
             }
+
+            return $this->render('admin/partials/modalUploadForm.html.twig', [
+                'uploadForm' => $uploadForm->createView(),
+            ]);
+
         }
 
         return new Response('This is not ajax!', 400);
@@ -90,7 +108,17 @@ class AdminMediaController extends AbstractController
         $lockedCategories = $this->getParameter('media.lockedCategories');
         $mediaLockedCategories = array_intersect($media->getCategories(), $lockedCategories);
 
-        $form = $this->createForm(EditMediaType::class, $media);
+        if (in_array("mutuelle",$media->getCategories() )){
+            $form = $this->createForm(MediaType::class, $media,  [
+                "mutuelle"=> true,
+            ]);
+        }
+        else{
+            $form = $this->createForm(MediaType::class, $media, [
+                "mutuelle"=> false,
+            ]);
+        }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -9,7 +9,7 @@ $(document).ready(function () {
         $("#healthInsurances tr:visible").length === 0 ? $('#mutuellesNoResult').removeClass("d-none") : $('#mutuellesNoResult').addClass("d-none");
     });
 
-    bsCustomFileInput.init()
+    bsCustomFileInput.init();
 
 });
 
@@ -240,13 +240,30 @@ $(document).on('submit', 'form[name="define_media"]', function (e) {
     });
 });
 
-
-$(document).on('submit', 'form[name="upload"]', function (e) {
+$(document).on('click', '.btn-upload', function (e) {
+    console.log( $(this).data('formtype'));
+    option = $(this).data('formtype');
     e.preventDefault();
-
     $.ajax({
         type: 'POST',
-        url: '/admin/upload',
+        url: '/admin/upload/' + option,
+        success: function (data) {
+            console.log(data);
+            $('#modalUploadForm').replaceWith(data);
+            $("#modalUploadForm").modal();
+            bsCustomFileInput.init()
+        },
+        error: function (data) {
+            showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);
+        }
+    });
+});
+
+$(document).on('submit', 'form[name="media"]', function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: $(this).attr('action'),
         data: new FormData(this),
         contentType: false,
         processData: false,

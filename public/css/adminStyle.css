@@ -38,3 +38,7 @@
     max-height : 600px;
     overflow-y : scroll;
 }
+
+.custom-file-input ~ .custom-file-label::after {
+    content: "Parcourir";
+  }

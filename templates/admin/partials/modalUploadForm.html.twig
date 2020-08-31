@@ -8,14 +8,16 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				{{form_start(uploadForm)}}
-				{{form_widget(uploadForm)}}
-				<div class="progress d-none my-3">
-					<div class="progress-bar" role="progressbar"></div>
-				</div>
-				<button type="submit"  class="btn btn-success">Envoyer</button>
-				<button class="btn btn-darker" type="button" data-toggle="modal" data-target="#modalUploadForm" aria-expanded="false" aria-controls="collapseExample">Annuler</button>
-				{{form_end(uploadForm)}}
+				{% if uploadForm is defined %}
+					{{form_start(uploadForm)}}
+					{{form_widget(uploadForm)}}
+					<div class="progress d-none my-3">
+						<div class="progress-bar" role="progressbar"></div>
+					</div>
+					<button type="submit" class="btn btn-success">Envoyer</button>
+					<button class="btn btn-darker" type="button" data-toggle="modal" data-target="#modalUploadForm" aria-expanded="false" aria-controls="collapseExample">Annuler</button>
+					{{form_end(uploadForm)}}
+				{% endif %}
 			</div>
 		</div>
 	</div>

@@ -7,6 +7,7 @@ use App\Entity\ClosingDays;
 use App\Entity\HealthInsurance;
 use App\Entity\Media;
 use App\Entity\TimeTable;
+use App\Form\AddMutuelleType;
 use App\Form\ClosingDaysType;
 use App\Form\TimeTableType;
 use App\Form\UploadType;
@@ -39,9 +40,6 @@ class AdminDashboardController extends AbstractController
         $closingDaysForm = $this->createForm(ClosingDaysType::class, $addClosingDay);
         $closingDaysForm->handleRequest($request);
 
-
-        $uploadForm = $this->createForm(UploadType::class);
-
         if ($closingDaysForm->isSubmitted() && $closingDaysForm->isValid()) {
             $manager->persist($addClosingDay);
             $manager->flush();
@@ -65,7 +63,6 @@ class AdminDashboardController extends AbstractController
             'users' => $userRepo->findAll(),
             'timeTable' => $timeTableRepo->getFirst(),
             'healthInsurances' => $healthInsuranceRepo->findAll(),
-            'uploadForm' =>  $uploadForm->createView(),
             'medias' => $mediaRepo->findAll(),
         ]);
     }

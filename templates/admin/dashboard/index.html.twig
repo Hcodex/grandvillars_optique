@@ -187,7 +187,7 @@
 		<section id="imagesAdmin">
 			<div class="container mt-5 text-primary">
 				<h2>Gestion des images</h2>
-				<a class="btn btn-primary text-white my-3" data-toggle="modal" data-target="#modalUploadForm">Ajouter une image</a>
+				<a class="btn btn-primary text-white my-3 btn-upload">Ajouter une image</a>
 				<div id="mediaTableContainer">
 					<table id="mediaTable" class="table">
 						<thead>
@@ -212,10 +212,10 @@
 		<section>
 			<div class="container mt-5 text-primary">
 				<h2>Mutuelles</h2>
-
+				<a class="btn btn-primary text-white my-3 btn-upload" data-formtype="mutuelle">Ajouter un partenaire mutuelle</a>
 				<div id="healthInsurances" class="col-12 p-0 mb-3">
 					<div class="p-3 bg-white sticky-top shadow">
-						<input class="form-control " id="healthInsuranceSearchField" type="text" placeholder="Rechercher une mutuelle">
+						<input class="form-control" id="healthInsuranceSearchField" type="text" placeholder="Rechercher une mutuelle" data-option="mutuelle">
 					</div>
 
 					<div id="mutuellesNoResult" class="d-none">
