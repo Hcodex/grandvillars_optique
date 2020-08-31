@@ -229,7 +229,8 @@ class AppFixtures extends Fixture
             "quote",
             "activisu",
             "carousel",
-            "certifs"
+            "certif1",
+            "certif2"
         );
 
 

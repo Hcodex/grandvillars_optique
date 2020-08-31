@@ -105,7 +105,14 @@
 
 				<div class="d-flex justify-content-center mt-5">
 					<div class="col-5 col-sm-4 col-md-2 col-xl-1">
-						<img src="/img/opticien-engage-essilor-2020.png" class="img-fluid" alt="essilor opticien engagé 2020">
+						{% if certif1Media is not empty %}
+							<img src="{{ vich_uploader_asset(certif1Media|first) }}" alt="{{certif1Media|first.alt }}" width="100px" class="img-fluid certif1Media">
+						{% else %}
+							<img src="/img/opticien-engage-essilor-2020.png" class="img-fluid" alt="essilor opticien engagé 2020">
+						{% endif %}
+						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="certif1">
+							<span class="iconify" data-icon="mdi:picture"></span>
+						</button>
 					</div>
 					<div class="d-none d-md-block col-md-6 text-center align-self-center">
 						{% for item in certificationItem %}
@@ -115,7 +122,14 @@
 						{% endfor %}
 					</div>
 					<div class="col-5 col-sm-4 col-md-2 col-xl-1">
-						<img src="/img/afnor-certification.png" class="img-fluid" alt="Certifiaction Afnor qualité en optique">
+						{% if certif2Media is not empty %}
+							<img src="{{ vich_uploader_asset(certif2Media|first) }}" alt="{{certif2Media|first.alt }}" width="100px" class="img-fluid certif2Media">
+						{% else %}
+							<img  src="/img/afnor-certification.png" class="img-fluid" alt="Certifiaction Afnor qualité en optique">
+						{% endif %}
+						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="certif2">
+							<span class="iconify" data-icon="mdi:picture"></span>
+						</button>
 					</div>
 				</div>
 			</section>
