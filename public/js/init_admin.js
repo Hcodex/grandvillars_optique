@@ -215,7 +215,7 @@ $(document).on('submit', 'form[name="define_media"]', function (e) {
     e.preventDefault();
     target= $(this).data('mediacategory');
     selectedMedias=$("#modalMediaSelector .border-success").attr('src');
-    console.log( $(this).data('mediacategory'));
+    console.log("cible : " + target);
     $.ajax({
         type: 'POST',
         url: '/admin/media/' + $(this).data('mediacategory') + '/axjaxMediaSelectorCreate',
@@ -230,6 +230,9 @@ $(document).on('submit', 'form[name="define_media"]', function (e) {
             console.log($("." +target+"Media").attr('src'));
             console.log("Selected : " +  selectedMedias);
             $("." +target+"Media").attr('src', selectedMedias);
+            if (target == "cover"){
+                $("#slider").css('background-image', "url("+selectedMedias+")");
+            }
         },
         error: function (data) {
             showAlert("<strong>Erreur</>, la requête n'a pu aboutir", "danger", 5000);
