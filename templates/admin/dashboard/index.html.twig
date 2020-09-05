@@ -201,7 +201,7 @@
 						</thead>
 						<tbody>
 							{% for media in medias %}
-								{% if "mutuelle" not in media.categories %}
+								{% if "mutuelle" not in media.categories and "marque" not in media.categories %}
 									{% include 'admin/partials/mediaRow.html.twig' %}
 								{% endif %}
 							{% endfor %}
@@ -210,6 +210,35 @@
 				</div>
 			</div>
 		</section>
+
+
+		<section>
+			<div class="container mt-5 text-primary">
+				<h2>Marques</h2>
+				<a class="btn btn-primary text-white my-3 btn-upload" data-formtype="marque">Ajouter une marque</a>
+				<div id="brandsTableContainer">
+					<table id="brandsTable" class="table">
+						<thead>
+							<tr class="bg-info">
+								<th scope="col" class="col-1">Image</th>
+								<th scope="col" class="text-center">Fichier</th>
+								<th scope="col" class="text-center">Description</th>
+								<th scope="col" class="text-center">Catégorie</th>
+								<th scope="col" class="text-center col-2">Editer</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for media in medias %}
+								{% if "marque" in media.categories %}
+									{% include 'admin/partials/mediaRow.html.twig' %}
+								{% endif %}
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+
 
 		<section>
 			<div class="container mt-5 text-primary">
@@ -250,7 +279,7 @@
 						Aucun résultat ne correspond à votre recherche...
 					</div>
 
-					<table id="healthInsurancesTable"class="table">
+					<table id="healthInsurancesTable" class="table">
 						<thead>
 							<tr class="bg-info">
 								<th scope="col">Mutuelle</th>
@@ -265,8 +294,6 @@
 						</tbody>
 					</table>
 				</div>
-
-
 			</div>
 		</section>
 

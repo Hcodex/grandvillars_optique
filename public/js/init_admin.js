@@ -47,7 +47,7 @@ function showAlert(message, type, closeDelay) {
 $('#myTab a').on('click', function (e) {
     e.preventDefault()
     $(this).tab('show')
-  })
+})
 
 
 $('#nextbtn').on('click', function (e) {
@@ -87,9 +87,9 @@ $(document).on('click', '.showConfirm', function (e) {
     ajax = $(this).data("ajax");
     message = $(this).data("message");
     $("#modalConfirm #confirmBtn")
-    .removeClass()
-    .attr('href', data)
-    .addClass("btn btn-info "+ ajax);
+        .removeClass()
+        .attr('href', data)
+        .addClass("btn btn-info " + ajax);
     $("#modalConfirm .modal-body").html('<p>' + message + '</p>');
     $("#modalConfirm").modal();
 })
@@ -207,7 +207,7 @@ $(document).on('click', '.btn-edit', function (e) {
 });
 
 $(document).on('click', '.btn-media-selector', function (e) {
-    console.log( $(this).data('mediacategory'));
+    console.log($(this).data('mediacategory'));
     e.preventDefault();
     $.ajax({
         type: 'POST',
@@ -225,8 +225,8 @@ $(document).on('click', '.btn-media-selector', function (e) {
 
 $(document).on('submit', 'form[name="define_media"]', function (e) {
     e.preventDefault();
-    target= $(this).data('mediacategory');
-    selectedMedias=$("#modalMediaSelector .border-success").attr('src');
+    target = $(this).data('mediacategory');
+    selectedMedias = $("#modalMediaSelector .border-success").attr('src');
     console.log("cible : " + target);
     $.ajax({
         type: 'POST',
@@ -239,11 +239,11 @@ $(document).on('submit', 'form[name="define_media"]', function (e) {
             $("#modalMediaSelector").modal('hide');
             $("#modalMediaSelector").html('');
             showAlert("Média modifié avec succès", "success", 5000);
-            console.log($("." +target+"Media").attr('src'));
-            console.log("Selected : " +  selectedMedias);
-            $("." +target+"Media").attr('src', selectedMedias);
-            if (target == "cover"){
-                $("#slider").css('background-image', "url("+selectedMedias+")");
+            console.log($("." + target + "Media").attr('src'));
+            console.log("Selected : " + selectedMedias);
+            $("." + target + "Media").attr('src', selectedMedias);
+            if (target == "cover") {
+                $("#slider").css('background-image', "url(" + selectedMedias + ")");
             }
         },
         error: function (data) {
@@ -253,7 +253,7 @@ $(document).on('submit', 'form[name="define_media"]', function (e) {
 });
 
 $(document).on('click', '.btn-upload', function (e) {
-    console.log( $(this).data('formtype'));
+    console.log($(this).data('formtype'));
     option = $(this).data('formtype');
     e.preventDefault();
     $.ajax({
@@ -307,10 +307,12 @@ $(document).on('submit', 'form[name="media"]', function (e) {
         },//end upload progress
         success: function (data) {
             console.log(data);
-            if (option == "mutuelle"){
+            if (option == "mutuelle") {
                 $('#partenaireMutuelleTable tr:last').after(data);
+            } else if (option == "marque"){
+                $('#brandsTable tr:last').after(data);
             }
-            else{
+            else {
                 $('#mediaTable tr:last').after(data);
             };
             $("#modalUploadForm").modal('hide');
@@ -330,7 +332,7 @@ $(document).on('click', '.ajaxDeleteMedia', function (e) {
         url: $(this).attr("href"),
         success: function (data) {
             console.log(data);
-            $("#mediaRow"+data).remove();
+            $("#mediaRow" + data).remove();
             $("#modalConfirm").modal('hide')
             showAlert("Média supprimé avec succès", "success", 5000);
         },
@@ -344,15 +346,15 @@ $(document).on('click', '.mediaSingleSelector', function (e) {
     console.log($(this).attr('src'));
     id = $(this).data('media_id');
     $('.mediaSingleSelector').removeClass('border border-success'),
-    $(this).addClass('border border-success');
-    $( "form input" ).prop( "checked", false );
-    $( "#define_media_mediaId_"+id ).prop( "checked", true );
+        $(this).addClass('border border-success');
+    $("form input").prop("checked", false);
+    $("#define_media_mediaId_" + id).prop("checked", true);
 });
 
 $(document).on('click', '.mediaMultipleSelector', function (e) {
     id = $(this).data('media_id');
     $(this).toggleClass('border border-success'),
-    elem = $( "#define_media_mediaId_"+id );
+        elem = $("#define_media_mediaId_" + id);
     elem.prop("checked", !elem.prop("checked"));
 });
 
@@ -401,7 +403,7 @@ $(document).on('click', '.ajaxDeleteHealthInsurance', function (e) {
         url: $(this).attr("href"),
         success: function (data) {
             console.log(data);
-            $("#healthInsuranceRow"+data).remove();
+            $("#healthInsuranceRow" + data).remove();
             $("#modalConfirm").modal('hide')
             showAlert("Mutuelle supprimée avec succès", "success", 5000);
         },

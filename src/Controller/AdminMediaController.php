@@ -31,19 +31,29 @@ class AdminMediaController extends AbstractController
         if ($request->isXMLHttpRequest()) {
             $media = new Media;
 
-            if ($type == "mutuelle"){
-                $uploadForm = $this->createForm(MediaType::class, $media,  [
-                    "mutuelle"=> true,
-                    "action"=> $this->generateUrl('ajax_upload', ['type' => "mutuelle"]),
-                ]);
-                $media->addMediaCategory($mediaCategoryRepo->findByName("mutuelle"));
+            switch ($type) {
+                case 'mutuelle':
+                    $uploadForm = $this->createForm(MediaType::class, $media,  [
+                        "mutuelle" => true,
+                        "action" => $this->generateUrl('ajax_upload', ['type' => "mutuelle"]),
+                    ]);
+                    $media->addMediaCategory($mediaCategoryRepo->findByName("mutuelle"));
+                    break;
+                case 'marque':
+                    $uploadForm = $this->createForm(MediaType::class, $media,  [
+                        "marque" => true,
+                        "action" => $this->generateUrl('ajax_upload', ['type' => "marque"]),
+                    ]);
+                    $media->addMediaCategory($mediaCategoryRepo->findByName("marque"));
+                    break;
+                default:
+                    $uploadForm = $this->createForm(MediaType::class, $media, [
+                        "mutuelle" => false,
+                        "action" => $this->generateUrl('ajax_upload', ['type' => "default"]),
+                    ]);
+                    break;
             }
-            else{
-                $uploadForm = $this->createForm(MediaType::class, $media, [
-                    "mutuelle"=> false,
-                    "action"=> $this->generateUrl('ajax_upload', ['type' => "default" ]),
-                ]);
-            }
+
 
             $uploadForm->handleRequest($request);
 
@@ -52,15 +62,13 @@ class AdminMediaController extends AbstractController
                 $manager->flush();
 
                 return $this->render('admin/partials/mediaRow.html.twig', [
-                        'media' => $media,
-                    ]);
-
+                    'media' => $media,
+                ]);
             }
 
             return $this->render('admin/partials/modalUploadForm.html.twig', [
                 'uploadForm' => $uploadForm->createView(),
             ]);
-
         }
 
         return new Response('This is not ajax!', 400);
@@ -105,15 +113,23 @@ class AdminMediaController extends AbstractController
         $lockedCategories = $this->getParameter('media.lockedCategories');
         $mediaLockedCategories = array_intersect($media->getCategories(), $lockedCategories);
 
-        if (in_array("mutuelle",$media->getCategories() )){
+
+        if (in_array("mutuelle", $media->getCategories())) {
             $form = $this->createForm(MediaType::class, $media,  [
-                "mutuelle"=> true,
+                "mutuelle" => true,
+                "marque" => false,
             ]);
             $media->addMediaCategory($mediaCategoryRepo->findByName("mutuelle"));
-        }
-        else{
+        } elseif (in_array("marque", $media->getCategories())) {
+            $form = $this->createForm(MediaType::class, $media,  [
+                "mutuelle" => false,
+                "marque" => true,
+            ]);
+            $media->addMediaCategory($mediaCategoryRepo->findByName("marque"));
+        } else {
             $form = $this->createForm(MediaType::class, $media, [
-                "mutuelle"=> false,
+                "mutuelle" => false,
+                "marque" => false,
             ]);
         }
 
@@ -188,7 +204,7 @@ class AdminMediaController extends AbstractController
     public function _ajaxMediaSelectorCreate(MediaCategory $mediaCategory, EntityManagerInterface $manager,  Request $request,  MediaRepository $mediaRepo)
     {
         if ($request->isXMLHttpRequest()) {
-            
+
             $form = $this->createForm(DefineMediaType::class, $mediaCategory);
             $form->handleRequest($request);
 

@@ -38,19 +38,6 @@ class MediaType extends AbstractType
                     'empty_data' => '',
                     'label' => 'Description',
                 ]);
-        } else {
-            $builder
-                ->add('mediaCategory', EntityType::class, [
-                    'class' => MediaCategory::class,
-                    'label' => 'Catégorie',
-                    'choice_label' => 'name',
-                    'multiple' => 'true',
-                    'expanded' => true,
-                    'query_builder' => function (MediaCategoryRepository $er) {
-                        return $er->createQueryBuilder('u')
-                            ->andWhere("u.name = 'Marque' OR u.name = 'Autre' ");
-                    }
-                ]);
         }
     }
 
@@ -59,6 +46,7 @@ class MediaType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Media::class,
             'mutuelle' => false,
+            'marque' => false,
         ]);
     }
 }
