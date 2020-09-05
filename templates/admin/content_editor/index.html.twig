@@ -127,7 +127,11 @@
 			<div class="row  mx-0">
 				<div id="carouselExampleIndicators" class=" col-6 px-5 d-none d-xl-block">
 					<div class="carousel-inner">
+					{% if carouselMedia is not empty %}
 						<img src="{{ vich_uploader_asset(carouselMedia|first) }}" alt="{{carouselMedia|first.alt }}" class="d-block w-100 carouselMedia">
+					{% else %}
+						<img src="/img/magasin.jpg" class="d-block w-100" alt="...">
+					{% endif %}
 					</div>
 					<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="carousel">
 						<span class="iconify" data-icon="mdi:picture"></span>

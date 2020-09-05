@@ -9,12 +9,7 @@
 			</div>
 			<div class="modal-body">
 				{{form_start(form, {'action': path('admin_content_ajaxUpdate', {'id' : entity.id}), 'method': 'POST', 'attr':{'data-id': entity.id, 'data-section' : 'content' ~ entity.id }})}}
-				{% if labels is defined %}
-					{{ form_row(form.title, {'label': labels.title}) }}
-					{{ form_row(form.content, {'label': labels.content}) }}
-				{% else %}
-					{{form_widget(form)}}
-				{% endif %}
+				{{form_widget(form)}}
 				<button type="submit" data-toggle="modal" class="btn btn-success">Modifier</button>
 				<button class="btn btn-darker" type="button" data-toggle="modal" data-target="#modalContentForm" aria-expanded="false" aria-controls="collapseExample">Annuler</button>
 				{{form_end(form)}}

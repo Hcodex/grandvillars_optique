@@ -25,8 +25,7 @@ class Content
     private $title;
 
     /**
-     * @ORM\Column(type="text")
-     * @Assert\NotBlank(message="Ce champ ne peut être vide")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $content;
 

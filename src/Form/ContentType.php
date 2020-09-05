@@ -14,22 +14,41 @@ class ContentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        if ($options["category"] == "serviceItem" || $options["category"] == "jobItem") {
+            $builder->add('icon', TextType::class, [
+                'empty_data' => '',
+                'label' => 'Icone',
+            ]);
+        };
         $builder
             ->add('title', TextType::class, [
                 'empty_data' => '',
-                'label' => 'Titre',]
-            )
-            ->add('content', CKEditorType::class, [
-                'empty_data' => '',
-                'label' => 'Contenu',]
-            )
-        ;
+                'label' => $this->SetLabel($options["category"]),
+            ]);
+        if ($options["category"] != "jobItem") {
+            $builder
+                ->add('content', CKEditorType::class, [
+                    'empty_data' => '',
+                    'label' => 'Contenu',
+                ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Content::class,
+            'category' => null,
         ]);
+    }
+
+    public function SetLabel($category)
+    {
+        if ($category == "quoteSectionContent") {
+            return "Auteur";
+        } else {
+            return "Titre";
+        }
     }
 }

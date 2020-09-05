@@ -57,13 +57,9 @@ class AdminContentEditorController extends AbstractController
 
             $categoryName = $content->getContentCategory()->getName();
 
-            switch ($categoryName) {
-                case "serviceItem":
-                    $form = $this->createForm(ContentIconType::class, $content);
-                    break;
-                    default :
-                    $form = $this->createForm(ContentType::class, $content);
-            }
+            $form = $this->createForm(ContentType::class, $content,[
+                "category" => $categoryName,
+            ]);
 
             $form->handleRequest($request);
 
@@ -71,11 +67,9 @@ class AdminContentEditorController extends AbstractController
                 $manager->persist($content);
                 $manager->flush();
 
-                $categorie = $content->getContentCategory()->getName();
-
                 $arg['item'] = $content;
 
-                return $this->render('admin/content_editor/' . $categorie . '.html.twig', $arg);
+                return $this->render('admin/content_editor/' . $categoryName. '.html.twig', $arg);
             }
         }
 
@@ -93,37 +87,9 @@ class AdminContentEditorController extends AbstractController
 
             $categoryName = $content->getContentCategory()->getName();
 
-            switch ($categoryName) {
-                case "quoteSection":
-                    $arg['labels'] = [
-                        "title" => "Auteur",
-                        "content" => "Texte",
-                    ];
-                    break;
-                case ($categoryName == "jobItem" || $categoryName == "certificationItem"):
-                    $arg['labels'] = [
-                        "title" => "Icône",
-                        "content" => "Texte",
-                    ];
-                    break;
-            }
-
-            switch ($categoryName) {
-                case "serviceItem":
-                    $form = $this->createForm(ContentIconType::class, $content);
-                    break;
-                    default :
-                    $form = $this->createForm(ContentType::class, $content);
-            }
-/*
-            $arg['item'] = [
-                'form' => $form->createView(),
-                'entity' => $content,
-            ];
-
-            return $this->render('admin/content_editor/modalContentForm.html.twig', $arg);
-
-*/
+            $form = $this->createForm(ContentType::class, $content,[
+                "category" => $categoryName,
+            ]);
 
             return $this->render('admin/content_editor/modalContentForm.html.twig', [
                 'form' =>   $form->createView(),

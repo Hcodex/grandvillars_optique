@@ -11,15 +11,17 @@ use App\Entity\TimeTable;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
     private $encoder;
 
-    public function __construct(UserPasswordEncoderInterface $encoder)
+    public function __construct(UserPasswordEncoderInterface $encoder, ContainerInterface $container = null)
     {
         $this->encoder = $encoder;
+        $this->container = $container;
     }
 
     public function load(ObjectManager $manager)
@@ -134,8 +136,8 @@ class AppFixtures extends Fixture
 
         foreach ($jobs as $jobTitle => $jobIcon) {
             $jobItemContent = new Content;
-            $jobItemContent->setTitle($jobIcon);
-            $jobItemContent->setContent($jobTitle);
+            $jobItemContent->setIcon($jobIcon);
+            $jobItemContent->setTitle($jobTitle);
             $jobItemContent->setContentCategory($jobItemCategory);
             $manager->persist($jobItemContent);
         }
@@ -220,6 +222,8 @@ class AppFixtures extends Fixture
 
     public function loadMedias(ObjectManager $manager){
 
+        $categories = $this->container->getParameter('media.lockedCategories');
+/*
         $categories = array(
             "marque",
             "mutuelle",
@@ -236,7 +240,7 @@ class AppFixtures extends Fixture
             "time3",
             "time4"
         );
-
+*/
 
         foreach ($categories as $categorie) {
             $mediaCategorie = new MediaCategory;
