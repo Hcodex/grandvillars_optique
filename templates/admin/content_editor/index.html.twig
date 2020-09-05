@@ -42,9 +42,7 @@
 				<h2 class="my-5 text-center">Notre métier</h2>
 				<div class="row row-cols-2 row-cols-md-4 mt-5">
 					{% for item in jobItem %}
-						<div id="content{{item.id}}">
-							{% include '/admin/content_editor/jobItem.html.twig' %}
-						</div>
+						{% include '/admin/content_editor/jobItem.html.twig' %}
 					{% endfor %}
 				</div>
 			</div>
@@ -110,9 +108,7 @@
 			<div class="container">
 				<div class="row row-cols-1 row-cols-xl-2">
 					{% for item in serviceItem %}
-						<div id="content{{item.id}}">
-							{% include '/admin/content_editor/serviceItem.html.twig' %}
-						</div>
+						{% include '/admin/content_editor/serviceItem.html.twig' %}
 					{% endfor %}
 				</div>
 			</div>
@@ -127,11 +123,11 @@
 			<div class="row  mx-0">
 				<div id="carouselExampleIndicators" class=" col-6 px-5 d-none d-xl-block">
 					<div class="carousel-inner">
-					{% if carouselMedia is not empty %}
-						<img src="{{ vich_uploader_asset(carouselMedia|first) }}" alt="{{carouselMedia|first.alt }}" class="d-block w-100 carouselMedia">
-					{% else %}
-						<img src="/img/magasin.jpg" class="d-block w-100" alt="...">
-					{% endif %}
+						{% if carouselMedia is not empty %}
+							<img src="{{ vich_uploader_asset(carouselMedia|first) }}" alt="{{carouselMedia|first.alt }}" class="d-block w-100 carouselMedia">
+						{% else %}
+							<img src="/img/magasin.jpg" class="d-block w-100" alt="...">
+						{% endif %}
 					</div>
 					<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="carousel">
 						<span class="iconify" data-icon="mdi:picture"></span>
@@ -145,11 +141,7 @@
 					</div>
 					<div class="d-flex flex-wrap">
 						{% for item in shopItem %}
-							<div class="col-12 col-md-6">
-								<div id="content{{item.id}}">
-									{% include '/admin/content_editor/shopItem.html.twig' %}
-								</div>
-							</div>
+							{% include '/admin/content_editor/shopItem.html.twig' %}
 						{% endfor %}
 					</div>
 				</div>
@@ -199,5 +191,7 @@
 		<div class="modal fade" id="modalMediaSelector" tabindex="-1" role="dialog" aria-labelledby="modalForm{{item.id}}" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"></div>
 		</div>
+
+		{% include '/admin/content_editor/modalIconSelector.html.twig' %}
 	</main>
 {% endblock %}
