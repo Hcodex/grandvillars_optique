@@ -86,10 +86,10 @@ $(document).on('click', '.showConfirm', function (e) {
     data = $(this).data("link");
     ajax = $(this).data("ajax");
     message = $(this).data("message");
-
     $("#modalConfirm #confirmBtn")
+    .removeClass()
     .attr('href', data)
-    .addClass(ajax);
+    .addClass("btn btn-info "+ ajax);
     $("#modalConfirm .modal-body").html('<p>' + message + '</p>');
     $("#modalConfirm").modal();
 })
@@ -178,7 +178,7 @@ $(document).on('click', '.healtInsuranceSetStatus', function (e) {
     target = $(this);
     $.ajax({
         type: 'POST',
-        url: '/admin/healthInsurance/' + $(this).data('id') + '/' + $(this).data('status'),
+        url: '/admin/healthInsurance/status/' + $(this).data('id') + '/' + $(this).data('status'),
         success: function (data) {
             $(target).parent().children()
                 .addClass("bg-secondary border-secondary text-dark"),
@@ -354,4 +354,59 @@ $(document).on('click', '.mediaMultipleSelector', function (e) {
     $(this).toggleClass('border border-success'),
     elem = $( "#define_media_mediaId_"+id );
     elem.prop("checked", !elem.prop("checked"));
+});
+
+$(document).on('click', '#healthInsuranceAdd', function (e) {
+    e.preventDefault();
+    console.log("Ajout assurance");
+    $.ajax({
+        type: 'POST',
+        url: '/admin/healthInsurance/add',
+        success: function (data) {
+            $('#modalHealthInsuranceForm').replaceWith(data);
+            $("#modalHealthInsuranceForm").modal();
+        },
+        error: function (data) {
+            showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);
+        }
+    });
+});
+
+//Submit health insurance form
+$(document).on('submit', 'form[name="health_insurance"]', function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: '/admin/healthInsurance/add',
+        data: new FormData(this),
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            console.log(data);
+            $("#modalHealthInsuranceForm").modal('hide');
+            $('#healthInsurancesTable tr:last').after(data);
+            showAlert("Mutuelle ajoutée avec succès", "success", 5000);
+        },
+        error: function (data) {
+            showAlert("<strong>Erreur</>, la requête n'a pu aboutir", "danger", 5000);
+        }
+    });
+});
+
+//Delete health insurance
+$(document).on('click', '.ajaxDeleteHealthInsurance', function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: $(this).attr("href"),
+        success: function (data) {
+            console.log(data);
+            $("#healthInsuranceRow"+data).remove();
+            $("#modalConfirm").modal('hide')
+            showAlert("Mutuelle supprimée avec succès", "success", 5000);
+        },
+        error: function (data) {
+            showAlert("<strong>Erreur</>, la requête n'a pu aboutir", "danger", 5000);
+        }
+    });
 });

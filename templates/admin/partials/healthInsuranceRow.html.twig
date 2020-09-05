@@ -1,0 +1,32 @@
+{% set deleteMessage = "La mutuelle <strong> " ~ healthInsurance.name ~ "</strong> sera définitivement supprimée" %}
+
+<tr id="healthInsuranceRow{{healthInsurance.id}}">
+	<td>{{healthInsurance.name}}</td>
+	<td class="text-center">
+		{% set hideClass = "bg-secondary text-dark border-secondary"%}
+		{% set enableClass = "bg-secondary text-dark border-secondary"%}
+		{% set disableClass = "bg-secondary text-dark border-secondary "%}
+		{% if healthInsurance.status == 0 %}
+			{% set hideClass = ""%}
+		{% elseif healthInsurance.status == 1 %}
+			{% set enableClass = ""%}
+		{% elseif healthInsurance.status == 2 %}
+			{% set disableClass = ""%}
+		{% endif %}
+
+		<a class="btn btn-primary text-white {{hideClass}} healtInsuranceSetStatus" data-id="{{healthInsurance.id}}" data-status="hide" role="button">
+			<span class="iconify" data-icon="clarity:eye-hide-line" data-inline="false"></span>
+		</a>
+		<a class="btn btn-success text-white {{enableClass}} healtInsuranceSetStatus" data-id="{{healthInsurance.id}}" data-status="enable" role="button">
+			<span class="iconify" data-icon="mdi:umbrella" data-inline="false"></span>
+		</a>
+		<a class="btn btn-dark text-white {{disableClass}} healtInsuranceSetStatus" data-id="{{healthInsurance.id}}" data-status="disable" role="button">
+			<span class="iconify" data-icon="mdi:umbrella-closed" data-inline="false"></span>
+		</a>
+	</td>
+	<td>
+		<a class="showConfirm btn btn-danger text-white" data-link="{{path('admin_health_insurance_delete', {'id' : healthInsurance.id})}}" data-message="{{deleteMessage}}" data-ajax="ajaxDeleteHealthInsurance" >
+			<span class="iconify" data-icon="ic:baseline-delete" data-inline="false"></span>
+		</a>
+	</td>
+</tr>

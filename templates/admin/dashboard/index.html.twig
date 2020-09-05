@@ -214,7 +214,8 @@
 		<section>
 			<div class="container mt-5 text-primary">
 				<h2>Mutuelles</h2>
-				<h3 class="mt-4 text-dark"> - Partenaires mutuelles -</h3>
+				<h3 class="mt-4 text-dark">
+					- Partenaires mutuelles -</h3>
 				<a class="btn btn-primary text-white my-3 btn-upload" data-formtype="mutuelle">Ajouter un partenaire mutuelle</a>
 				<div id="partenairesMutuelleTableContainer">
 					<table id="partenaireMutuelleTable" class="table">
@@ -236,7 +237,9 @@
 						</tbody>
 					</table>
 				</div>
-				<h3 class="mt-5 text-dark"> - Couvertures mutuelles -</h3>
+				<h3 class="mt-5 text-dark">
+					- Couvertures mutuelles -</h3>
+				<a id="healthInsuranceAdd" class="btn btn-primary text-white my-3">Ajouter une mutuelle</a>
 				<div id="healthInsurances" class="col-12 p-0 mb-3">
 					<div class="p-3 bg-white sticky-top shadow">
 						<input class="form-control" id="healthInsuranceSearchField" type="text" placeholder="Rechercher une mutuelle" data-option="mutuelle">
@@ -247,40 +250,17 @@
 						Aucun résultat ne correspond à votre recherche...
 					</div>
 
-					<table class="table">
+					<table id="healthInsurancesTable"class="table">
 						<thead>
 							<tr class="bg-info">
 								<th scope="col">Mutuelle</th>
 								<th scope="col" class="text-center">Couverture</th>
+								<th scope="col" class="text-center"></th>
 							</tr>
 						</thead>
 						<tbody>
-							{% for healthInsurance in healthInsurances %}
-								<tr>
-									<td>{{healthInsurance.name}}</td>
-									<td class="text-center">
-										{% set hideClass = "bg-secondary text-dark border-secondary"%}
-										{% set enableClass = "bg-secondary text-dark border-secondary"%}
-										{% set disableClass = "bg-secondary text-dark border-secondary "%}
-										{% if healthInsurance.status == 0 %}
-											{% set hideClass = ""%}
-										{% elseif healthInsurance.status == 1 %}
-											{% set enableClass = ""%}
-										{% elseif healthInsurance.status == 2 %}
-											{% set disableClass = ""%}
-										{% endif %}
-
-										<a class="btn btn-primary text-white {{hideClass}} healtInsuranceSetStatus" data-id="{{healthInsurance.id}}" data-status="hide" role="button">
-											<span class="iconify" data-icon="clarity:eye-hide-line" data-inline="false"></span>
-										</a>
-										<a class="btn btn-success text-white {{enableClass}} healtInsuranceSetStatus" data-id="{{healthInsurance.id}}" data-status="enable" role="button">
-											<span class="iconify" data-icon="bx:bx-check" data-inline="false"></span>
-										</a>
-										<a class="btn btn-danger text-white {{disableClass}} healtInsuranceSetStatus" data-id="{{healthInsurance.id}}" data-status="disable" role="button">
-											<span class="iconify" data-icon="carbon:close" data-inline="false"></span>
-										</a>
-									</td>
-								</tr>
+							{% for healthInsurance in healthInsurances|sort((a, b) => a.name|upper <=> b.name|upper) %}
+								{% include 'admin/partials/healthInsuranceRow.html.twig' %}
 							{% endfor %}
 						</tbody>
 					</table>
@@ -292,5 +272,6 @@
 
 		{% include 'admin/partials/modalConfirm.html.twig' %}
 		{% include 'admin/partials/modalUploadForm.html.twig' %}
+		{% include 'admin/partials/modalHealthInsuranceForm.html.twig' %}
 	</main>
 {% endblock %}

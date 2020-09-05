@@ -1,0 +1,20 @@
+<div class="modal fade" id="modalHealthInsuranceForm" tabindex="-1" role="dialog" aria-labelledby="modalHealthInsuranceForm" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Ajouter une mutuelle</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				{% if healthInsuranceForm is defined %}
+					{{form_start(healthInsuranceForm)}}
+					{{form_widget(healthInsuranceForm)}}
+					<button type="submit" class="btn btn-primary">Confirmer</button>
+					{{form_end(healthInsuranceForm)}}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>

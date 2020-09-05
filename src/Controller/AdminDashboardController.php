@@ -9,6 +9,7 @@ use App\Entity\Media;
 use App\Entity\TimeTable;
 use App\Form\AddMutuelleType;
 use App\Form\ClosingDaysType;
+use App\Form\HealthInsuranceType;
 use App\Form\TimeTableType;
 use App\Form\UploadType;
 use App\Service\PublicHollydays;
@@ -143,11 +144,10 @@ class AdminDashboardController extends AbstractController
     }
 
 
-
     /**
      * Edit le staut dun mutuelle
      * 
-     * @Route("admin/healthInsurance/{id}/{status}", name="admin_healthInsurance_Status_Edit")
+     * @Route("admin/healthInsurance/status/{id}/{status}", name="admin_healthInsurance_Status_Edit")
      * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
      */
     public function _ajaxHealthInsuranceStatusEdit(HealthInsurance $healthInsurance, $status, Request $request, EntityManagerInterface $manager)
@@ -172,6 +172,63 @@ class AdminDashboardController extends AbstractController
             return new Response('Ok');
         }
 
+        return new Response('This is not ajax!', 400);
+    }
+
+     /**
+     * Ajout d'une mutuelle
+     * 
+     * @Route("admin/healthInsurance/add", name="admin_healthInsurance_add")
+     * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
+     */
+    public function _ajaxAddHealthInsurance(Request $request, EntityManagerInterface $manager)
+    {
+        if ($request->isXMLHttpRequest()) {
+
+            $healthInsurance = new HealthInsurance;
+
+            $form = $this->createForm(HealthInsuranceType::class, $healthInsurance);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $manager->persist($healthInsurance);
+                $manager->flush();
+
+                return $this->render('admin/partials/healthInsuranceRow.html.twig', [
+                        'healthInsurance' => $healthInsurance,
+                    ]);
+
+            }
+
+            return $this->render('admin/partials/modalHealthInsuranceForm.html.twig', [
+                'healthInsuranceForm' => $form->createView(),
+            ]);
+
+        }
+
+        return new Response('This is not ajax!', 400);
+    }
+
+    /**
+     * Supprime une mutuelle
+     * 
+     * @Route("/admin/healthInsurance/{id}/delete", name="admin_health_insurance_delete")
+     * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
+     *
+     * @param HealthInsurance $healthInsurance
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    public function _ajaxdeleteHealthInsurance(Request $request, HealthInsurance $healthInsurance, EntityManagerInterface $manager)
+    {
+        if ($request->isXMLHttpRequest()) {
+            $healthInsuranceId = $healthInsurance->getId();
+
+            $manager->remove($healthInsurance);
+            $manager->flush();
+
+            return new Response($healthInsuranceId);
+        }
         return new Response('This is not ajax!', 400);
     }
 
