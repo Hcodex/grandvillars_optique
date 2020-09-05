@@ -223,24 +223,7 @@ class AppFixtures extends Fixture
     public function loadMedias(ObjectManager $manager){
 
         $categories = $this->container->getParameter('media.lockedCategories');
-/*
-        $categories = array(
-            "marque",
-            "mutuelle",
-            "autre",
-            "site",
-            "cover",
-            "quote",
-            "activisu",
-            "carousel",
-            "certif1",
-            "certif2",
-            "time,",
-            "time2",
-            "time3",
-            "time4"
-        );
-*/
+        $categories = array_merge($categories, $this->container->getParameter('media.categories'));
 
         foreach ($categories as $categorie) {
             $mediaCategorie = new MediaCategory;
