@@ -141,6 +141,8 @@ $(document).on('submit', 'form[name="content"]', function (e) {
 });
 
 
+
+/*
 $(document).on('submit', 'form[name="content_icon"]', function (e) {
     e.preventDefault();
     targetSection = $(this).data('section')
@@ -160,6 +162,16 @@ $(document).on('submit', 'form[name="content_icon"]', function (e) {
         }
     });
 });
+*/
+
+$(document).on('click', '.icon-select', function (e) {
+    $('#content_icon').val($(this).data('icon'));
+    $('.icon-select').removeClass('border border-success');
+    $(this).addClass('border border-success');
+    $("#modalIconSelector").modal('hide');
+});
+
+
 
 $(document).on('click', '.healtInsuranceSetStatus', function (e) {
     e.preventDefault();

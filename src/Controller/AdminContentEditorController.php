@@ -41,6 +41,8 @@ class AdminContentEditorController extends AbstractController
             $arg[$mediaContentCategorie.'Media'] = $mediaRepo->findByCategory($mediaContentCategorie);
         }
 
+        $arg['iconList'] =  $this->getParameter('iconList');
+
         dump($arg);
 
         return $this->render('admin/content_editor/index.html.twig', $arg);
