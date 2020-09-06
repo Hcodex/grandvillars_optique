@@ -11,6 +11,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Url;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class MediaType extends AbstractType
@@ -26,8 +28,30 @@ class MediaType extends AbstractType
                 'required' => false,
             ])
             ->add('alt', TextType::class, [
-                'label' => 'Texte alternatif',
+                'label' => 'Texte alternatif de l\'image',
             ]);
+
+
+            if ($options['type'] == "socialnetwork") {
+                $builder
+                    ->add('title', TextType::class, [
+                        'label' => 'Nom du réseau social',
+                        'constraints' => [
+                            new NotBlank([
+                                'message' => 'Ce champ ne peut être vide',
+                            ]),
+                        ],
+                    ])
+                    ->add('description', TextType::class, [
+                        'label' => 'Url du profil',
+                        'constraints' => [
+                            new Url([
+                                'message' => 'Le format de l\'url est invalide',
+                            ]),
+                        ],
+                    ]);
+            }
+
 
         if ($options['type'] == "mutuelle") {
             $builder

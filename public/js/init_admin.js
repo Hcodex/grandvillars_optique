@@ -90,7 +90,7 @@ $('#closing_days_endDate').change(function (e) {
 
 $(document).on('submit', 'form[name="content"]', function (e) {
     e.preventDefault();
-    targetSection = $(this).data('section')
+    targetSection = $(this).data('target')
     $.ajax({
         type: 'POST',
         url: '/admin/content/' + $(this).data('id') + '/axjaxContentFormCreate',
@@ -202,7 +202,7 @@ $(document).on('submit', 'form[name="define_media"]', function (e) {
 
 $(document).on('click', '.btn-upload', function (e) {
     console.log($(this).data('formtype'));
-    option = $(this).data('formtype') || "default" ;
+    option = $(this).data('formtype') || "default";
     e.preventDefault();
     $.ajax({
         type: 'POST',
@@ -260,6 +260,8 @@ $(document).on('submit', 'form[name="media"]', function (e) {
                     $('#partenaireMutuelleTable tr:last').after(data['render']);
                 } else if (option == "marque") {
                     $('#brandsTable tr:last').after(data['render']);
+                } else if (option == "socialnetwork") {
+                    $('#socialNetworksTable tr:last').after(data['render']);
                 }
                 else {
                     $('#mediaTable tr:last').after(data['render']);
@@ -328,6 +330,9 @@ $(document).on('click', '#healthInsuranceAdd', function (e) {
         }
     });
 });
+
+
+
 
 //Submit health insurance form
 $(document).on('submit', 'form[name="health_insurance"]', function (e) {

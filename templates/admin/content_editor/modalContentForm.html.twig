@@ -9,7 +9,7 @@
 			</div>
 			<div class="modal-body">
 
-				{{form_start(form, {'attr':{'data-id': entity.id, 'data-section' : 'content' ~ entity.id }})}}
+				{{form_start(form, {'attr':{'data-id': entity.id, 'data-target' : 'content' ~ entity.id }})}}
 				{% if form.icon is defined %}
 					<div class="form-group">
 						{{ form_label(form.icon) }}

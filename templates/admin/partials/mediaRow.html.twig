@@ -9,7 +9,7 @@
 
 <tr id="mediaRow{{media.id}}">
 	<td><img class="img-fluid" src="{{ vich_uploader_asset(media) }}" alt="{{ media.alt }}"/></td>
-	<td class="text-center">{{media.imageName}}</td>
+	<td class="text-center">{{(media.title != null) ? media.title : media.imageName}}</td>
 	<td class="text-center">{{media.alt}}</td>
 	<td class="text-center">{{media.categories|join(' - ')}}</td>
 	<td class="text-center">

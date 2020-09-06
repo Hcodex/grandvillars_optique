@@ -55,7 +55,6 @@ class AdminMediaController extends AbstractController
                     'status' => 'success',
                     'render' => $render,
                 ]);
-
             }
 
             return $this->render('admin/partials/modalUploadForm.html.twig', [
@@ -117,6 +116,11 @@ class AdminMediaController extends AbstractController
                 "type" => "marque"
             ]);
             $media->addMediaCategory($mediaCategoryRepo->findByName("marque"));
+        } elseif (in_array("socialNetwork", $media->getCategories())) {
+            $form = $this->createForm(MediaType::class, $media,  [
+                "type" => "socialnetwork"
+            ]);
+            $media->addMediaCategory($mediaCategoryRepo->findByName("socialnetwork"));
         } else {
             $form = $this->createForm(MediaType::class, $media, [
                 "type" => "default"

@@ -4,9 +4,11 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    media.categories: [marque, mutuelle, autre]
-    media.lockedCategories: [cover, quote, activisu, carousel, certif1, certif2, time1, time2, time3, time4]
+    media.categories: [marque, mutuelle, socialNetwork, autre]
+    media.lockedCategories: [cover, quote, activisu, carousel, certif1, certif2, time1, time2, time3, time4 ]
     iconList : [mdi:glasses, mdi:sunglasses, mdi:ear-hearing, mdi:eye-circle-outline, whh:gears, mdi-ballot, mdi:wrench, mdi:alert-circle, mdi:bullhorn, mdi:cogs, mdi:flask-outline, el:wheelchair, fa-solid:deaf, mdi:arm-flex, mdi:barcode, mdi:basket, emojione-v1:left-check-mark, , emojione-v1:cross-mark, ri:money-euro-circle-line, entypo:old-phone, cil:child]
+    contentCategories : [quoteSectionContent, serviceSection, activisuSectionContent, jobItem, serviceItem, shopSection, shopItem, certificationSection, certificationItem]
+
 services:
     # default configuration for services in *this* file
     _defaults:

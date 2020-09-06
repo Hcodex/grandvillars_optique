@@ -40,7 +40,6 @@ class Media
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
-     * @Assert\NotBlank(message="Ce champ ne peut être vide")
      * @Assert\File(
      *     maxSize = "3M",
      *     maxSizeMessage = "Le fichier sélectionner est trop volumineux Max 3Mo",

@@ -201,7 +201,7 @@
 						</thead>
 						<tbody>
 							{% for media in medias %}
-								{% if "mutuelle" not in media.categories and "marque" not in media.categories %}
+								{% if "mutuelle" not in media.categories and "marque" not in media.categories and "socialNetwork" not in media.categories %}
 									{% include 'admin/partials/mediaRow.html.twig' %}
 								{% endif %}
 							{% endfor %}
@@ -222,7 +222,7 @@
 							<tr class="bg-info">
 								<th scope="col" class="col-1">Image</th>
 								<th scope="col" class="text-center">Fichier</th>
-								<th scope="col" class="text-center">Description</th>
+								<th scope="col" class="text-center">Alt</th>
 								<th scope="col" class="text-center">Catégorie</th>
 								<th scope="col" class="text-center col-2">Editer</th>
 							</tr>
@@ -251,8 +251,8 @@
 						<thead>
 							<tr class="bg-info">
 								<th scope="col" class="col-1">Image</th>
-								<th scope="col" class="text-center">Fichier</th>
-								<th scope="col" class="text-center">Description</th>
+								<th scope="col" class="text-center">Nom</th>
+								<th scope="col" class="text-center">Alt</th>
 								<th scope="col" class="text-center">Catégorie</th>
 								<th scope="col" class="text-center col-2">Editer</th>
 							</tr>
@@ -294,6 +294,31 @@
 						</tbody>
 					</table>
 				</div>
+			</div>
+		</section>
+
+		<section>
+			<div class="container mt-5 text-primary">
+				<h2>Réseaux sociaux</h2>
+				<a class="btn btn-primary text-white my-3 btn-upload" data-formtype="socialnetwork">Ajouter un réseau social</a>
+					<table id="socialNetworksTable" class="table">
+						<thead>
+							<tr class="bg-info">
+								<th scope="col" class="col-1">Image</th>
+								<th scope="col" class="text-center">Nom</th>
+								<th scope="col" class="text-center">Alt</th>
+								<th scope="col" class="text-center">Catégorie</th>
+								<th scope="col" class="text-center col-2">Editer</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for media in medias %}
+								{% if "socialNetwork" in media.categories %}
+									{% include 'admin/partials/mediaRow.html.twig' %}
+								{% endif %}
+							{% endfor %}
+						</tbody>
+					</table>
 			</div>
 		</section>
 
