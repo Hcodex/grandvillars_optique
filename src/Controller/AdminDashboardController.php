@@ -26,7 +26,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Flex\Unpack\Result;
 
 class AdminDashboardController extends AbstractController
 {
@@ -175,7 +177,7 @@ class AdminDashboardController extends AbstractController
         return new Response('This is not ajax!', 400);
     }
 
-     /**
+    /**
      * Ajout d'une mutuelle
      * 
      * @Route("admin/healthInsurance/add", name="admin_healthInsurance_add")
@@ -194,16 +196,19 @@ class AdminDashboardController extends AbstractController
                 $manager->persist($healthInsurance);
                 $manager->flush();
 
-                return $this->render('admin/partials/healthInsuranceRow.html.twig', [
-                        'healthInsurance' => $healthInsurance,
-                    ]);
+                $render = $this->renderView('admin/partials/healthInsuranceRow.html.twig', [
+                    'healthInsurance' => $healthInsurance,
+                ]);
 
+                return new JsonResponse([
+                    'status' => 'success',
+                    'render' => $render,
+                ]);
             }
 
             return $this->render('admin/partials/modalHealthInsuranceForm.html.twig', [
                 'healthInsuranceForm' => $form->createView(),
             ]);
-
         }
 
         return new Response('This is not ajax!', 400);
@@ -231,5 +236,4 @@ class AdminDashboardController extends AbstractController
         }
         return new Response('This is not ajax!', 400);
     }
-
 }

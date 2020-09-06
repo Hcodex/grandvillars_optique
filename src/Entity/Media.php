@@ -27,12 +27,20 @@ class Media
 
     /**
      * @ORM\Column(type="string", length=45)
+     * @Assert\NotBlank(message="Ce champ ne peut être vide")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 45,
+     *      minMessage = "Ce champ doit comporter au moins {{ limit }} caractères",
+     *      maxMessage = "Ce champ ne peut pas comporter plus de {{ limit }} caractères"
+     * )
      */
     private $alt;
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
+     * @Assert\NotBlank(message="Ce champ ne peut être vide")
      * @Assert\File(
      *     maxSize = "3M",
      *     maxSizeMessage = "Le fichier sélectionner est trop volumineux Max 3Mo",

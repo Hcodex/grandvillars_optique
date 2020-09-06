@@ -49,38 +49,6 @@ $('#myTab a').on('click', function (e) {
     $(this).tab('show')
 })
 
-
-$('#nextbtn').on('click', function (e) {
-    e.preventDefault();
-    form = $('form[name="rdv"]').get(0);
-    $(this).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
-    console.log(form);
-    $.ajax({
-        type: 'POST',
-        url: './ajaxRdv',
-        data: new FormData(form),
-        contentType: false,
-        processData: false,
-        success: function (data) {
-            if (data["status"] === 'success') {
-                $('.invalid-feedback').removeClass('invalid-feedback');
-                $('.is-invalid').removeClass('is-invalid');
-                $('.form-error-icon').remove();
-                $('.form-error-message').remove();
-                $("#pills-home").removeClass('active')
-                $("#pills-slots").tab('show');
-            } else {
-                var innerHTML = $(data).find('#rdvFormStep1').html();
-                $('#rdvFormStep1').html(innerHTML);
-            };
-            $('#nextbtn').html('Suivant');
-        },
-        error: function (data) {
-            showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);
-        }
-    });
-});
-
 $(document).on('click', '.showConfirm', function (e) {
     event.preventDefault();
     data = $(this).data("link");
@@ -254,7 +222,7 @@ $(document).on('submit', 'form[name="define_media"]', function (e) {
 
 $(document).on('click', '.btn-upload', function (e) {
     console.log($(this).data('formtype'));
-    option = $(this).data('formtype');
+    option = $(this).data('formtype') || "default" ;
     e.preventDefault();
     $.ajax({
         type: 'POST',
@@ -307,17 +275,24 @@ $(document).on('submit', 'form[name="media"]', function (e) {
         },//end upload progress
         success: function (data) {
             console.log(data);
-            if (option == "mutuelle") {
-                $('#partenaireMutuelleTable tr:last').after(data);
-            } else if (option == "marque"){
-                $('#brandsTable tr:last').after(data);
+            if (data["status"] === 'success') {
+                if (option == "mutuelle") {
+                    $('#partenaireMutuelleTable tr:last').after(data['render']);
+                } else if (option == "marque") {
+                    $('#brandsTable tr:last').after(data['render']);
+                }
+                else {
+                    $('#mediaTable tr:last').after(data['render']);
+                };
+                $("#modalUploadForm").modal('hide');
+                $('.progress').addClass('d-none');
+                showAlert("<strong>Upload terminé</strong>, L\'image a été ajoutée avec succès", "success", 5000);
+            } else {
+                showAlert("<strong>Echec,</strong> vérifiez les champs du formulaire", "danger", 5000);
+                var innerHTML = $(data).find('form[name="media"]').html();
+                $('form[name="media"]').html(innerHTML);
+                bsCustomFileInput.init()
             }
-            else {
-                $('#mediaTable tr:last').after(data);
-            };
-            $("#modalUploadForm").modal('hide');
-            $('.progress').addClass('d-none');
-            showAlert("<strong>Upload terminé</strong>, L\'image a été ajoutée avec succès", "success", 5000);
         },
         error: function (data) {
             showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);
@@ -385,9 +360,15 @@ $(document).on('submit', 'form[name="health_insurance"]', function (e) {
         processData: false,
         success: function (data) {
             console.log(data);
-            $("#modalHealthInsuranceForm").modal('hide');
-            $('#healthInsurancesTable tr:last').after(data);
-            showAlert("Mutuelle ajoutée avec succès", "success", 5000);
+            if (data["status"] === 'success') {
+                $("#modalHealthInsuranceForm").modal('hide');
+                $('#healthInsurancesTable tr:last').after(data['render']);
+                showAlert("Mutuelle ajoutée avec succès", "success", 5000);
+            } else {
+                showAlert("<strong>Echec,</strong> vérifiez les champs du formulaire", "danger", 5000);
+                var innerHTML = $(data).find('form[name="health_insurance"]').html();
+                $('form[name="health_insurance"]').html(innerHTML);
+            }
         },
         error: function (data) {
             showAlert("<strong>Erreur</>, la requête n'a pu aboutir", "danger", 5000);

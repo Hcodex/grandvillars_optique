@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AdminMediaController extends AbstractController
 {
@@ -31,29 +32,14 @@ class AdminMediaController extends AbstractController
         if ($request->isXMLHttpRequest()) {
             $media = new Media;
 
-            switch ($type) {
-                case 'mutuelle':
-                    $uploadForm = $this->createForm(MediaType::class, $media,  [
-                        "mutuelle" => true,
-                        "action" => $this->generateUrl('ajax_upload', ['type' => "mutuelle"]),
-                    ]);
-                    $media->addMediaCategory($mediaCategoryRepo->findByName("mutuelle"));
-                    break;
-                case 'marque':
-                    $uploadForm = $this->createForm(MediaType::class, $media,  [
-                        "marque" => true,
-                        "action" => $this->generateUrl('ajax_upload', ['type' => "marque"]),
-                    ]);
-                    $media->addMediaCategory($mediaCategoryRepo->findByName("marque"));
-                    break;
-                default:
-                    $uploadForm = $this->createForm(MediaType::class, $media, [
-                        "mutuelle" => false,
-                        "action" => $this->generateUrl('ajax_upload', ['type' => "default"]),
-                    ]);
-                    break;
-            }
 
+            $uploadForm = $this->createForm(MediaType::class, $media,  [
+                "type" => $type,
+                "action" => $this->generateUrl('ajax_upload', ['type' => $type]),
+            ]);
+            if ($type != "default") {
+                $media->addMediaCategory($mediaCategoryRepo->findByName($type));
+            }
 
             $uploadForm->handleRequest($request);
 
@@ -61,9 +47,15 @@ class AdminMediaController extends AbstractController
                 $manager->persist($media);
                 $manager->flush();
 
-                return $this->render('admin/partials/mediaRow.html.twig', [
+                $render = $this->renderView('admin/partials/mediaRow.html.twig', [
                     'media' => $media,
                 ]);
+
+                return new JsonResponse([
+                    'status' => 'success',
+                    'render' => $render,
+                ]);
+
             }
 
             return $this->render('admin/partials/modalUploadForm.html.twig', [

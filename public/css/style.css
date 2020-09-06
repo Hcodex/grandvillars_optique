@@ -146,7 +146,7 @@ video {
 	  top : 80px;
 	  width : 70%;
 	  left : 15%;
-	  z-index:100;
+	  z-index:1100;
   }
 
 @media screen and (min-width: 1500px) {

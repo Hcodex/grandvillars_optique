@@ -29,7 +29,7 @@ class MediaType extends AbstractType
                 'label' => 'Texte alternatif',
             ]);
 
-        if ($options["mutuelle"]) {
+        if ($options['type'] == "mutuelle") {
             $builder
                 ->add('title', TextType::class, [
                     'label' => 'Titre',
@@ -45,8 +45,7 @@ class MediaType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Media::class,
-            'mutuelle' => false,
-            'marque' => false,
+            'type' => 'default',
         ]);
     }
 }
