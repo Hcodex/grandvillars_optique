@@ -13,6 +13,38 @@ $(document).ready(function () {
 
 });
 
+$('#nextbtn').on('click', function (e) {
+    e.preventDefault();
+    form = $('form[name="rdv"]').get(0);
+    $(this).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+    console.log(form);
+    $.ajax({
+        type: 'POST',
+        url: './ajaxRdv',
+        data: new FormData(form),
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            if (data["status"] === 'success') {
+                $('.invalid-feedback').removeClass('invalid-feedback');
+                $('.is-invalid').removeClass('is-invalid');
+                $('.form-error-icon').remove();
+                $('.form-error-message').remove();
+                $("#pills-home").removeClass('active')
+                $("#pills-slots").tab('show');
+            } else {
+                var innerHTML = $(data).find('#rdvFormStep1').html();
+                $('#rdvFormStep1').html(innerHTML);
+            };
+            $('#nextbtn').html('Suivant');
+        },
+        error: function (data) {
+            showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);
+        }
+    });
+});
+
+
 
 $(".selector-list>li ").click(function () {
     var datalist = $(this).attr("data-list");
