@@ -49,11 +49,14 @@ class AdminContentEditorController extends AbstractController
     }
 
 
+
+
+
     /**
-     * @Route("/admin/content/{id}/axjaxUpdate", name="admin_content_ajaxUpdate")
+     * @Route("/admin/content/{content}/axjaxContentFormCreate", name="admin_content_ajaxFormCreate")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function _ajaxUpdateContent(Content $content, Request $request, EntityManagerInterface $manager)
+    public function _ajaxContentFormCreate(Content $content, Request $request, EntityManagerInterface $manager)
     {
         if ($request->isXMLHttpRequest()) {
 
@@ -71,27 +74,14 @@ class AdminContentEditorController extends AbstractController
 
                 $arg['item'] = $content;
 
-                return $this->render('admin/content_editor/' . $categoryName. '.html.twig', $arg);
+                $render = $this->renderView('admin/content_editor/' . $categoryName. '.html.twig', $arg);
+
+                return new JsonResponse([
+                    'status' => 'success',
+                    'render' => $render,
+                ]);
+
             }
-        }
-
-        return new Response('This is not ajax!', 400);
-    }
-
-
-    /**
-     * @Route("/admin/content/{id}/axjaxContentFormCreate", name="admin_content_ajaxFormCreate")
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function _ajaxContentFormCreate(Content $content, Request $request)
-    {
-        if ($request->isXMLHttpRequest()) {
-
-            $categoryName = $content->getContentCategory()->getName();
-
-            $form = $this->createForm(ContentType::class, $content,[
-                "category" => $categoryName,
-            ]);
 
             return $this->render('admin/content_editor/modalContentForm.html.twig', [
                 'form' =>   $form->createView(),

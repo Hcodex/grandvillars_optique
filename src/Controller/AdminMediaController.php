@@ -106,22 +106,20 @@ class AdminMediaController extends AbstractController
         $mediaLockedCategories = array_intersect($media->getCategories(), $lockedCategories);
 
 
+
         if (in_array("mutuelle", $media->getCategories())) {
             $form = $this->createForm(MediaType::class, $media,  [
-                "mutuelle" => true,
-                "marque" => false,
+                "type" => "mutuelle"
             ]);
             $media->addMediaCategory($mediaCategoryRepo->findByName("mutuelle"));
         } elseif (in_array("marque", $media->getCategories())) {
             $form = $this->createForm(MediaType::class, $media,  [
-                "mutuelle" => false,
-                "marque" => true,
+                "type" => "marque"
             ]);
             $media->addMediaCategory($mediaCategoryRepo->findByName("marque"));
         } else {
             $form = $this->createForm(MediaType::class, $media, [
-                "mutuelle" => false,
-                "marque" => false,
+                "type" => "default"
             ]);
         }
 

@@ -93,44 +93,26 @@ $(document).on('submit', 'form[name="content"]', function (e) {
     targetSection = $(this).data('section')
     $.ajax({
         type: 'POST',
-        url: '/admin/content/' + $(this).data('id') + '/axjaxUpdate',
+        url: '/admin/content/' + $(this).data('id') + '/axjaxContentFormCreate',
         data: new FormData(this),
         contentType: false,
         processData: false,
         success: function (data) {
-            $('#' + targetSection).replaceWith(data);
-            $("#modalContentForm").modal('hide');
-            showAlert("<strong>Contenu modifié</strong>", "success", 5000);
+            if (data["status"] === 'success') {
+                $('#' + targetSection).replaceWith(data['render']);
+                $("#modalContentForm").modal('hide');
+                showAlert("<strong>Contenu modifié</strong>", "success", 5000);
+            } else {
+                showAlert("<strong>Echec,</strong> vérifiez les champs du formulaire", "danger", 5000);
+                var innerHTML = $(data).find('form[name="content"]').html();
+                $('form[name="content"]').html(innerHTML);
+            }
         },
         error: function (data) {
             showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);
         }
     });
 });
-
-
-
-/*
-$(document).on('submit', 'form[name="content_icon"]', function (e) {
-    e.preventDefault();
-    targetSection = $(this).data('section')
-    $.ajax({
-        type: 'POST',
-        url: '/admin/content/' + $(this).data('id') + '/axjaxUpdate',
-        data: new FormData(this),
-        contentType: false,
-        processData: false,
-        success: function (data) {
-            $('#' + targetSection).html(data);
-            $("#modalContentForm").modal('hide');
-            showAlert("<strong>Contenu modifié</strong>", "success", 5000);
-        },
-        error: function (data) {
-            showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);
-        }
-    });
-});
-*/
 
 $(document).on('click', '.icon-select', function (e) {
     $('#content_icon').val($(this).data('icon'));
@@ -138,8 +120,6 @@ $(document).on('click', '.icon-select', function (e) {
     $(this).addClass('border border-success');
     $("#modalIconSelector").modal('hide');
 });
-
-
 
 $(document).on('click', '.healtInsuranceSetStatus', function (e) {
     e.preventDefault();

@@ -9,12 +9,12 @@
 			</div>
 			<div class="modal-body">
 
-				{{form_start(form, {'action': path('admin_content_ajaxUpdate', {'id' : entity.id}), 'method': 'POST', 'attr':{'data-id': entity.id, 'data-section' : 'content' ~ entity.id }})}}
+				{{form_start(form, {'attr':{'data-id': entity.id, 'data-section' : 'content' ~ entity.id }})}}
 				{% if form.icon is defined %}
 					<div class="form-group">
 						{{ form_label(form.icon) }}
 						{{ form_widget(form.icon) }}
-						<button class="btn btn-darker" type="button" data-toggle="modal" data-target="#modalIconSelector" aria-expanded="false" aria-controls="modalIconSelector">Icones</button>
+						<button class="btn btn-darker my-2" type="button" data-toggle="modal" data-target="#modalIconSelector" aria-expanded="false" aria-controls="modalIconSelector">Icones</button>
 						<small>Pous plus de choix d'icônes :
 							<a class="text-primary" href="https://iconify.design/icon-sets/" target="blank">iconify</a>
 						</small>

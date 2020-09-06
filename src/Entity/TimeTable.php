@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TimeTableRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TimeTableRepository::class)
@@ -19,71 +20,127 @@ class TimeTable
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "Ce champ ne peut pas comporter plus de {{ limit }} caractères"
+     * )
      */
     private $monAm;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "Ce champ ne peut pas comporter plus de {{ limit }} caractères"
+     * )
      */
     private $monPm;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "Ce champ ne peut pas comporter plus de {{ limit }} caractères"
+     * )
      */
     private $tueAm;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "Ce champ ne peut pas comporter plus de {{ limit }} caractères"
+     * )
      */
     private $tuePm;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "Ce champ ne peut pas comporter plus de {{ limit }} caractères"
+     * )
      */
     private $wedAm;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "Ce champ ne peut pas comporter plus de {{ limit }} caractères"
+     * )
      */
     private $wedPm;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "Ce champ ne peut pas comporter plus de {{ limit }} caractères"
+     * )
      */
     private $thuAm;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "Ce champ ne peut pas comporter plus de {{ limit }} caractères"
+     * )
      */
     private $thuPm;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "Ce champ ne peut pas comporter plus de {{ limit }} caractères"
+     * )
      */
     private $friAm;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "Ce champ ne peut pas comporter plus de {{ limit }} caractères"
+     * )
      */
     private $friPm;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "Ce champ ne peut pas comporter plus de {{ limit }} caractères"
+     * )
      */
     private $satAm;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "Ce champ ne peut pas comporter plus de {{ limit }} caractères"
+     * )
      */
     private $satPm;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "Ce champ ne peut pas comporter plus de {{ limit }} caractères"
+     * )
      */
     private $sunAm;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "Ce champ ne peut pas comporter plus de {{ limit }} caractères"
+     * )
      */
     private $sunPm;
 
