@@ -54,3 +54,7 @@
 .env.test
 .env.local
 /public/img/upload/
+
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###

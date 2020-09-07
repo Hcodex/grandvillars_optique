@@ -8,7 +8,7 @@
 {% endfor %}
 
 <tr id="mediaRow{{media.id}}">
-	<td><img class="img-fluid" src="{{ vich_uploader_asset(media) }}" alt="{{ media.alt }}"/></td>
+	<td class="text-center"><img class="img-fluid" src="{{ vich_uploader_asset(media)|imagine_filter('miniThumbail') }}" alt="{{ media.alt }}"/></td>
 	<td class="text-center">{{(media.title != null) ? media.title : media.imageName}}</td>
 	<td class="text-center">{{media.alt}}</td>
 	<td class="text-center">{{media.categories|join(' - ')}}</td>

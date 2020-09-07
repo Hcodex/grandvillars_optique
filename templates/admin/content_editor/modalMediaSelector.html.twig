@@ -24,7 +24,7 @@
 					{% endif %}
 
 					{% set img %}
-					<img class=" col-2 p-2 text-center {{selectorType}} {{selectClass}}" src="{{ vich_uploader_asset(media) }}" alt="{{ media.alt }}" data-media_id="{{ media.id }}" class="img-fluid" alt="Responsive image">
+					<img class=" p-2 text-center {{selectorType}} {{selectClass}}" src="{{ vich_uploader_asset(media)|imagine_filter('selectorThumbail') }}" alt="{{ media.alt }}" data-media_id="{{ media.id }}" >
 					{% endset %}
 
 					{% set flag = false %}
@@ -53,7 +53,7 @@
 						<a class="nav-link" id="mutuelles-tab" data-toggle="tab" href="#mutuelles" role="tab" aria-controls="mutuelles" aria-selected="false">Mutuelles</a>
 					</li>
 				</ul>
-				<div class="tab-content" id="nav-tabContent">
+				<div class="tab-content py-3" id="nav-tabContent">
 					<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">{{generalTab|raw}}</div>
 					<div class="tab-pane fade" id="marques" role="tabpanel" aria-labelledby="marques-tab">{{marquesTab|raw}}</div>
 					<div class="tab-pane fade" id="mutuelles" role="tabpanel" aria-labelledby="mutuelles-tab">{{mutuellesTab|raw}}</div>
