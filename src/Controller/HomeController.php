@@ -6,8 +6,10 @@ use App\Entity\Contact;
 use App\Form\ContactType;
 use App\Form\RdvType;
 use App\Repository\ClosingDaysRepository;
+use App\Repository\HealthInsuranceRepository;
 use App\Repository\TimeTableRepository;
 use App\Service\ClosedDays;
+use App\Service\ContentService;
 use App\Service\MailSender;
 use App\Service\PublicHollydays;
 use DateTime;
@@ -26,9 +28,9 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(Request $request, MailSender $mailSender, ClosingDaysRepository $closingDayRepo, TimeTableRepository $timeTableRepo)
+    public function index(Request $request, MailSender $mailSender, ClosingDaysRepository $closingDayRepo, TimeTableRepository $timeTableRepo, ContentService $contentService, HealthInsuranceRepository $healthInsuranceRepo)
     {
-
+        
         $contactForm = $this->createForm(ContactType::class);
         $contactForm->handleRequest($request);
 
@@ -63,6 +65,8 @@ class HomeController extends AbstractController
             'closingDays'  => array_merge($closingDayRepo->getClosingDays(), $recurrentClosingDays),
             'publicHollydays' => PublicHollydays::getHollydays(),
             'timeTable' => $timeTableRepo->getFirst(),
+            'content'=> $contentService->getContents(),
+            'healthInsurances' => $healthInsuranceRepo->findAll(),
         ]);
     }
 
