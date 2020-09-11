@@ -7,7 +7,7 @@
 	<main data-spy="scroll" data-target="#navbar" data-offset="0">
 
 
-		<div id="slider" class="vh-100 d-flex align-content-end flex-wrap" style="background-image:url('{{ medias.cover ? vich_uploader_asset(medias.cover|first) : "/img/interieur-grandvillars-optique.jpg" }}')">
+		<div id="slider" class="vh-100 d-flex align-content-end flex-wrap" style="background-image:url('{{ medias.cover ? vich_uploader_asset(medias.cover|first) : " /img/interieur-grandvillars-optique.jpg" }}')">
 			<div id='title' class="mb-5">
 				<h1>
 					<span class="h1-1">Bienvenue chez</span>
@@ -269,16 +269,22 @@
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu col-12 col-md-6 p-0 shadow">
-						<div class="p-3 bg-white sticky-top shadow">
-							<input class="form-control " id="myInput" type="text" placeholder="Rechercher">
+						<div class="p-3 bg-secondary sticky-top shadow">
+							<label for="myInput">Rechercher votre mutuelle :</label>
+							<input class="form-control " id="myInput" type="text" placeholder="Saisir le nom de votre mutuelle">
 						</div>
-						<div class="p-3">
+						<div class="p-3 healthInsuranceList">
 							<div id="mutuellesNoResult" class="d-none">
 								<span class="iconify" data-icon="flat-color-icons:cancel"></span>
 								Aucun résultat ne correspond à votre recherche...
 							</div>
 							{% include 'partials/mutuelles_list.html.twig' %}
 						</div>
+						<div class="p-3 bg-darker text-white shadow">
+							<p class="m-0"><span class="iconify" data-icon="emojione-v1:left-check-mark"></span> : Vous n'avancez pas la part mutuelle</p>
+							<p class="m-0"><span class="iconify" data-icon="emojione-v1:cross-mark"></span> : Vous devrez avancer la part mutuelle</p>
+						</div>
+																			
 					</ul>
 				</div>
 			</div>
