@@ -5,8 +5,9 @@
 
 {% block body %}
 	<main data-spy="scroll" data-target="#navbar" data-offset="0">
-		{{dump(content)}}
-		<div id="slider" class="vh-100 d-flex align-content-end flex-wrap">
+
+
+		<div id="slider" class="vh-100 d-flex align-content-end flex-wrap" style="background-image:url('{{ medias.cover ? vich_uploader_asset(medias.cover|first) : "/img/interieur-grandvillars-optique.jpg" }}')">
 			<div id='title' class="mb-5">
 				<h1>
 					<span class="h1-1">Bienvenue chez</span>
@@ -23,7 +24,9 @@
 		<section id="quote" class="d-none d-md-block bg-secondary py-5">
 			<div class="container">
 				<div class="media">
-					<img src="./img/cedric.jpg" alt="Cedric Hinterlang" width="100px" class="rounded-circle align-self-center mr-3">
+					{% if medias.quote %}
+						<img src="{{vich_uploader_asset(medias.quote|first) }}" alt="{{medias.quote|first.alt}}" width="100px" class="rounded-circle align-self-center mr-3">
+					{% endif %}
 					<div class="media-body">
 						{{content.quoteSectionContent|first.content|raw}}
 						<small>{{content.quoteSectionContent|first.title}}</small>
@@ -56,13 +59,25 @@
 		<section id="horaires">
 			<div class="card-group bg-secondary">
 				<div class="card border-0 d-none d-xl-block">
-					<img src="./img/magasin5.jpg" class="card-img-top" alt="Intérieur grandvillars Optique">
+					{% if medias.time1 %}
+						<img src=" {{vich_uploader_asset(medias.time1|first)}}" class="card-img-top" alt="{{medias.time1|first.alt}}">
+					{% else %}
+						<img src="./img/magasin5.jpg" class="card-img-top" alt="Intérieur grandvillars Optique">
+					{% endif %}
 				</div>
 				<div class="card border-0">
-					<img src="./img/magasin4.jpg" class="card-img-top" alt="Intérieur grandvillars Optique">
+					{% if medias.time2 %}
+						<img src=" {{vich_uploader_asset(medias.time2|first)}}" class="card-img-top" alt="{{medias.time2|first.alt}}">
+					{% else %}
+						<img src="./img/magasin4.jpg" class="card-img-top" alt="Intérieur grandvillars Optique">
+					{% endif %}
 				</div>
 				<div class="card border-0 d-none d-xxl-block">
-					<img src="./img/magasin9.jpg" class="card-img-top" alt="Intérieur grandvillars Optique">
+					{% if medias.time3 %}
+						<img src=" {{vich_uploader_asset(medias.time3|first)}}" class="card-img-top" alt="{{medias.time3|first.alt}}">
+					{% else %}
+						<img src="./img/magasin9.jpg" class="card-img-top" alt="Intérieur grandvillars Optique">
+					{% endif %}
 				</div>
 				<div class="card border-0 d-flex  align-self-center bg-transparent">
 					<div class="mx-auto">
@@ -115,7 +130,11 @@
 					</div>
 				</div>
 				<div class="card border-0 d-none d-lg-block">
-					<img src="./img/magasin7.jpg" class="card-img-top" alt="Intérieur grandvillars Optique">
+					{% if medias.time4 %}
+						<img src=" {{vich_uploader_asset(medias.time4|first)}}" class="card-img-top" alt="{{medias.time4|first.alt}}">
+					{% else %}
+						<img src="./img/magasin7.jpg" class="card-img-top" alt="Intérieur grandvillars Optique">
+					{% endif %}
 				</div>
 			</div>
 		</section>
@@ -154,7 +173,11 @@
 		<section id="activisu">
 			<div class="row mx-0">
 				<div class="col-sm-2 col-md-1 col-xl-2 d-none d-sm-block d-lg-none d-xl-block order-3 order-xl-1 my-5 align-self-center text-center ">
-					<img class="img-activisu " src="./img/activisu.png" alt="Activisu">
+					{% if medias.activisu %}
+						<img src=" {{vich_uploader_asset(medias.activisu|first)}}" class="img-activisu" alt="{{medias.activisu|first.alt}}">
+					{% else %}
+						<img class="img-activisu" src="./img/activisu.png" alt="Activisu">
+					{% endif %}
 				</div>
 				<div class="col-sm-10 col-lg-6 col-xl-5 order-2 order-xl-2 my-5 px-3 align-self-center text-justify">
 					<h3>{{content.activisuSectionContent|first.title}}</h3>
@@ -171,28 +194,24 @@
 
 		<section id="magasin" class="my-5">
 			<div class="row  mx-0">
-				<div id="carouselExampleIndicators" class="carousel slide carousel-fade col-6 px-5 d-none d-xl-block" data-ride="carousel">
+				<div id="shopCarousel" class="carousel slide carousel-fade col-6 px-5 d-none d-xl-block" data-ride="carousel">
 					<ol class="carousel-indicators">
-						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+						{% for media in medias.carousel %}
+							<li data-target="#shopCarousel" data-slide-to="{{loop.index}}" class="{{loop.first ? " active"}}"></li>
+						{% endfor %}
 					</ol>
 					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<img src="./img/magasin.jpg" class="d-block w-100" alt="...">
-						</div>
-						<div class="carousel-item">
-							<img src="./img/magasin2.jpg" class="d-block w-100" alt="...">
-						</div>
-						<div class="carousel-item">
-							<img src="./img/magasin3.jpg" class="d-block w-100" alt="...">
-						</div>
+						{% for media in medias.carousel %}
+							<div class="carousel-item {{loop.first ? " active"}}">
+								<img src="{{vich_uploader_asset(media)}}" class="d-block w-100" alt="{{media.alt}}">
+							</div>
+						{% endfor %}
 					</div>
-					<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+					<a class="carousel-control-prev" href="#shopCarousel" role="button" data-slide="prev">
 						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 						<span class="sr-only">Previous</span>
 					</a>
-					<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+					<a class="carousel-control-next" href="#shopCarousel" role="button" data-slide="next">
 						<span class="carousel-control-next-icon" aria-hidden="true"></span>
 						<span class="sr-only">Next</span>
 					</a>
@@ -220,7 +239,9 @@
 			{{content.certificationSection|first.content|raw}}
 			<div class="d-flex justify-content-center mt-5">
 				<div class="col-5 col-sm-4 col-md-2 col-xl-1">
-					<img src="./img/opticien-engage-essilor-2020.png" class="img-fluid" alt="essilor opticien engagé 2020">
+					{% if medias.certif1 %}
+						<img src="{{vich_uploader_asset(medias.certif1|first)}}" class="img-fluid" alt="{{medias.certif1|first.alt}}">
+					{% endif %}
 				</div>
 				<div class="d-none d-md-block col-md-6 text-center align-self-center">
 
@@ -232,7 +253,9 @@
 					{% endfor %}
 				</div>
 				<div class="col-5 col-sm-4 col-md-2 col-xl-1">
-					<img src="./img/afnor-certification.png" class="img-fluid" alt="Certifiaction Afnor qualité en optique">
+					{% if medias.certif2 %}
+						<img src="{{vich_uploader_asset(medias.certif2|first)}}" class="img-fluid" alt="{{medias.certif2|first.alt}}">
+					{% endif %}
 				</div>
 			</div>
 		</section>
@@ -242,7 +265,7 @@
 				<h2 class="text-center text-white">Mutuelles partenaires</h2>
 
 				<div class="dropdown my-5 text-center">
-					<button class="btn btn-primary dropdown-toggle col-12 col-md-6 mx-auto" type="button" data-toggle="dropdown">Votre mutuelle est-elle prise charge ?
+					<button class="btn btn-info dropdown-toggle col-12 col-md-6 mx-auto p-3" type="button" data-toggle="dropdown">Voir si ma mutelle est prise en charge
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu col-12 col-md-6 p-0 shadow">
@@ -262,131 +285,34 @@
 
 			<div id="mutuellesCarousel" class="carousel slide pb-4" data-ride="carousel" data-interval="false">
 				<ol class="carousel-indicators">
-					<li data-target="#mutuellesCarousel" data-slide-to="0" class="active"></li>
-					<li data-target="#mutuellesCarousel" data-slide-to="1"></li>
-					<li data-target="#mutuellesCarousel" data-slide-to="2"></li>
+					{% for i in range(0, medias.mutuelle|length, 3) %}
+						<li data-target="#mutuellesCarousel" data-slide-to="{{loop.index0}}" class="{{loop.first ? 'active'}}"></li>
+					{% endfor %}
 				</ol>
+
 				<div class="carousel-inner">
-					<div class="carousel-item active">
-						<div class="container">
-							<div class="row row-cols-1 row-cols-md-3">
-								<div class="col mb-4">
-									<div class="card h-100">
-										<div class="d-flex card-img-fixed-height px-5">
-											<img src="./img/mutuelles/optistya.jpg" class="card-img-top img-fluid align-self-center" alt="...">
+					{% for i in range(0, medias.mutuelle|length, 3) %}
+						<div class="carousel-item {{loop.first ? 'active'}}">
+							<div class="container">
+								<div class="row row-cols-1 row-cols-md-3">
+									{% for media in medias.mutuelle|slice(i, 3) %}
+										<div class="col mb-4">
+											<div class="card h-100">
+												<div class="d-flex card-img-fixed-height px-5">
+													<img src="{{ vich_uploader_asset(media) }}" class="card-img-top img-fluid align-self-center" alt="{{media.alt}}">
+												</div>
+												<div class="card-body pt-2">
+													<h5 class="card-title">{{media.title}}</h5>
+													<p class="card-text">{{media.description|raw}}</p>
+												</div>
+											</div>
 										</div>
-										<div class="card-body pt-2">
-											<h5 class="card-title">Optistya</h5>
-											<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur rerum ipsam labore consequatur. Nihil, doloremque!</p>
-										</div>
-									</div>
-								</div>
-								<div class="col mb-4">
-									<div class="card h-100">
-										<div class="d-flex card-img-fixed-height px-5">
-											<img src="./img/mutuelles/kalixia.jpg" class="card-img-top img-fluid align-self-center" alt="...">
-										</div>
-										<div class="card-body pt-2">
-											<h5 class="card-title">Kalixia</h5>
-											<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur rerum ipsam labore consequatur. Nihil, doloremque!</p>
-										</div>
-									</div>
-								</div>
-								<div class="col mb-4">
-									<div class="card h-100">
-										<div class="d-flex card-img-fixed-height px-5">
-											<img src="./img/mutuelles/seveane.jpg" class="card-img-top img-fluid align-self-center" alt="...">
-										</div>
-										<div class="card-body pt-2">
-											<h5 class="card-title">Seveane</h5>
-											<p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
-										</div>
-									</div>
+									{% endfor %}
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="carousel-item">
-						<div class="container">
-							<div class="row row-cols-1 row-cols-md-3">
-								<div class="col mb-4">
-									<div class="card h-100">
-										<div class="d-flex card-img-fixed-height px-5">
-											<img src="./img/mutuelles/cdc-mutuelle.png" class="card-img-top img-fluid align-self-center" alt="...">
-										</div>
-										<div class="card-body pt-2">
-											<h5 class="card-title">CDC Mutuelle</h5>
-											<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime molestiae tempora esse deleniti fugit illo dignissimos, non libero iusto sit.</p>
-										</div>
-									</div>
-								</div>
-								<div class="col mb-4">
-									<div class="card h-100">
-										<div class="d-flex card-img-fixed-height px-5">
-											<img src="./img/mutuelles/msa.svg" class="card-img-top img-fluid align-self-center" alt="...">
-										</div>
-										<div class="card-body pt-2">
-											<h5 class="card-title">MSA</h5>
-											<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur rerum ipsam labore consequatur. Nihil, doloremque!</p>
-										</div>
-									</div>
-								</div>
-								<div class="col mb-4">
-									<div class="card h-100">
-										<div class="d-flex card-img-fixed-height px-5">
-											<img src="./img/mutuelles/mgen.jpg" class="card-img-top img-fluid align-self-center" alt="...">
-										</div>
-										<div class="card-body pt-2">
-											<h5 class="card-title">MGEN</h5>
-											<p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="carousel-item">
-						<div class="container">
-							<div class="row row-cols-1 row-cols-md-3">
-								<div class="col mb-4">
-									<div class="card h-100">
-										<div class="d-flex card-img-fixed-height px-5">
-											<img src="./img/mutuelles/mmg.jpeg" class="card-img-top img-fluid align-self-center" alt="...">
-										</div>
-										<div class="card-body pt-2">
-											<h5 class="card-title">MMG</h5>
-											<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime molestiae tempora esse deleniti fugit illo dignissimos, non libero iusto sit.</p>
-										</div>
-									</div>
-								</div>
-								<div class="col mb-4">
-									<div class="card h-100">
-										<div class="d-flex card-img-fixed-height px-5">
-											<img src="./img/mutuelles/just-mutuelle.png" class="card-img-top img-fluid align-self-center" alt="...">
-										</div>
-										<div class="card-body pt-2">
-											<h5 class="card-title">Mutuelle Just</h5>
-											<p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur rerum ipsam labore consequatur. Nihil, doloremque!</p>
-										</div>
-									</div>
-								</div>
-								<div class="col mb-4">
-									<div class="card h-100">
-										<div class="d-flex card-img-fixed-height px-5">
-											<img src="./img/mutuelles/la-mutuelle-generale.png" class="card-img-top img-fluid align-self-center" alt="...">
-										</div>
-										<div class="card-body pt-2">
-											<h5 class="card-title">La mutuelle générale</h5>
-											<p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					{% endfor %}
 				</div>
-
-
 				<a class="carousel-control-prev" href="#mutuellesCarousel" role="button" data-slide="prev">
 					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 					<span class="sr-only">Previous</span>
@@ -396,47 +322,38 @@
 					<span class="sr-only">Next</span>
 				</a>
 			</div>
-		</section>
+		</div>
+	</section>
 
-		<section id="marques" class="container my-5">
-			<h2 class="text-center mb-5">Nos marques</h2>
-			<div class="d-flex flex-wrap">
-				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/bulgari-logo.svg" alt="Bulgari" class="img-fluid"></div>
-				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/kenzo-logo.svg" alt="Kenzo" class="img-fluid"></div>
-				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/dilem-logo.jpg" alt="Dilem" class="img-fluid"></div>
-				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/mise-au-green-logo.png" alt="Mise au green" class="img-fluid"></div>
-				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/nike-logo.svg" alt="Nike" class="img-fluid"></div>
-				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/hugo-boss-Logo.svg" alt="Hugo Boss" class="img-fluid"></div>
-				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/ray-ban-logo.svg" alt="Ray Ban" class="img-fluid"></div>
-				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/oakley-logo.svg" alt="Oakely" class="img-fluid"></div>
-				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/oxibis-logo.svg" alt="Oxibis" class="img-fluid"></div>
-				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/prada-logo.svg" alt="Prada" class="img-fluid"></div>
-				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/burberry-logo.svg" alt="Burberry" class="img-fluid"></div>
-				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/dolce-and-gabbana-logo.svg" alt="Dolce & Gabbana" class="img-fluid"></div>
-				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/spiderman-logo.png" alt="Spiderman" class="img-fluid"></div>
-				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/avangers-logo.png" alt="Avangers" class="img-fluid"></div>
-				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/lulu-castagnette-logo.png" alt="Lulu Castagnette" class="img-fluid"></div>
-				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="./img/marques/star-wars-logo.jpg" alt="Star Wars" class="img-fluid"></div>
-			</div>
-		</section>
+	<section id="marques" class="container my-5">
+		<h2 class="text-center mb-5">Nos marques</h2>
+		<div class="d-flex flex-wrap">
+			{% for media in medias.marque %}
+				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="{{vich_uploader_asset(media)}}" alt="{{media.alt}}" class="img-fluid"></div>
+			{% endfor %}
+		</div>
+	</section>
 
-		<section id="contactSection">
-			<div class="row bg-secondary mx-0">
-				<div class="col-12 col-xl-6 px-0">
+	<section id="contactSection">
+		<div class="row bg-secondary mx-0">
+			<div class="col-12 col-xl-6 px-0">
+				{% if medias.contact %}
+					<img src=" {{vich_uploader_asset(medias.contact|first)}}" class="img-fluid" alt="{{medias.contact|first.alt}}">
+				{% else %}
 					<img src="./img/photo-exterieur-grandvillars-optique.jpg" class="img-fluid" alt="Photo extérieur grandvillard optique">
-				</div>
-				<div class="col-12 col-xl-6 my-3 align-self-center px-5">
-					<div>
-						<h2>Contact</h2>
-						{% include 'partials/contact_form.html.twig' %}
-					</div>
+				{% endif %}
+			</div>
+			<div class="col-12 col-xl-6 my-3 align-self-center px-5">
+				<div>
+					<h2>Contact</h2>
+					{% include 'partials/contact_form.html.twig' %}
 				</div>
 			</div>
-		</section>
+		</div>
+	</section>
 
-		<section id="map" class="w-100">
-			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1132.459316694269!2d6.967825559408115!3d47.539426762175516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47921f45a424fc61%3A0x728e85c0f95d1aac!2s16%20Rue%20du%20G%C3%A9n%C3%A9ral%20Leclerc%2C%2090600%20Grandvillars!5e0!3m2!1sfr!2sfr!4v1584181874792!5m2!1sfr!2sfr" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-		</section>
-	</main>
-	{% include 'home/modalRdv.html.twig' %}
-{% endblock %}
+	<section id="map" class="w-100">
+		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1132.459316694269!2d6.967825559408115!3d47.539426762175516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47921f45a424fc61%3A0x728e85c0f95d1aac!2s16%20Rue%20du%20G%C3%A9n%C3%A9ral%20Leclerc%2C%2090600%20Grandvillars!5e0!3m2!1sfr!2sfr!4v1584181874792!5m2!1sfr!2sfr" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+	</section>
+</main>
+{% include 'home/modalRdv.html.twig' %}{% endblock %}

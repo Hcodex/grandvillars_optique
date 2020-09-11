@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Media;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @method Media|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,9 +15,10 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class MediaRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, ContainerInterface $container = null)
     {
         parent::__construct($registry, Media::class);
+        $this->container = $container;
     }
 
     // /**
@@ -35,6 +37,15 @@ class MediaRepository extends ServiceEntityRepository
     }
 
 
+    public function getMedias()
+    {
+        $media = [];
+        $categories = array_merge($this->container->getParameter('media.categories'),$this->container->getParameter('media.lockedCategories'));
+        foreach ($categories as $categorie) {
+           $media[$categorie] = $this->findByCategory($categorie);
+        }
+        return $media;
+    }
     /*
     public function findOneBySomeField($value): ?Media
     {

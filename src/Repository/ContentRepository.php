@@ -6,6 +6,7 @@ use App\Entity\Content;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @method Content|null find($id, $lockMode = null, $lockVersion = null)
@@ -15,9 +16,10 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ContentRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, ContainerInterface $container = null)
     {
         parent::__construct($registry, Content::class);
+        $this->container = $container;
     }
 
      
@@ -45,6 +47,17 @@ class ContentRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function getContents()
+    {
+        $contents = [];
+        $categories = $this->container->getParameter('contentCategories');
+        foreach ($categories as $categorie) {
+           $contents[$categorie] = $this->findByCategoryField($categorie);
+        }
+        return $contents;
+    }
+
 
     /*
     public function findOneBySomeField($value): ?Content

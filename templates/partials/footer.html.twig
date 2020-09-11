@@ -27,10 +27,9 @@
 		</div>
 		<div id="reseaux" class="mb-5">
 			<h3>Retrouvez nous sur :</h3>
-			<a href="https://www.facebook.com/grandvillarsoptique90/" target="blanck"><img src="./img/facebook.webp" class="img-fluid" alt="Facebook"></a>
-			<img src="./img/instagram.svg.png" alt="Facebook">
-			<a href="https://twitter.com/GrandvillarsOpt?s=20" target="blank"><img src="./img/twitter.svg.png" class="img-fluid" alt="Twitter"></a>
-			<a href="https://www.linkedin.com/company/grandvillars-optique/about/" target="blank"><img src="./img/linkedin.svg.png" class="img-fluid" alt="Linkedin"></a>
+			{% for media in medias.socialNetwork %}
+				<a href="{{media.description}}" target="blanck"><img src="{{ vich_uploader_asset(media) }}" class="img-fluid" alt="{{media.alt}}"></a>
+			{% endfor %}
 		</div>
 		<div class="col-3 d-none d-md-block">
 			<h3>Grandvillars Optique</h3>
