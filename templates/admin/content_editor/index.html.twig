@@ -148,10 +148,9 @@
 
 		<section id="certifs" class="bg-secondary py-5">
 			{% set item = certificationSection|first %}
-			<div id="content{{item.id}}">
-				{% include '/admin/content_editor/certificationSection.html.twig' %}
-			</div>
 
+			{% include '/admin/content_editor/certificationSection.html.twig' %}
+			
 			<div class="d-flex justify-content-center mt-5">
 				<div class="col-5 col-sm-4 col-md-2 col-xl-1">
 					{% if certif1Media is not empty %}

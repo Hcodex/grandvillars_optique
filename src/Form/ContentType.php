@@ -15,7 +15,7 @@ class ContentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        if ($options["category"] == "serviceItem" || $options["category"] == "jobItem") {
+        if ($options["category"] == "serviceItem" || $options["category"] == "jobItem" || $options["category"] == 'certificationItem') {
             $builder->add('icon', TextType::class, [
                 'empty_data' => '',
                 'label' => 'Icone',
@@ -26,7 +26,7 @@ class ContentType extends AbstractType
                 'empty_data' => '',
                 'label' => $this->SetLabel($options["category"]),
             ]);
-        if ($options["category"] != "jobItem") {
+        if ($options["category"] != "jobItem" && $options["category"] != "certificationItem") {
             $builder
                 ->add('content', CKEditorType::class, [
                     'empty_data' => '',
@@ -47,6 +47,8 @@ class ContentType extends AbstractType
     {
         if ($category == "quoteSectionContent") {
             return "Auteur";
+        } elseif ($category == "certificationItem") {
+            return "Texte";
         } else {
             return "Titre";
         }
