@@ -10,7 +10,8 @@
 			<div class="container my-5">
 				{{form_start(form)}}
 					{{ form_widget(form, { 'attr': {'class': 'form-row'} }) }}
-				<button type="submit" class="btn btn-primary">Confirmer</button>
+				<button type="submit" class="btn btn-success">Confirmer</button>
+				<a class="btn btn-darker" href="{{path('admin_dashboard')}}">Retour</a>
 				{{form_end(form)}}
 			</div>
 		</section>

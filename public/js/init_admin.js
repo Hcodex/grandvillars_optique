@@ -115,7 +115,10 @@ $(document).on('submit', 'form[name="content"]', function (e) {
 });
 
 $(document).on('click', '.icon-select', function (e) {
-    $('#content_icon').val($(this).data('icon'));
+    icon = $(this).data('icon');
+    html= "<span id='selected-icon' class='iconify' data-inline='false' data-width='50px' data-icon='"+icon+"''></span>"
+    $('#selected-icon').html(html);
+    $('#content_icon').val(icon);
     $('.icon-select').removeClass('border border-success');
     $(this).addClass('border border-success');
     $("#modalIconSelector").modal('hide');
@@ -174,7 +177,7 @@ $(document).on('click', '.btn-media-selector', function (e) {
 $(document).on('submit', 'form[name="define_media"]', function (e) {
     e.preventDefault();
     target = $(this).data('mediacategory');
-    selectedMedias = $("#modalMediaSelector .border-success").attr('src');
+    selectedMedias = $("#modalMediaSelector .border-success").data('mediasrc');
     console.log("cible : " + target);
     $.ajax({
         type: 'POST',

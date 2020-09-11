@@ -13,6 +13,7 @@
 				{% if form.icon is defined %}
 					<div class="form-group">
 						{{ form_label(form.icon) }}
+						<p  id='selected-icon' ><span class="iconify" data-inline="false" data-width="50px" data-icon="{{entity.icon}}"></span></p>
 						{{ form_widget(form.icon) }}
 						<button class="btn btn-darker my-2" type="button" data-toggle="modal" data-target="#modalIconSelector" aria-expanded="false" aria-controls="modalIconSelector">Icones</button>
 						<small>Pous plus de choix d'icônes :

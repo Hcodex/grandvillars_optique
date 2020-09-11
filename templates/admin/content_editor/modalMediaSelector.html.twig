@@ -24,7 +24,7 @@
 					{% endif %}
 
 					{% set img %}
-					<img class=" p-2 text-center {{selectorType}} {{selectClass}}" src="{{ vich_uploader_asset(media)|imagine_filter('selectorThumbail') }}" alt="{{ media.alt }}" data-media_id="{{ media.id }}" >
+					<img class=" p-2 text-center {{selectorType}} {{selectClass}}" src="{{ vich_uploader_asset(media)|imagine_filter('selectorThumbail') }}" data-mediasrc="{{ vich_uploader_asset(media)}}"alt="{{ media.alt }}" data-media_id="{{ media.id }}" >
 					{% endset %}
 
 					{% set flag = false %}
