@@ -25,32 +25,13 @@ class AdminContentEditorController extends AbstractController
      */
     public function index(ContentRepository $contentRepo, ContentCategoryRepository $contentCategoryRepo, MediaRepository $mediaRepo)
     {
-
-        $categories = $contentCategoryRepo->findAll();
-
-        foreach ($categories as $categorie) {
-            $items = $contentRepo->findByCategoryField($categorie->getName());
-            foreach ($items as $item) {
-                $arg[$categorie->getName()][$item->getId()] = $item;
-            }
-        }
-
-        $mediaContentCategories = $this->getParameter('media.lockedCategories');
-
-        foreach ($mediaContentCategories as $mediaContentCategorie) {
-            $arg[$mediaContentCategorie.'Media'] = $mediaRepo->findByCategory($mediaContentCategorie);
-        }
-
-        $arg['iconList'] =  $this->getParameter('iconList');
-
-        dump($arg);
-
-        return $this->render('admin/content_editor/index.html.twig', $arg);
+         return $this->render('home/index.html.twig', [
+            'content'=> $contentRepo->getContents(),
+            'medias'=>$mediaRepo->getMedias(),
+            'iconList'=>$this->getParameter('iconList'),
+            'editorMode' => true,
+        ]);
     }
-
-
-
-
 
     /**
      * @Route("/admin/content/{content}/axjaxContentFormCreate", name="admin_content_ajaxFormCreate")
@@ -73,8 +54,9 @@ class AdminContentEditorController extends AbstractController
                 $manager->flush();
 
                 $arg['item'] = $content;
+                $arg['editorMode'] = true;
 
-                $render = $this->renderView('admin/content_editor/' . $categoryName. '.html.twig', $arg);
+                $render = $this->renderView('home/' . $categoryName. '.html.twig', $arg);
 
                 return new JsonResponse([
                     'status' => 'success',

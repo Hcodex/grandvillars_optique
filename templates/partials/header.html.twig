@@ -27,6 +27,18 @@
 				<li class="nav-item">
 					<a class="nav-link" href="#map">Nous trouver</a>
 				</li>
+				{% if is_granted('ROLE_ADMIN') %}
+				<li class="nav-item btn-secondary btn p-0 mx-1">
+					<a class="nav-link text-dark" href="{{path('admin_dashboard')}}">Admin</a>
+				</li>
+				<li class="nav-item  btn btn-danger p-0 mx-1">
+					<a class="nav-link" href="{{path('account_logout')}}">Déconexion</a>
+				</li>
+				{% endif %}
+
+
+
+
 			</ul>
 		</div>
 	</nav>

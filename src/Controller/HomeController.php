@@ -70,6 +70,7 @@ class HomeController extends AbstractController
             'content'=> $contentRepo->getContents(),
             'medias'=>$mediaRepo->getMedias(),
             'healthInsurances' => $healthInsuranceRepo->findAll(),
+            'editorMode' => false,
         ]);
     }
 

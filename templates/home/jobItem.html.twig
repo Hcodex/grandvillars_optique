@@ -1,0 +1,21 @@
+{% if editorMode %}
+	{% set itemClass = "bg-primary" %}
+{% endif %}
+
+<div id="content{{item.id}}" class="col mb-4">
+	<div class="card h-100  border-0">
+		<div class="text-white text-center">
+			<i class="iconify rounded-circle  {{ itemClass }} p-4" data-icon="{{item.icon}}" data-inline="false" data-width="120px"></i>
+		</div>
+		<div class="card-body d-flex p-3">
+			<h3 class="align-self-center mx-auto text-center font-weight-light font-cursive">{{item.title}}</h3>
+		</div>
+
+		{% if  editorMode and is_granted('ROLE_ADMIN') %}
+			<button class="btn btn-info btn-edit" type="button" data-id="{{item.id}}">
+				<span class="iconify" data-icon="clarity:edit-solid"></span>
+			</button>
+		{% endif %}
+
+	</div>
+</div>

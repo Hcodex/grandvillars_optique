@@ -1,0 +1,9 @@
+<div id="content{{item.id}}" class="mb-5">
+	<h2>{{item.title}}</h2>
+	{{item.content|raw}}
+	{% if editorMode and is_granted('ROLE_ADMIN') %}
+		<button class="btn btn-primary btn-edit" type="button" data-id="{{item.id}}">
+			<span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span>
+		</button>
+	{% endif %}
+</div>

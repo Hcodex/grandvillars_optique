@@ -1,0 +1,29 @@
+{% if  editorMode %}
+	{% set itemBorder = 'border-primary' %}
+	{% set hrColor =  'bg-primary' %}
+	{% set iconColor =  'text-primary' %}
+{% endif %}
+
+<div id="content{{item.id}}" class="col mb-4">
+	<div class="card h-100 {{itemBorder}}">
+		<div class="card-body media">
+			<i class="iconify align-self-center mr-3 {{iconColor}} d-none d-sm-block" data-icon="{{item.icon}}" data-inline="false" data-width="50"></i>
+			<div class="media-body">
+				<h3>{{item.title}}
+					{% if editorMode and is_granted('ROLE_ADMIN') %}
+						<button class="btn btn-info btn-edit" type="button" data-id="{{item.id}}">
+							<span class="iconify" data-icon="clarity:edit-solid"></span>
+						</button>
+					{% else %}
+						{% if loop.last %}
+							<button class="btn btn-primary m-0 p-2 float-md-right" data-toggle="modal" data-target="#modalRdv">Prendre rendez-vous</button>
+						{% endif %}
+					{% endif %}
+				</h3>
+
+				<hr class="{{hrColor}}">
+				{{item.content|raw}}
+			</div>
+		</div>
+	</div>
+</div>

@@ -14,23 +14,38 @@
 					<span class="h1-2">Grandvillars</span>
 					<span class="h1-3">Optique & Audition</span>
 				</h1>
+				{% if editorMode and is_granted('ROLE_ADMIN') %}
+				<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="cover">
+					<span class="iconify" data-icon="mdi:picture"></span>
+				</button>
+				{% endif %}
 				<a href="#contact" class="btn btn-dark p-2 mx-2">Nous contacter</a>
 				<button class="btn btn-info p-2 mx-2 my-2" data-toggle="modal" data-target="#modalRdv">Prendre rendez-vous</button>
 			</div>
 		</div>
 
-		{% include 'partials/closingDays.html.twig' %}
+		{% if not editorMode %}
+			{% include 'partials/closingDays.html.twig' %}
+		{% endif %}
 
 		<section id="quote" class="d-none d-md-block bg-secondary py-5">
 			<div class="container">
 				<div class="media">
 					{% if medias.quote %}
-						<img src="{{vich_uploader_asset(medias.quote|first) }}" alt="{{medias.quote|first.alt}}" width="100px" class="rounded-circle align-self-center mr-3">
+						<img src="{{ vich_uploader_asset(medias.quote|first) }}" alt="{{medias.quote|first.alt }}" width="100px" class="rounded-circle align-self-center mr-3 quoteMedia">
+					{% else %}
+						<img src="/img/cedric.jpg" alt="Cedric Hinterlang" width="100px" class="rounded-circle align-self-center mr-3">
 					{% endif %}
-					<div class="media-body">
-						{{content.quoteSectionContent|first.content|raw}}
-						<small>{{content.quoteSectionContent|first.title}}</small>
-					</div>
+
+					{% if editorMode and is_granted('ROLE_ADMIN') %}
+						<span class="badge badge-secondary">
+							<button class="btn btn-primary btn-media-selector" type="button" data-mediacategory="quote">
+								<span class="iconify" data-icon="mdi:picture"></span>
+							</button>
+						</span>
+					{% endif %}
+					{% set item = content.quoteSectionContent|first %}
+					{% include '/home/quoteSectionContent.html.twig' %}
 				</div>
 			</div>
 		</section>
@@ -41,16 +56,7 @@
 				<div class="row row-cols-2 row-cols-md-4 mt-5">
 					{% for item in content.jobItem %}
 						{% set itemClass =  cycle(['bg-primary text-white', 'bg-secondary text-dark', 'bg-info text-dark', 'bg-dark text-white'], loop.index0)  %}
-						<div class="col mb-4">
-							<div class="card h-100  border-0">
-								<div class="text-center">
-									<i class="iconify rounded-circle {{itemClass}} p-4" data-icon="{{item.icon}}" data-inline="false" data-width="120px"></i>
-								</div>
-								<div class="card-body d-flex p-3">
-									<h3 class="align-self-center mx-auto text-center font-weight-light font-cursive">{{item.title}}</h3>
-								</div>
-							</div>
-						</div>
+						{% include '/home/jobItem.html.twig' %}
 					{% endfor %}
 				</div>
 			</div>
@@ -60,23 +66,38 @@
 			<div class="card-group bg-secondary">
 				<div class="card border-0 d-none d-xl-block">
 					{% if medias.time1 %}
-						<img src=" {{vich_uploader_asset(medias.time1|first)}}" class="card-img-top" alt="{{medias.time1|first.alt}}">
+						<img src=" {{vich_uploader_asset(medias.time1|first)}}" class="card-img-top time1Media" alt="{{medias.time1|first.alt}}">
 					{% else %}
-						<img src="./img/magasin5.jpg" class="card-img-top" alt="Intérieur grandvillars Optique">
+						<img src="/img/magasin5.jpg" class="card-img-top time1Media" alt="Intérieur grandvillars Optique">
+					{% endif %}
+					{% if editorMode and is_granted('ROLE_ADMIN') %}
+						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="time1">
+							<span class="iconify" data-icon="mdi:picture"></span>
+						</button>
 					{% endif %}
 				</div>
 				<div class="card border-0">
 					{% if medias.time2 %}
-						<img src=" {{vich_uploader_asset(medias.time2|first)}}" class="card-img-top" alt="{{medias.time2|first.alt}}">
+						<img src=" {{vich_uploader_asset(medias.time2|first)}}" class="card-img-top time2Media" alt="{{medias.time2|first.alt}}">
 					{% else %}
-						<img src="./img/magasin4.jpg" class="card-img-top" alt="Intérieur grandvillars Optique">
+						<img src="/img/magasin4.jpg" class="card-img-top time2Media" alt="Intérieur grandvillars Optique">
+					{% endif %}
+					{% if editorMode and is_granted('ROLE_ADMIN') %}
+						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="time2">
+							<span class="iconify" data-icon="mdi:picture"></span>
+						</button>
 					{% endif %}
 				</div>
 				<div class="card border-0 d-none d-xxl-block">
 					{% if medias.time3 %}
-						<img src=" {{vich_uploader_asset(medias.time3|first)}}" class="card-img-top" alt="{{medias.time3|first.alt}}">
+						<img src=" {{vich_uploader_asset(medias.time3|first)}}" class="card-img-top time3Media" alt="{{medias.time3|first.alt}}">
 					{% else %}
-						<img src="./img/magasin9.jpg" class="card-img-top" alt="Intérieur grandvillars Optique">
+						<img src="/img/magasin9.jpg" class="card-img-top time3Media" alt="Intérieur grandvillars Optique">
+					{% endif %}
+					{% if editorMode and is_granted('ROLE_ADMIN') %}
+						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="time3">
+							<span class="iconify" data-icon="mdi:picture"></span>
+						</button>
 					{% endif %}
 				</div>
 				<div class="card border-0 d-flex  align-self-center bg-transparent">
@@ -84,56 +105,62 @@
 						<div class="text-center my-3">
 							<i class="iconify" data-icon="mdi:clock-outline" data-inline="false" data-width="70px"></i>
 						</div>
-						<table class="table table-borderless table-sm">
-							<tr>
-								<th></th>
-								<th class="text-center">Matin</th>
-								<th class="text-center">AM</th>
-							</tr>
-							<tr>
-								<td>Lundi</td>
-								<td>{{timeTable.monAm}}</td>
-								<td>{{timeTable.monPm}}</td>
-							</tr>
-							<tr>
-								<td>Mardi</td>
-								<td>{{timeTable.tueAm}}</td>
-								<td>{{timeTable.tuePm}}</td>
-							</tr>
-							<tr>
-								<td>Mercredi</td>
-								<td>{{timeTable.wedAm}}</td>
-								<td>{{timeTable.wedPm}}</td>
-							</tr>
-							<tr>
-								<td>Jeudi</td>
-								<td>{{timeTable.thuAm}}</td>
-								<td>{{timeTable.thuPm}}</td>
-							</tr>
-							<tr>
-								<td>Vendredi</td>
-								<td>{{timeTable.friAm}}</td>
-								<td>{{timeTable.friPm}}</td>
-							</tr>
-							<tr>
-								<td>Samedi</td>
-								<td>{{timeTable.satAm}}</td>
-								<td>{{timeTable.satPm}}</td>
-							</tr>
-							<tr>
-								<td>Dimanche</td>
-								<td>{{timeTable.sunAm}}</td>
-								<td>{{timeTable.sunPm}}</td>
-							</tr>
-						</table>
-
+						{% if not editorMode %}
+							<table class="table table-borderless table-sm">
+								<tr>
+									<th></th>
+									<th class="text-center">Matin</th>
+									<th class="text-center">AM</th>
+								</tr>
+								<tr>
+									<td>Lundi</td>
+									<td>{{timeTable.monAm}}</td>
+									<td>{{timeTable.monPm}}</td>
+								</tr>
+								<tr>
+									<td>Mardi</td>
+									<td>{{timeTable.tueAm}}</td>
+									<td>{{timeTable.tuePm}}</td>
+								</tr>
+								<tr>
+									<td>Mercredi</td>
+									<td>{{timeTable.wedAm}}</td>
+									<td>{{timeTable.wedPm}}</td>
+								</tr>
+								<tr>
+									<td>Jeudi</td>
+									<td>{{timeTable.thuAm}}</td>
+									<td>{{timeTable.thuPm}}</td>
+								</tr>
+								<tr>
+									<td>Vendredi</td>
+									<td>{{timeTable.friAm}}</td>
+									<td>{{timeTable.friPm}}</td>
+								</tr>
+								<tr>
+									<td>Samedi</td>
+									<td>{{timeTable.satAm}}</td>
+									<td>{{timeTable.satPm}}</td>
+								</tr>
+								<tr>
+									<td>Dimanche</td>
+									<td>{{timeTable.sunAm}}</td>
+									<td>{{timeTable.sunPm}}</td>
+								</tr>
+							</table>
+						{% endif %}
 					</div>
 				</div>
 				<div class="card border-0 d-none d-lg-block">
 					{% if medias.time4 %}
-						<img src=" {{vich_uploader_asset(medias.time4|first)}}" class="card-img-top" alt="{{medias.time4|first.alt}}">
+						<img src=" {{vich_uploader_asset(medias.time4|first)}}" class="card-img-top time4Media" alt="{{medias.time4|first.alt}}">
 					{% else %}
-						<img src="./img/magasin7.jpg" class="card-img-top" alt="Intérieur grandvillars Optique">
+						<img src="/img/magasin7.jpg" class="card-img-top time4Media" alt="Intérieur grandvillars Optique">
+					{% endif %}
+					{% if editorMode and is_granted('ROLE_ADMIN') %}
+						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="time4">
+							<span class="iconify" data-icon="mdi:picture"></span>
+						</button>
 					{% endif %}
 				</div>
 			</div>
@@ -149,22 +176,7 @@
 						{% set itemBorder =  cycle(['border-primary', 'border-grey', 'border-info', 'border-dark'], loop.index0)  %}
 						{% set hrColor =  cycle(['bg-primary', 'bg-grey', 'bg-info', 'bg-dark'], loop.index0)  %}
 						{% set iconColor =  cycle(['text-primary', 'text-grey', 'text-info', 'text-dark'], loop.index0)  %}
-						<div class="col mb-4">
-							<div class="card h-100 {{itemBorder}}">
-								<div class="card-body media">
-									<i class="iconify align-self-center mr-3 {{iconColor}} d-none d-sm-block" data-icon="{{item.icon}}" data-inline="false" data-width="50"></i>
-									<div class="media-body">
-										<h3>{{item.title}}
-											{% if loop.last %}
-												<button class="btn btn-primary m-0 p-2 float-md-right" data-toggle="modal" data-target="#modalRdv">Prendre rendez-vous</button>
-											{% endif %}
-										</h3>
-										<hr class="{{hrColor}}">
-										{{item.content|raw}}
-									</div>
-								</div>
-							</div>
-						</div>
+						{% include '/home/serviceItem.html.twig' %}
 					{% endfor %}
 				</div>
 			</div>
@@ -173,19 +185,22 @@
 		<section id="activisu">
 			<div class="row mx-0">
 				<div class="col-sm-2 col-md-1 col-xl-2 d-none d-sm-block d-lg-none d-xl-block order-3 order-xl-1 my-5 align-self-center text-center ">
-					{% if medias.activisu %}
-						<img src=" {{vich_uploader_asset(medias.activisu|first)}}" class="img-activisu" alt="{{medias.activisu|first.alt}}">
+					{% if medias.activisu is not empty %}
+						<img class="img-activisu activisuMedia" src="{{ vich_uploader_asset(medias.activisu|first) }}" alt="{{medias.activisu|first.alt}}">
 					{% else %}
-						<img class="img-activisu" src="./img/activisu.png" alt="Activisu">
+						<img class="img-activisu activisuMedia" src="/img/activisu.png" alt="Activisu">
+					{% endif %}
+					{% if editorMode and is_granted('ROLE_ADMIN') %}
+						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="activisu">
+							<span class="iconify" data-icon="mdi:picture"></span>
+						</button>
 					{% endif %}
 				</div>
-				<div class="col-sm-10 col-lg-6 col-xl-5 order-2 order-xl-2 my-5 px-3 align-self-center text-justify">
-					<h3>{{content.activisuSectionContent|first.title}}</h3>
-					{{content.activisuSectionContent|first.content|raw}}
-				</div>
+				{% set item = content.activisuSectionContent|first %}
+				{% include '/home/activisuSectionContent.html.twig' %}
 				<div class="col-lg-6 col-xl-5 order-1 order-xl-3 p-0">
 					<video class="w-100 d-block" autoplay loop muted>
-						<source src="./media/eyecode.mp4" type="video/mp4">
+						<source src="/media/eyecode.mp4" type="video/mp4">
 						Sorry, your browser doesn't support embedded videos.
 					</video>
 				</div>
@@ -194,38 +209,52 @@
 
 		<section id="magasin" class="my-5">
 			<div class="row  mx-0">
-				<div id="shopCarousel" class="carousel slide carousel-fade col-6 px-5 d-none d-xl-block" data-ride="carousel">
-					<ol class="carousel-indicators">
-						{% for media in medias.carousel %}
-							<li data-target="#shopCarousel" data-slide-to="{{loop.index}}" class="{{loop.first ? " active"}}"></li>
-						{% endfor %}
-					</ol>
-					<div class="carousel-inner">
-						{% for media in medias.carousel %}
-							<div class="carousel-item {{loop.first ? " active"}}">
-								<img src="{{vich_uploader_asset(media)}}" class="d-block w-100" alt="{{media.alt}}">
-							</div>
-						{% endfor %}
+				{% if not editorMode %}
+					<div id="shopCarousel" class="carousel slide carousel-fade col-6 px-5 d-none d-xl-block" data-ride="carousel">
+						<ol class="carousel-indicators">
+							{% for media in medias.carousel %}
+								<li data-target="#shopCarousel" data-slide-to="{{loop.index}}" class="{{loop.first ? " active"}}"></li>
+							{% endfor %}
+						</ol>
+						<div class="carousel-inner">
+							{% for media in medias.carousel %}
+								<div class="carousel-item {{loop.first ? " active"}}">
+									<img src="{{vich_uploader_asset(media)}}" class="d-block w-100" alt="{{media.alt}}">
+								</div>
+							{% endfor %}
+						</div>
+						<a class="carousel-control-prev" href="#shopCarousel" role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="carousel-control-next" href="#shopCarousel" role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
 					</div>
-					<a class="carousel-control-prev" href="#shopCarousel" role="button" data-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="sr-only">Previous</span>
-					</a>
-					<a class="carousel-control-next" href="#shopCarousel" role="button" data-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="sr-only">Next</span>
-					</a>
-				</div>
+				{% else %}
+					{% if is_granted('ROLE_ADMIN') %}
+						<div id="shopCarousel" class=" col-6 px-5 d-none d-xl-block">
+							<div class="carousel-inner">
+								{% if medias.carousel is not empty %}
+									<img src="{{ vich_uploader_asset(medias.carousel |first) }}" alt="{{medias.carousel |first.alt }}" class="d-block w-100 carouselMedia">
+								{% else %}
+									<img src="/img/magasin.jpg" class="d-block w-100" alt="...">
+								{% endif %}
+							</div>
+							<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="carousel">
+								<span class="iconify" data-icon="mdi:picture"></span>
+							</button>
+						</div>
+					{% endif %}
+				{% endif %}
 
 				<div class="col-12 col-xl-6 align-self-center pr-5">
-					<h2>{{content.shopSection|first.title}}</h2>
-					{{content.shopSection|first.content|raw}}
+					{% set item = content.shopSection|first %}
+					{% include '/home/shopSection.html.twig' %}
 					<div class="d-flex flex-wrap">
 						{% for item in content.shopItem %}
-							<div class="col-12 col-md-6">
-								<h3 class="h4">{{item.title}}</h3>
-								{{item.content|raw}}
-							</div>
+							{% include '/home/shopItem.html.twig' %}
 						{% endfor %}
 					</div>
 				</div>
@@ -233,133 +262,169 @@
 		</section>
 
 		<section id="certifs" class="bg-secondary py-5">
-			<h3 class="text-center text-uppercase px-3">
-				{{content.certificationSection|first.title}}
-			</h3>
-			{{content.certificationSection|first.content|raw}}
+			{% set item = content.certificationSection|first %}
+			{% include '/home/certificationSection.html.twig' %}
 			<div class="d-flex justify-content-center mt-5">
 				<div class="col-5 col-sm-4 col-md-2 col-xl-1">
-					{% if medias.certif1 %}
-						<img src="{{vich_uploader_asset(medias.certif1|first)}}" class="img-fluid" alt="{{medias.certif1|first.alt}}">
+					{% if medias.certif1 is not empty %}
+						<img src="{{ vich_uploader_asset(medias.certif1|first) }}" alt="{{medias.certif1|first.alt }}" width="100px" class="img-fluid certif1Media">
+					{% else %}
+						<img src="/img/opticien-engage-essilor-2020.png" class="img-fluid certif1Media" alt="essilor opticien engagé 2020">
 					{% endif %}
+					{% if editorMode and is_granted('ROLE_ADMIN') %}
+						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="certif1">
+							<span class="iconify" data-icon="mdi:picture"></span>
+						</button>
+					{% endif %}
+
+
 				</div>
 				<div class="d-none d-md-block col-md-6 text-center align-self-center">
 
 					{% for item in content.certificationItem %}
-						<h4 class="font-cursive h5">
-							<span class="iconify" data-icon="{{item.icon}}"></span>
-							{{item.title}}
-						</h4>
+						{% include '/home/certificationItem.html.twig' %}
 					{% endfor %}
 				</div>
 				<div class="col-5 col-sm-4 col-md-2 col-xl-1">
-					{% if medias.certif2 %}
-						<img src="{{vich_uploader_asset(medias.certif2|first)}}" class="img-fluid" alt="{{medias.certif2|first.alt}}">
+					{% if medias.certif2 is not empty %}
+						<img src="{{ vich_uploader_asset(medias.certif2|first) }}" alt="{{medias.certif2|first.alt }}" width="100px" class="img-fluid certif2Media">
+					{% else %}
+						<img src="/img/opticien-engage-essilor-2020.png" class="img-fluid certif2Media" alt="essilor opticien engagé 2020">
+					{% endif %}
+					{% if editorMode and is_granted('ROLE_ADMIN') %}
+						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="certif2">
+							<span class="iconify" data-icon="mdi:picture"></span>
+						</button>
 					{% endif %}
 				</div>
 			</div>
 		</section>
-
-		<section id="mutuelles" class="bg-dark mt-5 py-5">
-			<div class="container">
-				<h2 class="text-center text-white">Mutuelles partenaires</h2>
-
-				<div class="dropdown my-5 text-center">
-					<button class="btn btn-info dropdown-toggle col-12 col-md-6 mx-auto p-3" type="button" data-toggle="dropdown">Voir si ma mutelle est prise en charge
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu col-12 col-md-6 p-0 shadow">
-						<div class="p-3 bg-secondary sticky-top shadow">
-							<label for="myInput">Rechercher votre mutuelle :</label>
-							<input class="form-control " id="myInput" type="text" placeholder="Saisir le nom de votre mutuelle">
-						</div>
-						<div class="p-3 healthInsuranceList">
-							<div id="mutuellesNoResult" class="d-none">
-								<span class="iconify" data-icon="flat-color-icons:cancel"></span>
-								Aucun résultat ne correspond à votre recherche...
+		{% if not editorMode %}
+			<section id="mutuelles" class="bg-dark mt-5 py-5">
+				<div class="container">
+					<h2 class="text-center text-white">Mutuelles partenaires</h2>
+					<div class="dropdown my-5 text-center">
+						<button class="btn btn-info dropdown-toggle col-12 col-md-6 mx-auto p-3" type="button" data-toggle="dropdown">Voir si ma mutelle est prise en charge
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu col-12 col-md-6 p-0 shadow">
+							<div class="p-3 bg-secondary sticky-top shadow">
+								<label for="myInput">Rechercher votre mutuelle :</label>
+								<input class="form-control " id="myInput" type="text" placeholder="Saisir le nom de votre mutuelle">
 							</div>
-							{% include 'partials/mutuelles_list.html.twig' %}
-						</div>
-						<div class="p-3 bg-darker text-white shadow">
-							<p class="m-0"><span class="iconify" data-icon="emojione-v1:left-check-mark"></span> : Vous n'avancez pas la part mutuelle</p>
-							<p class="m-0"><span class="iconify" data-icon="emojione-v1:cross-mark"></span> : Vous devrez avancer la part mutuelle</p>
-						</div>
-																			
-					</ul>
+							<div class="p-3 healthInsuranceList">
+								<div id="mutuellesNoResult" class="d-none">
+									<span class="iconify" data-icon="flat-color-icons:cancel"></span>
+									Aucun résultat ne correspond à votre recherche...
+								</div>
+								{% include 'partials/mutuelles_list.html.twig' %}
+							</div>
+							<div class="p-3 bg-darker text-white shadow">
+								<p class="m-0">
+									<span class="iconify" data-icon="emojione-v1:left-check-mark"></span>
+									: Vous n'avancez pas la part mutuelle</p>
+								<p class="m-0">
+									<span class="iconify" data-icon="emojione-v1:cross-mark"></span>
+									: Vous devrez avancer la part mutuelle</p>
+							</div>
+						</ul>
+					</div>
 				</div>
-			</div>
 
-			<div id="mutuellesCarousel" class="carousel slide pb-4" data-ride="carousel" data-interval="false">
-				<ol class="carousel-indicators">
-					{% for i in range(0, medias.mutuelle|length, 3) %}
-						<li data-target="#mutuellesCarousel" data-slide-to="{{loop.index0}}" class="{{loop.first ? 'active'}}"></li>
-					{% endfor %}
-				</ol>
+				<div id="mutuellesCarousel" class="carousel slide pb-4" data-ride="carousel" data-interval="false">
+					<ol class="carousel-indicators">
+						{% for i in range(0, medias.mutuelle|length, 3) %}
+							<li data-target="#mutuellesCarousel" data-slide-to="{{loop.index0}}" class="{{loop.first ? 'active'}}"></li>
+						{% endfor %}
+					</ol>
 
-				<div class="carousel-inner">
-					{% for i in range(0, medias.mutuelle|length, 3) %}
-						<div class="carousel-item {{loop.first ? 'active'}}">
-							<div class="container">
-								<div class="row row-cols-1 row-cols-md-3">
-									{% for media in medias.mutuelle|slice(i, 3) %}
-										<div class="col mb-4">
-											<div class="card h-100">
-												<div class="d-flex card-img-fixed-height px-5">
-													<img src="{{ vich_uploader_asset(media) }}" class="card-img-top img-fluid align-self-center" alt="{{media.alt}}">
-												</div>
-												<div class="card-body pt-2">
-													<h5 class="card-title">{{media.title}}</h5>
-													<p class="card-text">{{media.description|raw}}</p>
+					<div class="carousel-inner">
+						{% for i in range(0, medias.mutuelle|length, 3) %}
+							<div class="carousel-item {{loop.first ? 'active'}}">
+								<div class="container">
+									<div class="row row-cols-1 row-cols-md-3">
+										{% for media in medias.mutuelle|slice(i, 3) %}
+											<div class="col mb-4">
+												<div class="card h-100">
+													<div class="d-flex card-img-fixed-height px-5">
+														<img src="{{ vich_uploader_asset(media) }}" class="card-img-top img-fluid align-self-center" alt="{{media.alt}}">
+													</div>
+													<div class="card-body pt-2">
+														<h5 class="card-title">{{media.title}}</h5>
+														<p class="card-text">{{media.description|raw}}</p>
+													</div>
 												</div>
 											</div>
-										</div>
-									{% endfor %}
+										{% endfor %}
+									</div>
 								</div>
 							</div>
-						</div>
+						{% endfor %}
+					</div>
+					<a class="carousel-control-prev" href="#mutuellesCarousel" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#mutuellesCarousel" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+			</section>
+		{% endif %}
+		{% if not editorMode %}
+			<section id="marques" class="container my-5">
+				<h2 class="text-center mb-5">Nos marques</h2>
+				<div class="d-flex flex-wrap">
+					{% for media in medias.marque %}
+						<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="{{vich_uploader_asset(media)}}" alt="{{media.alt}}" class="img-fluid"></div>
 					{% endfor %}
 				</div>
-				<a class="carousel-control-prev" href="#mutuellesCarousel" role="button" data-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="sr-only">Previous</span>
-				</a>
-				<a class="carousel-control-next" href="#mutuellesCarousel" role="button" data-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="sr-only">Next</span>
-				</a>
-			</div>
-		</div>
-	</section>
+			</section>
+		{% endif %}
 
-	<section id="marques" class="container my-5">
-		<h2 class="text-center mb-5">Nos marques</h2>
-		<div class="d-flex flex-wrap">
-			{% for media in medias.marque %}
-				<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="{{vich_uploader_asset(media)}}" alt="{{media.alt}}" class="img-fluid"></div>
-			{% endfor %}
-		</div>
-	</section>
-
-	<section id="contactSection">
-		<div class="row bg-secondary mx-0">
-			<div class="col-12 col-xl-6 px-0">
-				{% if medias.contact %}
-					<img src=" {{vich_uploader_asset(medias.contact|first)}}" class="img-fluid" alt="{{medias.contact|first.alt}}">
-				{% else %}
-					<img src="./img/photo-exterieur-grandvillars-optique.jpg" class="img-fluid" alt="Photo extérieur grandvillard optique">
-				{% endif %}
-			</div>
-			<div class="col-12 col-xl-6 my-3 align-self-center px-5">
-				<div>
-					<h2>Contact</h2>
-					{% include 'partials/contact_form.html.twig' %}
+		<section id="contact">
+			<div class="row bg-secondary mx-0">
+				<div class="col-12 col-xl-6 px-0">
+					{% if medias.contact %}
+						<img src=" {{vich_uploader_asset(medias.contact|first)}}" class="img-fluid contactMedia" alt="{{medias.contact|first.alt}}">
+					{% else %}
+						<img src="/img/photo-exterieur-grandvillars-optique.jpg" class="img-fluid contactMedia" alt="Photo extérieur grandvillard optique">
+					{% endif %}
+					{% if editorMode and is_granted('ROLE_ADMIN') %}
+						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="contact">
+							<span class="iconify" data-icon="mdi:picture"></span>
+						</button>
+					{% endif %}
+				</div>
+				<div class="col-12 col-xl-6 my-3 align-self-center px-5">
+					<div>
+						<h2>Contact</h2>
+						{% if not editorMode %}
+							{% include 'partials/contact_form.html.twig' %}
+						{% endif %}
+					</div>
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
 
-	<section id="map" class="w-100">
-		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1132.459316694269!2d6.967825559408115!3d47.539426762175516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47921f45a424fc61%3A0x728e85c0f95d1aac!2s16%20Rue%20du%20G%C3%A9n%C3%A9ral%20Leclerc%2C%2090600%20Grandvillars!5e0!3m2!1sfr!2sfr!4v1584181874792!5m2!1sfr!2sfr" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-	</section>
-</main>
-{% include 'home/modalRdv.html.twig' %}{% endblock %}
+		<section id="map" class="w-100">
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1132.459316694269!2d6.967825559408115!3d47.539426762175516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47921f45a424fc61%3A0x728e85c0f95d1aac!2s16%20Rue%20du%20G%C3%A9n%C3%A9ral%20Leclerc%2C%2090600%20Grandvillars!5e0!3m2!1sfr!2sfr!4v1584181874792!5m2!1sfr!2sfr" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+		</section>
+
+	</main>
+	{% if editorMode %}
+		<div class="modal fade" id="modalContentForm" tabindex="-1" role="dialog" aria-labelledby="modalContentForm" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"></div>
+		</div>
+
+		<div class="modal fade" id="modalMediaSelector" tabindex="-1" role="dialog" aria-labelledby="modalMediaSelector" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"></div>
+		</div>
+
+		{% include '/admin/content_editor/modalIconSelector.html.twig' %}
+
+	{% else %}
+		{% include 'home/modalRdv.html.twig' %}
+	{% endif %}
+{% endblock %}

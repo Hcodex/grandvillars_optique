@@ -31,16 +31,12 @@
 				<a href="{{media.description}}" target="blanck"><img src="{{ vich_uploader_asset(media) }}" class="img-fluid" alt="{{media.alt}}"></a>
 			{% endfor %}
 		</div>
-		<div class="col-3 d-none d-md-block">
-			<h3>Grandvillars Optique</h3>
-			<p>16 rue Général Leclerc<br>
-				90600 Grandvillars<br>
-				03.84.25.50.00</p>
-		</div>
+		{% set item = content.contactFooter|first %}
+		{% include '/home/contactFooter.html.twig' %}
 	</div>
 	<div class="bg-darker d-flex flex-column flex-md-row text-white justify-content-between p-3">
 		<div>
-		Réalisé par
+			Réalisé par
 			<a href="https://atelier-hcodex.fr/" target="blank" class="green-text">Atelier Hcodex</a>
 		</div>
 		<div>
