@@ -97,6 +97,7 @@ class AppFixtures extends Fixture
 
     public function loadContent(ObjectManager $manager)
     {
+
         $quoteCategory = new ContentCategory;
         $quoteCategory->setName('quoteSectionContent');
         $manager->persist($quoteCategory);
@@ -132,7 +133,7 @@ class AppFixtures extends Fixture
         $jobItemCategory->setName('jobItem');
         $manager->persist($jobItemCategory);
 
-        $jobs = array("lunettes de vue" => 'mdi:glasses', "solaires" => 'mdi:sunglasses', "Audition" => 'mdi:ear-hearing', "Lentilles" => 'mdi:eye-circle-outline');
+        $jobs = array("Lunettes de vue" => 'mdi:glasses', "Solaires" => 'mdi:sunglasses', "Audition" => 'mdi:ear-hearing', "Lentilles" => 'mdi:eye-circle-outline');
 
         foreach ($jobs as $jobTitle => $jobIcon) {
             $jobItemContent = new Content;
@@ -147,20 +148,37 @@ class AppFixtures extends Fixture
         $manager->persist($serviceItemCategory);
 
         $services = array(
-            "Verres ophtalmiques" => '<p>Nous disposons d\'une gamme de verre ophtalmiques apportant une réponse aux pathologies simples comme complexes</p><ul><li>unifocaux, double foyers</li><li>progressifs</li><li>traitements des verres : anti buée, anti reflet, photochromique, ...</li></ul>',
-            "Prothèses audio" => '<p>Grandvillars Optique dispose d\'un audioprothésiste Diplômé d\'Etat dans son équipé pour réaliser votre équipement auditif :</p><ul><li>Conception</li><li>Réalisation</li><li>Positionnement</li><li>Réglages</li></ul>',
-            "Atelier" => '<p>Notre équipe dispose des compétences et outils pour la création ou la réparation de vos lunettes et équipements auditifs</p><ul><li>Réparation</li><li>montage</li><li>Réglage</li></ul>',
-            "Dépistages" => '<p>Notre magasin dispose de tout l\'équiment nécessaire pour effectuer les dépistages et évaluer votre besoin en équipement visuel ou auditif</p><div class="row"><div class="col-12 col-md-6"><ul><li>Bilans visuels</li><li>Mesures d\'accuité</li><li>Depistage gratuit</li></ul>'
+            array(
+                "title" => "Verres ophtalmiques",
+                "content" => '<p>Nous disposons d\'une gamme de verre ophtalmiques apportant une réponse aux pathologies simples comme complexes</p><ul><li>unifocaux, double foyers</li><li>progressifs</li><li>traitements des verres : anti buée, anti reflet, photochromique, ...</li></ul>',
+                "icon" => 'mdi:cogs'
+            ),
+            array(
+                "title" => "Prothèses audio",
+                "content" => '<p>Grandvillars Optique dispose d\'un audioprothésiste Diplômé d\'Etat dans son équipé pour réaliser votre équipement auditif :</p><ul><li>Conception</li><li>Réalisation</li><li>Positionnement</li><li>Réglages</li></ul>',
+                "icon" => 'mdi:ear-hearing'
+            ),
+            array(
+                "title" => "Atelier",
+                "content" => '<p>Notre équipe dispose des compétences et outils pour la création ou la réparation de vos lunettes et équipements auditifs</p><ul><li>Réparation</li><li>montage</li><li>Réglage</li></ul>',
+                "icon" => 'mdi:wrench'
+            ),
+            array(
+                "title" => "Dépistage",
+                "content" => '<p>Notre magasin dispose de tout l\'équiment nécessaire pour effectuer les dépistages et évaluer votre besoin en équipement visuel ou auditif</p><div class="row"><div class="col-12 col-md-6"><ul><li>Bilans visuels</li><li>Mesures d\'accuité</li><li>Depistage gratuit</li></ul>',
+                "icon" => 'mdi-ballot'
+            ),
         );
 
-        foreach ($services as $serviceTitle => $serviceContent) {
+        foreach ($services as $service) {
             $serviceItemContent = new Content;
-            $serviceItemContent->setTitle($serviceTitle);
-            $serviceItemContent->setContent($serviceContent);
-            $serviceItemContent->setContentCategory($serviceItemCategory);
+            $serviceItemContent->setTitle($service["title"])
+                ->setContent($service["content"])
+                ->seticon($service["icon"])
+                ->setContentCategory($serviceItemCategory);
             $manager->persist($serviceItemContent);
         }
-
+        
         $shopCategory = new ContentCategory;
         $shopCategory->setName('shopSection');
         $manager->persist($shopCategory);
@@ -211,16 +229,28 @@ class AppFixtures extends Fixture
             "Certifié AFNOR qualité service" => 'emojione-v1:left-check-mark',
         );
 
-        foreach ($certifications as $certificationContent => $certificationIcon) {
+        foreach ($certifications as $certificationTitle => $certificationIcon) {
             $certificationItemContent = new Content;
-            $certificationItemContent->setTitle($certificationIcon);
-            $certificationItemContent->setContent($certificationContent);
+            $certificationItemContent->setTitle($certificationTitle);
+            $certificationItemContent->setIcon($certificationIcon);
             $certificationItemContent->setContentCategory($certificationItemCategory);
             $manager->persist($certificationItemContent);
         }
+
+        $contactFooterCategory = new ContentCategory;
+        $contactFooterCategory->setName('contactFooter');
+        $manager->persist($contactFooterCategory);
+
+        $contactFooterContent = new Content;
+        $contactFooterContent->setTitle("Grandvillars Optique");
+        $contactFooterContent->setContent("<p>16 rue Général Leclerc<br>90600 Grandvillars<br>03.84.25.50.00</p>");
+        $contactFooterContent->setContentCategory($contactFooterCategory);
+        $manager->persist($contactFooterContent);
+
     }
 
-    public function loadMedias(ObjectManager $manager){
+    public function loadMedias(ObjectManager $manager)
+    {
 
         $categories = $this->container->getParameter('media.lockedCategories');
         $categories = array_merge($categories, $this->container->getParameter('media.categories'));
@@ -230,7 +260,6 @@ class AppFixtures extends Fixture
             $mediaCategorie->setName($categorie);
             $manager->persist($mediaCategorie);
         }
-
     }
 
     public function loadHealthInsurances(ObjectManager $manager)

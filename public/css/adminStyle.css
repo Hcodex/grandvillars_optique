@@ -55,4 +55,5 @@ div{
     height: 50px;
     border-radius: 50px;
     line-height: 50px;
+    z-index : 1000;
 }

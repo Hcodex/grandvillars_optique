@@ -9,7 +9,7 @@
 		<section>
 			<div class="container py-3">
 				<div class="col-12 col-md-6 text-center mx-auto mb-3">
-					<img class="text-center img-fluid" src="{{ vich_uploader_asset(media) }}" alt="{{ media.alt }}" class="img-fluid" alt="Responsive image">
+					<img class="text-center img-fluid" src="{{ vich_uploader_asset(media)|imagine_filter('logo') }}" alt="{{ media.alt }}" class="img-fluid" alt="Responsive image">
 				</div>
 				{{form_start(form, {'name': "media_edit_form"})}}
 				{{form_widget(form)}}
