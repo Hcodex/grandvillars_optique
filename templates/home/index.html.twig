@@ -5,9 +5,7 @@
 
 {% block body %}
 	<main data-spy="scroll" data-target="#navbar" data-offset="0">
-
-
-		<div id="slider" class="vh-100 d-flex align-content-end flex-wrap" style="background-image:url('{{ medias.cover ? vich_uploader_asset(medias.cover|first) : " /img/interieur-grandvillars-optique.jpg" }}')">
+		<div id="slider" class="vh-100 d-flex align-content-end flex-wrap" style="background-image:url('{{ medias.cover ? vich_uploader_asset(medias.cover|first)|imagine_filter('cover') : " /img/interieur-grandvillars-optique.jpg"|imagine_filter('cover') }}')">
 			<div id='title' class="mb-5">
 				<h1>
 					<span class="h1-1">Bienvenue chez</span>
@@ -15,9 +13,9 @@
 					<span class="h1-3">Optique & Audition</span>
 				</h1>
 				{% if editorMode and is_granted('ROLE_ADMIN') %}
-				<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="cover">
-					<span class="iconify" data-icon="mdi:picture"></span>
-				</button>
+					<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="cover">
+						<span class="iconify" data-icon="mdi:picture"></span>
+					</button>
 				{% endif %}
 				<a href="#contact" class="btn btn-dark p-2 mx-2">Nous contacter</a>
 				<button class="btn btn-info p-2 mx-2 my-2" data-toggle="modal" data-target="#modalRdv">Prendre rendez-vous</button>
@@ -32,7 +30,7 @@
 			<div class="container">
 				<div class="media">
 					{% if medias.quote %}
-						<img src="{{ vich_uploader_asset(medias.quote|first) }}" alt="{{medias.quote|first.alt }}" width="100px" class="rounded-circle align-self-center mr-3 quoteMedia">
+						<img src="{{ vich_uploader_asset(medias.quote|first)|imagine_filter('quote') }}" alt="{{medias.quote|first.alt }}" width="100px" class="rounded-circle align-self-center mr-3 quoteMedia">
 					{% else %}
 						<img src="/img/cedric.jpg" alt="Cedric Hinterlang" width="100px" class="rounded-circle align-self-center mr-3">
 					{% endif %}
@@ -66,9 +64,9 @@
 			<div class="card-group bg-secondary">
 				<div class="card border-0 d-none d-xl-block">
 					{% if medias.time1 %}
-						<img src=" {{vich_uploader_asset(medias.time1|first)}}" class="card-img-top time1Media" alt="{{medias.time1|first.alt}}">
+						<img src=" {{vich_uploader_asset(medias.time1|first)|imagine_filter('timeTableMedia')}}" class="card-img-top time1Media" alt="{{medias.time1|first.alt}}">
 					{% else %}
-						<img src="/img/magasin5.jpg" class="card-img-top time1Media" alt="Intérieur grandvillars Optique">
+						<img src="{{'/img/magasin5.jpg'|imagine_filter('timeTableMedia')}}" class="card-img-top time1Media" alt="Intérieur grandvillars Optique">
 					{% endif %}
 					{% if editorMode and is_granted('ROLE_ADMIN') %}
 						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="time1">
@@ -78,9 +76,9 @@
 				</div>
 				<div class="card border-0">
 					{% if medias.time2 %}
-						<img src=" {{vich_uploader_asset(medias.time2|first)}}" class="card-img-top time2Media" alt="{{medias.time2|first.alt}}">
+						<img src=" {{vich_uploader_asset(medias.time2|first)|imagine_filter('timeTableMedia')}}" class="card-img-top time2Media" alt="{{medias.time2|first.alt}}">
 					{% else %}
-						<img src="/img/magasin4.jpg" class="card-img-top time2Media" alt="Intérieur grandvillars Optique">
+						<img src="{{'/img/magasin4.jpg'|imagine_filter('timeTableMedia')}}" class="card-img-top time2Media" alt="Intérieur grandvillars Optique">
 					{% endif %}
 					{% if editorMode and is_granted('ROLE_ADMIN') %}
 						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="time2">
@@ -90,9 +88,9 @@
 				</div>
 				<div class="card border-0 d-none d-xxl-block">
 					{% if medias.time3 %}
-						<img src=" {{vich_uploader_asset(medias.time3|first)}}" class="card-img-top time3Media" alt="{{medias.time3|first.alt}}">
+						<img src=" {{vich_uploader_asset(medias.time3|first)|imagine_filter('timeTableMedia')}}" class="card-img-top time3Media" alt="{{medias.time3|first.alt}}">
 					{% else %}
-						<img src="/img/magasin9.jpg" class="card-img-top time3Media" alt="Intérieur grandvillars Optique">
+						<img src="{{'/img/magasin9.jpg'|imagine_filter('timeTableMedia')}}" class="card-img-top time3Media" alt="Intérieur grandvillars Optique">
 					{% endif %}
 					{% if editorMode and is_granted('ROLE_ADMIN') %}
 						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="time3">
@@ -153,9 +151,9 @@
 				</div>
 				<div class="card border-0 d-none d-lg-block">
 					{% if medias.time4 %}
-						<img src=" {{vich_uploader_asset(medias.time4|first)}}" class="card-img-top time4Media" alt="{{medias.time4|first.alt}}">
+						<img src=" {{vich_uploader_asset(medias.time4|first)|imagine_filter('timeTableMedia')}}" class="card-img-top time4Media" alt="{{medias.time4|first.alt}}">
 					{% else %}
-						<img src="/img/magasin7.jpg" class="card-img-top time4Media" alt="Intérieur grandvillars Optique">
+						<img src="{{'/img/magasin7.jpg'|imagine_filter('timeTableMedia')}}" class="card-img-top time4Media" alt="Intérieur grandvillars Optique">
 					{% endif %}
 					{% if editorMode and is_granted('ROLE_ADMIN') %}
 						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="time4">
@@ -186,9 +184,9 @@
 			<div class="row mx-0">
 				<div class="col-sm-2 col-md-1 col-xl-2 d-none d-sm-block d-lg-none d-xl-block order-3 order-xl-1 my-5 align-self-center text-center ">
 					{% if medias.activisu is not empty %}
-						<img class="img-activisu activisuMedia" src="{{ vich_uploader_asset(medias.activisu|first) }}" alt="{{medias.activisu|first.alt}}">
+						<img class="img-activisu activisuMedia" src="{{ vich_uploader_asset(medias.activisu|first)|imagine_filter('activisu') }}" alt="{{medias.activisu|first.alt}}">
 					{% else %}
-						<img class="img-activisu activisuMedia" src="/img/activisu.png" alt="Activisu">
+						<img class="img-activisu activisuMedia" src="{{'/img/activisu.png'|imagine_filter('activisu')}}" alt="Activisu">
 					{% endif %}
 					{% if editorMode and is_granted('ROLE_ADMIN') %}
 						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="activisu">
@@ -210,7 +208,7 @@
 		<section id="magasin" class="my-5">
 			<div class="row  mx-0">
 				{% if not editorMode %}
-					<div id="shopCarousel" class="carousel slide carousel-fade col-6 px-5 d-none d-xl-block" data-ride="carousel">
+					<div id="shopCarousel" class="carousel slide carousel-fade col-5 px-5 d-none d-xl-block" data-ride="carousel">
 						<ol class="carousel-indicators">
 							{% for media in medias.carousel %}
 								<li data-target="#shopCarousel" data-slide-to="{{loop.index}}" class="{{loop.first ? " active"}}"></li>
@@ -219,7 +217,7 @@
 						<div class="carousel-inner">
 							{% for media in medias.carousel %}
 								<div class="carousel-item {{loop.first ? " active"}}">
-									<img src="{{vich_uploader_asset(media)}}" class="d-block w-100" alt="{{media.alt}}">
+									<img src="{{vich_uploader_asset(media)|imagine_filter('carousel')}}" class="d-block w-100" alt="{{media.alt}}">
 								</div>
 							{% endfor %}
 						</div>
@@ -234,12 +232,12 @@
 					</div>
 				{% else %}
 					{% if is_granted('ROLE_ADMIN') %}
-						<div id="shopCarousel" class=" col-6 px-5 d-none d-xl-block">
+						<div id="shopCarousel" class=" col-5 px-5 d-none d-xl-block">
 							<div class="carousel-inner">
 								{% if medias.carousel is not empty %}
-									<img src="{{ vich_uploader_asset(medias.carousel |first) }}" alt="{{medias.carousel |first.alt }}" class="d-block w-100 carouselMedia">
+									<img src="{{ vich_uploader_asset(medias.carousel |first)|imagine_filter('carousel') }}" alt="{{medias.carousel |first.alt }}" class="d-block w-100 carouselMedia">
 								{% else %}
-									<img src="/img/magasin.jpg" class="d-block w-100" alt="...">
+									<img src="{{'/img/magasin.jpg'|imagine_filter('carousel')}}" class="d-block w-100" alt="...">
 								{% endif %}
 							</div>
 							<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="carousel">
@@ -249,7 +247,7 @@
 					{% endif %}
 				{% endif %}
 
-				<div class="col-12 col-xl-6 align-self-center pr-5">
+				<div class="col-12 col-xl-7 align-self-center pr-5">
 					{% set item = content.shopSection|first %}
 					{% include '/home/shopSection.html.twig' %}
 					<div class="d-flex flex-wrap">
@@ -267,9 +265,9 @@
 			<div class="d-flex justify-content-center mt-5">
 				<div class="col-5 col-sm-4 col-md-2 col-xl-1">
 					{% if medias.certif1 is not empty %}
-						<img src="{{ vich_uploader_asset(medias.certif1|first) }}" alt="{{medias.certif1|first.alt }}" width="100px" class="img-fluid certif1Media">
+						<img src="{{ vich_uploader_asset(medias.certif1|first)|imagine_filter('certif') }}" alt="{{medias.certif1|first.alt }}" width="100px" class="img-fluid certif1Media">
 					{% else %}
-						<img src="/img/opticien-engage-essilor-2020.png" class="img-fluid certif1Media" alt="essilor opticien engagé 2020">
+						<img src="{{'/img/opticien-engage-essilor-2020.png'|imagine_filter('certif')}}" class="img-fluid certif1Media" alt="essilor opticien engagé 2020">
 					{% endif %}
 					{% if editorMode and is_granted('ROLE_ADMIN') %}
 						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="certif1">
@@ -287,9 +285,9 @@
 				</div>
 				<div class="col-5 col-sm-4 col-md-2 col-xl-1">
 					{% if medias.certif2 is not empty %}
-						<img src="{{ vich_uploader_asset(medias.certif2|first) }}" alt="{{medias.certif2|first.alt }}" width="100px" class="img-fluid certif2Media">
+						<img src="{{ vich_uploader_asset(medias.certif2|first)|imagine_filter('certif') }}" alt="{{medias.certif2|first.alt }}" width="100px" class="img-fluid certif2Media">
 					{% else %}
-						<img src="/img/opticien-engage-essilor-2020.png" class="img-fluid certif2Media" alt="essilor opticien engagé 2020">
+						<img src="{{'/img/opticien-engage-essilor-2020.png'|imagine_filter('certif')}}" class="img-fluid certif2Media" alt="essilor opticien engagé 2020">
 					{% endif %}
 					{% if editorMode and is_granted('ROLE_ADMIN') %}
 						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="certif2">
@@ -347,7 +345,7 @@
 											<div class="col mb-4">
 												<div class="card h-100">
 													<div class="d-flex card-img-fixed-height px-5">
-														<img src="{{ vich_uploader_asset(media) }}" class="card-img-top img-fluid align-self-center" alt="{{media.alt}}">
+														<img src="{{ vich_uploader_asset(media)|imagine_filter('logo') }}" class="card-img-top img-fluid align-self-center" alt="{{media.alt}}">
 													</div>
 													<div class="card-body pt-2">
 														<h5 class="card-title">{{media.title}}</h5>
@@ -377,7 +375,7 @@
 				<h2 class="text-center mb-5">Nos marques</h2>
 				<div class="d-flex flex-wrap">
 					{% for media in medias.marque %}
-						<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="{{vich_uploader_asset(media)}}" alt="{{media.alt}}" class="img-fluid"></div>
+						<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="{{vich_uploader_asset(media)|imagine_filter('logo')}}" alt="{{media.alt}}" class="img-fluid"></div>
 					{% endfor %}
 				</div>
 			</section>
@@ -387,9 +385,9 @@
 			<div class="row bg-secondary mx-0">
 				<div class="col-12 col-xl-6 px-0">
 					{% if medias.contact %}
-						<img src=" {{vich_uploader_asset(medias.contact|first)}}" class="img-fluid contactMedia" alt="{{medias.contact|first.alt}}">
+						<img src=" {{vich_uploader_asset(medias.contact|first)|imagine_filter('contact')}}" class="img-fluid contactMedia" alt="{{medias.contact|first.alt}}">
 					{% else %}
-						<img src="/img/photo-exterieur-grandvillars-optique.jpg" class="img-fluid contactMedia" alt="Photo extérieur grandvillard optique">
+						<img src="{{'/img/photo-exterieur-grandvillars-optique.jpg'|imagine_filter('contact')}}" class="img-fluid contactMedia" alt="Photo extérieur grandvillard optique">
 					{% endif %}
 					{% if editorMode and is_granted('ROLE_ADMIN') %}
 						<button class="btn btn-info btn-media-selector" type="button" data-mediacategory="contact">
@@ -411,20 +409,20 @@
 		<section id="map" class="w-100">
 			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1132.459316694269!2d6.967825559408115!3d47.539426762175516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47921f45a424fc61%3A0x728e85c0f95d1aac!2s16%20Rue%20du%20G%C3%A9n%C3%A9ral%20Leclerc%2C%2090600%20Grandvillars!5e0!3m2!1sfr!2sfr!4v1584181874792!5m2!1sfr!2sfr" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 		</section>
-
 	</main>
+
 	{% if editorMode %}
 		<div class="modal fade" id="modalContentForm" tabindex="-1" role="dialog" aria-labelledby="modalContentForm" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"></div>
 		</div>
-
 		<div class="modal fade" id="modalMediaSelector" tabindex="-1" role="dialog" aria-labelledby="modalMediaSelector" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"></div>
 		</div>
-
+		{% include 'admin/partials/modalUploadForm.html.twig' %}
 		{% include '/admin/content_editor/modalIconSelector.html.twig' %}
-
+		<a class="btn btn-info btn-upload circleBtn shadow"><span class="iconify" data-icon="bx:bx-image-add" data-width="30" data-height="30"></span></a>
 	{% else %}
 		{% include 'home/modalRdv.html.twig' %}
 	{% endif %}
+
 {% endblock %}

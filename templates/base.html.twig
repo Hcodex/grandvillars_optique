@@ -11,6 +11,7 @@
 			{% endblock %}
 		</title>
 		{% block stylesheets %}
+			<link rel="icon" type="image/jpg" href="/img/favicon.jpg">
 			<link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;700&family=Raleway:wght@300;400;700&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
 			<link href="/css/bootstrap.css" type="text/css" rel="stylesheet"/>
 			<link href="/css/style.css" type="text/css" rel="stylesheet"/>
@@ -21,9 +22,9 @@
 	</head>
 	<body>
 		{% if editorMode and is_granted('ROLE_ADMIN') %}
-				{% include 'admin/partials/header.html.twig' %}
-				{% else %}
-					{% include 'partials/header.html.twig' %}
+			{% include 'admin/partials/header.html.twig' %}
+		{% else %}
+			{% include 'partials/header.html.twig' %}
 		{% endif %}
 		{% block body %}{% endblock %}
 		{% include 'partials/footer.html.twig' %}

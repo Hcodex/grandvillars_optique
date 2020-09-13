@@ -13,3 +13,49 @@ liip_imagine:
             filters:
                 scale : 
                     dim : [70, 70]
+        quote: 
+            quality : 75
+            filters:
+                scale : 
+                    dim : [100, 100]
+        timeTableMedia:
+            quality : 100
+            filters :
+                thumbnail : 
+                    size : [390, 510]
+                    mode : outbound
+        activisu:
+            filters:
+                fixed:
+                    width: 120
+                    height: 300
+        carousel:
+            filters:
+                fixed:
+                    width: 800
+                    height: 600
+        certif:
+            filters:
+                scale: 
+                    dim : [150, 150]
+        contact:
+            filters:
+                fixed:
+                    width: 1000
+                    height: 800
+        socialNetwork:
+            filters:
+                fixed:
+                    width: 50
+                    height: 50
+        logo: 
+            quality : 100
+            filters:
+                scale : 
+                    dim : [250, 250]
+        cover: 
+            quality : 100
+            filters:
+                fixed:
+                    width: 1920
+                    height: 900

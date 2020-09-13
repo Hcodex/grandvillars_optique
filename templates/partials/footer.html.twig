@@ -28,7 +28,7 @@
 		<div id="reseaux" class="mb-5">
 			<h3>Retrouvez nous sur :</h3>
 			{% for media in medias.socialNetwork %}
-				<a href="{{media.description}}" target="blanck"><img src="{{ vich_uploader_asset(media) }}" class="img-fluid" alt="{{media.alt}}"></a>
+				<a href="{{media.description}}" target="blanck"><img src="{{ vich_uploader_asset(media)|imagine_filter('socialNetwork') }}" class="img-fluid" alt="{{media.alt}}"></a>
 			{% endfor %}
 		</div>
 		{% set item = content.contactFooter|first %}
