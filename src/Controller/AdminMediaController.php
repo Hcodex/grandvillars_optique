@@ -4,15 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Media;
 use App\Entity\MediaCategory;
-use App\Form\AddMutuelleType;
 use App\Form\DefineMediaType;
-use App\Form\EditMediaType;
 use App\Form\MediaType;
-use App\Form\UploadType;
 use App\Repository\MediaCategoryRepository;
 use App\Repository\MediaRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use PhpParser\Node\Stmt\Else_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -158,7 +154,6 @@ class AdminMediaController extends AbstractController
      * @Route("/admin/media/{name}/define", name="admin_media_define")
      * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
      * 
-
      */
     public function defineMedia(MediaCategory $mediaCategory, Request $request, EntityManagerInterface $manager, MediaRepository $mediaRepo)
     {

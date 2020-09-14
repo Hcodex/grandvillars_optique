@@ -134,7 +134,7 @@ class AccountController extends AbstractController
      * 
      * @return Response
      */
-    public function editUser(User $editedUser, Request $request,  EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder){
+    public function editUser(User $editedUser, Request $request,  EntityManagerInterface $manager){
         $form = $this->createForm(EditUserType::class, $editedUser);
 
         $form->handleRequest($request);

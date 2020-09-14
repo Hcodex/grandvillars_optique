@@ -8,7 +8,7 @@ class PublicHollydays
     static function getHollydays()
     {
 
-        $year = intval(date('Y'));
+        $year = date('Y');
 
         $easterDate  = easter_date($year);
         $easterDay   = date('j', $easterDate);
