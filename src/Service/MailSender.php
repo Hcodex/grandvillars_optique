@@ -61,7 +61,7 @@ class MailSender
             ->from(new Address('mailer@grandvillars-optique.fr', 'Mailer Grandvillars Optique'))
             ->to($to)
             ->subject('Demande de réinitialisation de mot de passe')
-            ->htmlTemplate('emails/resetpassword.html.twig')
+            ->htmlTemplate('emails/resetPassword.html.twig')
             ->context([
                 'resetToken' => $token,
                 'tokenLifetime' => $lifetime,
