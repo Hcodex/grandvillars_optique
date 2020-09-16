@@ -34,6 +34,8 @@ liip_imagine:
                 fixed:
                     width: 800
                     height: 600
+                interlace:
+                    mode: line
         certif:
             filters:
                 scale: 
@@ -43,6 +45,8 @@ liip_imagine:
                 fixed:
                     width: 1000
                     height: 800
+                interlace:
+                    mode: line
         socialNetwork:
             filters:
                 fixed:
@@ -59,3 +63,5 @@ liip_imagine:
                 fixed:
                     width: 1920
                     height: 900
+                interlace:
+                    mode: line

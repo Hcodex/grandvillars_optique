@@ -21,8 +21,8 @@ class ClosingDaysType extends AbstractType
                     'class' => 'form-check form-check-inline',
                 ],
                 'choices' => [
-                    "Poncutel" => '0',
-                    "Récurent" => '1',
+                    "Ponctuel" => '0',
+                    "Récurrent" => '1',
                 ]
             ])
             ->add('startDate', DateType::class, [

@@ -27,7 +27,7 @@
 				<li class="nav-item">
 					<a class="nav-link" href="#map">Nous trouver</a>
 				</li>
-				{% if is_granted('ROLE_ADMIN') %}
+				{% if is_granted('ROLE_ADMIN') or  is_granted('ROLE_STAFF')%}
 				<li class="nav-item btn-secondary btn p-0 mx-1">
 					<a class="nav-link text-dark" href="{{path('admin_dashboard')}}">Admin</a>
 				</li>
