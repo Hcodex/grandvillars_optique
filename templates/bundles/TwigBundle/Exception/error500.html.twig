@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Erreur 404
+{% block title %}Erreur 500
 {% endblock %}
 
 {% block header %}
@@ -9,14 +9,14 @@
 
 {% block body %}
 	<main>
-		<h1 class="my-5 pt-5 text-center bg-white">Page introuvable</h1>
+		<h1 class="my-5 pt-5 text-center bg-white">Erreur interne</h1>
 		<div class="container">
-			<h2>Oups ! La page spécifée est introuvable</h2>
+			<h2>Oups ! La requête a généré une rerreur serveur</h2>
 			<p>
 				<a class="text-primary" href="{{ path('homepage') }}">Retour à la page d'accueil</a>
 			</p>
 			<div class="text-center m-5">
-				<span class="iconify text-secondary" data-icon="ic:outline-not-listed-location" data-width="30%" data-inline="false"></span>
+				<span class="iconify text-secondary" data-icon="fa-solid:sad-tear" data-width="30%" data-inline="false"></span>
 			</div>
 		</div>
 	</main>

@@ -1,35 +1,35 @@
 <div class="d-flex flex-column flex-md-row justify-content-around bg-dark text-white pt-5 px-3 text-center text-md-left">
-		<div class="col-3 d-none d-md-block">
-			<h3>Plan du site</h3>
-			<nav>
-				<ul>
-					<a href="#menu">
-						<li>Accueil</li>
-					</a>
-					<a href="#metier">
-						<li>Notre métier</li>
-					</a>
-					<a href="#services3">
-						<li>Services</li>
-					</a>
-					<a href="#marques">
-						<li>Nos marques</li>
-					</a>
-					<a href="#contact">
-						<li>Contact</li>
-					</a>
-					<a href="#map">
-						<li>Nous trouver</li>
-					</a>
-				</ul>
-			</nav>
-		</div>
-		<div id="reseaux" class="mb-5">
-			<h3>Retrouvez nous sur :</h3>
-			{% for media in medias.socialNetwork %}
-				<a href="{{media.description}}" target="blanck"><img src="{{ vich_uploader_asset(media)|imagine_filter('socialNetwork') }}" class="img-fluid" alt="{{media.alt}}"></a>
-			{% endfor %}
-		</div>
-		{% set item = content.contactFooter|first %}
-		{% include '/home/contactFooter.html.twig' %}
+	<div class="col-3 d-none d-md-block">
+		<h3>Plan du site</h3>
+		<nav>
+			<ul>
+				<a href="#menu">
+					<li>Accueil</li>
+				</a>
+				<a href="#metier">
+					<li>Notre métier</li>
+				</a>
+				<a href="#services3">
+					<li>Services</li>
+				</a>
+				<a href="#marques">
+					<li>Nos marques</li>
+				</a>
+				<a href="#contact">
+					<li>Contact</li>
+				</a>
+				<a href="#map">
+					<li>Nous trouver</li>
+				</a>
+			</ul>
+		</nav>
 	</div>
+	<div id="reseaux" class="mb-5">
+		<h3>Retrouvez nous sur :</h3>
+		{% for media in medias.socialNetwork %}
+			<a href="{{media.description}}" target="blanck"><img src="{{ vich_uploader_asset(media)|imagine_filter('socialNetwork') }}" class="img-fluid" alt="{{media.alt}}"></a>
+		{% endfor %}
+	</div>
+	{% set item = content.contactFooter|first %}
+	{% include '/home/contactFooter.html.twig' %}
+</div>

@@ -11,6 +11,8 @@
 {% block header %}
 	{% if editorMode and is_granted('ROLE_ADMIN') %}
 		{% include 'admin/partials/header.html.twig' %}
+		{% else %}
+		{% include 'partials/header.html.twig' %}
 	{% endif %}
 {% endblock %}
 
@@ -451,12 +453,15 @@
 	{% else %}
 		{% include 'home/modalRdv.html.twig' %}
 	{% endif %}
+
+
+{% include 'partials/prefooter.html.twig' %}
+
+
+
 {% endblock %}
 
-{% block footer %}
-{% include 'partials/prefooter.html.twig' %}
-{{parent()}}
-{% endblock %}
+
 
 {% block javascripts %}
 	{{parent()}}
