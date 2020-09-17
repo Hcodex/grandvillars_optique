@@ -1,5 +1,19 @@
 {% extends 'base.html.twig' %}
 
+
+{% block stylesheets %}
+	{{ parent() }}
+	{% if editorMode and is_granted('ROLE_ADMIN') %}
+		<link href="/css/adminStyle.css" type="text/css" rel="stylesheet"/>
+	{% endif %}
+{% endblock %}
+
+{% block header %}
+	{% if editorMode and is_granted('ROLE_ADMIN') %}
+		{% include 'admin/partials/header.html.twig' %}
+	{% endif %}
+{% endblock %}
+
 {% block title %}Grandvillars Optique
 {% endblock %}
 
@@ -437,5 +451,17 @@
 	{% else %}
 		{% include 'home/modalRdv.html.twig' %}
 	{% endif %}
+{% endblock %}
 
+{% block footer %}
+{% include 'partials/prefooter.html.twig' %}
+{{parent()}}
+{% endblock %}
+
+{% block javascripts %}
+	{{parent()}}
+	{% if editorMode and is_granted('ROLE_ADMIN') %}
+		<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+		<script src="/js/init_admin.js"></script>
+	{% endif %}
 {% endblock %}
