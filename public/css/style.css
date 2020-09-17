@@ -87,6 +87,10 @@ h1 {
 
 }
 
+.quoteMedia{
+	width : 100px;
+}
+
 #activisu {
 	/*min-height :300px;*/
 	color : white;

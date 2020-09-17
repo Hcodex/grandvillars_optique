@@ -165,7 +165,7 @@ class AppFixtures extends Fixture
             ),
             array(
                 "title" => "Dépistage",
-                "content" => '<p>Notre magasin dispose de tout l\'équiment nécessaire pour effectuer les dépistages et évaluer votre besoin en équipement visuel ou auditif</p><div class="row"><div class="col-12 col-md-6"><ul><li>Bilans visuels</li><li>Mesures d\'accuité</li><li>Depistage gratuit</li></ul>',
+                "content" => '<p>Notre magasin dispose de tout l\'équiment nécessaire pour effectuer les dépistages et évaluer votre besoin en équipement visuel ou auditif</p><ul><li>Bilans visuels</li><li>Mesures d\'accuité</li><li>Depistage gratuit</li></ul>',
                 "icon" => 'mdi-ballot'
             ),
         );
