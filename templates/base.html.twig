@@ -20,7 +20,7 @@
 	<body>
 		{% block header %}{% endblock %}
 		{% block body %}{% endblock %}
-
+		
 		{% include 'partials/footer.html.twig' %}
 
 		{% block javascripts %}
@@ -31,8 +31,8 @@
 			<script src="/js/init.js"></script>
 			<script type="text/javascript">
 				{% for label, messages in app.flashes %}
-{% for message in messages %}
-showAlert('{{ message | raw }}', '{{ label }}', 5000);{% endfor %}{% endfor %}
+				{% for message in messages %}
+				showAlert('{{ message | raw }}', '{{ label }}', 5000);{% endfor %}{% endfor %}
 			</script>
 		{% endblock %}
 	</body>

@@ -113,6 +113,12 @@ video {
 	height : 60vh;
 }
 
+.map-iframe {
+	height : 100%;
+	width : 100%;
+	border : none;
+}
+
 #reseaux img {
 	margin-right : 20px;
 	max-height : 50px;
