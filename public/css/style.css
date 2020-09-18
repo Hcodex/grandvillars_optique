@@ -13,6 +13,21 @@ main {
 	flex : 1;
 }
 
+@font-face {
+	font-family: "Mulish";
+	src: url("../fonts/Mulish-VariableFont_wght.ttf");
+}
+
+@font-face {
+	font-family: "Raleway";
+	src: url("../fonts/Raleway-VariableFont_wght.ttf");
+}
+
+@font-face {
+	font-family: "Kalam";
+	src: url("../fonts/Kalam-Light.ttf");
+}
+
 #slider {
 	background-image : url("../img/interieur-grandvillars-optique.jpg");
 	background-size : cover;
