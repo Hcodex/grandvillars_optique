@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur 400
+{% endblock %}
+
+{% block header %}
+	{% include 'partials/header.html.twig' %}
+{% endblock %}
+
+{% block body %}
+	<main>
+		<h1 class="my-5 pt-5 text-center bg-white">Action impossible</h1>
+		<div class="container">
+			<h2>Oups ! Le requête à généré une erreur</h2>
+			<p>
+				<a class="text-primary" href="{{ path('homepage') }}">Retour à la page d'accueil</a>
+			</p>
+			<div class="text-center m-5">
+				<span class="iconify text-secondary" data-icon="ic:outline-not-listed-location" data-width="30%" data-inline="false"></span>
+			</div>
+		</div>
+	</main>
+{% endblock %}

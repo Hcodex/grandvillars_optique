@@ -56,3 +56,9 @@ div {
     line-height : 50px;
     z-index : 1000;
 }
+
+#horaires img{
+    height : 100%;
+    object-fit: cover;
+}
+

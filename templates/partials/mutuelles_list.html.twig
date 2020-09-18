@@ -1,16 +1,22 @@
-<ul class="list-unstyled">
-{% for item in healthInsurances %}
-	{% if item.status != 0 %}
-		{% if item.status == 1 %}
-			{% set icon = 'emojione-v1:left-check-mark' %}
-		{% else %}
-			{% set icon = 'emojione-v1:cross-mark' %}
-		{% endif %}
-	<li>
-		<span class="text-muted">
-			<span class="iconify" data-icon="{{icon}}"></span>
-			{{item.name}}</span>
-	</li>
-	{% endif %}
-{% endfor %}
-</ul>
+<div class="p-3 healthInsuranceList">
+	<div id="mutuellesNoResult" class="d-none">
+		<span class="iconify" data-icon="flat-color-icons:cancel"></span>
+		Aucun résultat ne correspond à votre recherche...
+	</div>
+	<ul class="list-unstyled py-0">
+		{% for item in healthInsurances %}
+			{% if item.status != 0 %}
+				{% if item.status == 1 %}
+					{% set icon = 'emojione-v1:left-check-mark' %}
+				{% else %}
+					{% set icon = 'emojione-v1:cross-mark' %}
+				{% endif %}
+				<li>
+					<span class="text-muted">
+						<span class="iconify" data-icon="{{icon}}"></span>
+						{{item.name}}</span>
+				</li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+</div>

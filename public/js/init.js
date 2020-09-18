@@ -165,3 +165,36 @@ function purgeRdvForm() {
     $("#slot1-tab").tab('show');
 }
 
+$('#mutuelles-btn').on('click', function (e) {
+    $.ajax({
+        type: 'GET',
+        url: './ajaxMutuelles',
+        data: "html",
+        success: function (response) {
+            $('.healthInsuranceList').replaceWith(response);
+        },
+        error: function (response) {
+            showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);
+        }
+    });
+});
+
+
+
+
+function showMonth(date) {
+    $.ajax({
+        type: 'GET',
+        url: "calendar/" + date,
+        dataType: "html",
+        success: function (response) {
+            var innerHTML = $(response).find('#calendar').html();
+            $('#calendar').html(innerHTML);
+        },
+        error: function (errorThrown) {
+            console.log(errorThrown);
+            console.log("There is an error with AJAX!");
+        }
+    });
+}
+

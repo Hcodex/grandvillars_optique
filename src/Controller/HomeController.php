@@ -30,7 +30,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(Request $request, MailSender $mailSender, ClosingDaysRepository $closingDayRepo, TimeTableRepository $timeTableRepo, ContentRepository $contentRepo, HealthInsuranceRepository $healthInsuranceRepo, MediaRepository $mediaRepo)
+    public function index(Request $request, MailSender $mailSender, ClosingDaysRepository $closingDayRepo, TimeTableRepository $timeTableRepo, ContentRepository $contentRepo, MediaRepository $mediaRepo)
     {
         
         $contactForm = $this->createForm(ContactType::class);
@@ -69,7 +69,6 @@ class HomeController extends AbstractController
             'timeTable' => $timeTableRepo->getFirst(),
             'content'=> $contentRepo->getContents(),
             'medias'=>$mediaRepo->getMedias(),
-            'healthInsurances' => $healthInsuranceRepo->findAll(),
             'editorMode' => false,
         ]);
     }
@@ -145,6 +144,20 @@ class HomeController extends AbstractController
                 'closingDays'  => array_merge($closingDayRepo->getClosingDays(), $recurrentClosingDays),
                 'publicHollydays' => PublicHollydays::getHollydays(),
             ]);
+        }
+
+        return new Response('This is not ajax!', 400);
+    }
+
+    /**
+     * @Route("/ajaxMutuelles", name="mutuelles")
+     */
+    public function _ajaxMutuelles( Request $request, HealthInsuranceRepository $healthInsuranceRepo)
+    {
+        if ($request->isXMLHttpRequest()) {
+               return $this->render('partials/mutuelles_list.html.twig',[
+                'healthInsurances' => $healthInsuranceRepo->findAll(),
+               ]);
         }
 
         return new Response('This is not ajax!', 400);
