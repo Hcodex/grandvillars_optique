@@ -11,7 +11,11 @@ $(document).ready(function () {
         $(".dropdown-menu li:visible").length === 0 ? $('#mutuellesNoResult').removeClass("d-none") : $('#mutuellesNoResult').addClass("d-none");
     });
 
+    const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+    observer.observe();
+
 });
+
 
 $('#nextbtn').on('click', function (e) {
     e.preventDefault();

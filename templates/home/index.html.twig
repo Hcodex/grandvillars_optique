@@ -214,9 +214,9 @@
 				</div>
 				{% set item = content.activisuSectionContent|first %}
 				{% include '/home/activisuSectionContent.html.twig' %}
-				<div class="col-lg-6 col-xl-5 order-1 order-xl-3 p-0 d-none d-md-block">
-					<video class="w-100 d-block" autoplay loop muted>
-						<source src="/media/eyecode.mp4" type="video/mp4">
+				<div class="col-lg-6 col-xl-5 order-1 order-xl-3 p-0">
+					<video class="lozad w-100 d-block" autoplay loop muted>
+						<source data-src="/media/eyecode.mp4" type="video/mp4">
 						Sorry, your browser doesn't support embedded videos.
 					</video>
 				</div>
@@ -433,7 +433,7 @@
 
 		<section id="map" class="w-100">
 			<h2 class="d-none">Nous trouver</h2>
-			<iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1132.459316694269!2d6.967825559408115!3d47.539426762175516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47921f45a424fc61%3A0x728e85c0f95d1aac!2s16%20Rue%20du%20G%C3%A9n%C3%A9ral%20Leclerc%2C%2090600%20Grandvillars!5e0!3m2!1sfr!2sfr!4v1584181874792!5m2!1sfr!2sfr" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+			<iframe class="lozad map-iframe" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1132.459316694269!2d6.967825559408115!3d47.539426762175516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47921f45a424fc61%3A0x728e85c0f95d1aac!2s16%20Rue%20du%20G%C3%A9n%C3%A9ral%20Leclerc%2C%2090600%20Grandvillars!5e0!3m2!1sfr!2sfr!4v1584181874792!5m2!1sfr!2sfr" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 		</section>
 
 		{% include 'partials/prefooter.html.twig' %}
