@@ -32,6 +32,11 @@ class Contact
      */
     private $message;
 
+    /**
+    * @Assert\IsTrue(message="Vous devez accepter notre politique de confidentialité pour poursuivre")
+     */
+    private $policy;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -81,6 +86,18 @@ class Contact
     public function setMessage(string $message): self
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function getPolicy(): ?bool
+    {
+        return $this->policy;
+    }
+
+    public function setPolicy(string $policy): self
+    {
+        $this->policy = $policy;
 
         return $this;
     }

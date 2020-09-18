@@ -188,7 +188,6 @@ class AdminMediaController extends AbstractController
      * @Route("/admin/media/{name}/axjaxMediaSelectorCreate", name="admin_media_selector_create")
      * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
      * 
-
      */
     public function _ajaxMediaSelectorCreate(MediaCategory $mediaCategory, EntityManagerInterface $manager,  Request $request,  MediaRepository $mediaRepo)
     {

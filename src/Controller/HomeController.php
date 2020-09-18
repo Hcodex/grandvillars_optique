@@ -162,4 +162,26 @@ class HomeController extends AbstractController
 
         return new Response('This is not ajax!', 400);
     }
+
+
+    /**
+     * Display policy page
+     *
+     * @Route("/policy", name="policy")
+     */
+    public function policy()
+    {
+        return $this->render('legal/policy.html.twig',);
+    }
+
+    /**
+     * Display mentions page
+     *
+     * @Route("/mentions", name="mentions")
+     */
+    public function mentions()
+    {
+        return $this->render('legal/mentions.html.twig',);
+    }
+
 }

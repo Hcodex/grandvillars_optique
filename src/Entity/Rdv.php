@@ -45,6 +45,11 @@ class Rdv
      */
     private $message;
 
+    /**
+    * @Assert\IsTrue(message="Vous devez accepter notre politique de confidentialité pour poursuivre")
+     */
+    private $policy;
+
 
     public function getEmail(): ?string
     {
@@ -129,4 +134,19 @@ class Rdv
 
         return $this;
     }
+
+
+    public function getPolicy(): ?bool
+    {
+        return $this->policy;
+    }
+
+    public function setPolicy(string $policy): self
+    {
+        $this->policy = $policy;
+
+        return $this;
+    }
+
+
 }

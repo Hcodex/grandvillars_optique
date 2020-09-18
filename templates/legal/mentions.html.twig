@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mentions légales
+{% endblock %}
+
+{% block header %}
+	{% include 'partials/header.html.twig' %}
+{% endblock %}
+
+{% block body %}
+	<main>
+		<h1 class="my-5 pt-5 text-center bg-white">Mentions légales</h1>
+		<div class="container mb-5">
+			<h2 class="text-primary">Responsable de publication</h2><hr>
+			<p>Alexandre Peterlini - développeur indépendant<br>
+				20 Grand Rue
+				<br>
+				Hameau de La Mairie
+				<br>
+				21500 Montbard - France</p>
+			<p>Mail :
+				<a class="text-primary" href="{{path('homepage')}}#contactSection">contacter par mail</a>
+			</p>
+			<h2 class="text-primary mt-5">Hébergeur</h2><hr>
+			<p>Infomaniak Network SA<br>
+				Rue Eugène-Marziano 25
+				<br>1227 Genève - Suisse
+			</p>
+
+			<h2 class="text-primary mt-5">Conditions d’utilisation du site</h2><hr>
+			<p>Le présent site Web est la propriété exclusive de Grandvillars Optique. Les éléments du site, tels que les textes, les images, les logos et icônes, sont protégés au titre de la législation internationale de la propriété intellectuelle. Les informations contenues dans le présent site web sont données à titre indicatif et peuvent être modifiées à tout moment, sans préavis.
+				</p>
+				<p>Grandvillars Optique met en œuvre tous les moyens dont il dispose, pour assurer une information fiable et à jour. Toutefois, des erreurs ou omissions peuvent survenir. L'internaute devra donc s'assurer de l'exactitude des informations auprès de l'Atelier Hcodex, et signaler toutes modifications du site qu'il jugerait utile. L'Atelier Hcodex n'est en aucun cas responsable de l'utilisation faite de ces informations, et de tout préjudice direct ou indirect pouvant en découler.
+			</p>
+
+			<h2 class="text-primary mt-5">Liens hypertextes</h2><hr>
+			<p>La présence de liens hypertextes renvoyant vers d’autres sites web ne constitue pas une garantie sur la qualité de contenu et de bon fonctionnement des dits sites. La responsabilité de Grandvillars Optique ne saurait être engagée quant au contenu de ces sites.
+			</p>
+
+			<h2 class="text-primary mt-5">Données personnelles</h2><hr>
+			<p>De manières générale, vous n'êtes pas tenu de communiquer vos données personnelles lorsque vous visiter ce site internet.<br>
+				Cependant, l'utilisation du formulaire de contact ou la prise de rendez-vous nécessite que vous communiquiez votre nom et votre adresse e-mail. Pour plus d'indformations conernant le traitment des données personnelle, consultez notre <a class="text-primary" href="{{path('policy')}}" about="blanck">politique de confidentialité</a>.
+			</p>
+		</div>
+	</main>
+{% endblock %}
