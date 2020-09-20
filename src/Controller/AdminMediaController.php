@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class AdminMediaController extends AbstractController
 {
@@ -26,16 +27,16 @@ class AdminMediaController extends AbstractController
     public function _ajaxUpload(String $type, Request $request, EntityManagerInterface $manager, MediaCategoryRepository $mediaCategoryRepo)
     {
         if ($request->isXMLHttpRequest()) {
+
             $media = new Media;
 
-
-            $uploadForm = $this->createForm(MediaType::class, $media,  [
-                "type" => $type,
-                "action" => $this->generateUrl('ajax_upload', ['type' => $type]),
-            ]);
             if ($type != "default") {
                 $media->addMediaCategory($mediaCategoryRepo->findByName($type));
             }
+
+            $uploadForm = $this->createForm(MediaType::class, $media,  [
+                "action" => $this->generateUrl('ajax_upload', ['type' => $type]),
+            ]);
 
             $uploadForm->handleRequest($request);
 
@@ -58,7 +59,7 @@ class AdminMediaController extends AbstractController
             ]);
         }
 
-        return new Response('This is not ajax!', 400);
+        throw new BadRequestHttpException('Requête non Ajax', null, 400);
     }
 
     /**
@@ -71,7 +72,7 @@ class AdminMediaController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    public function _ajaxdeleteMedia(Request $request, Media $media, EntityManagerInterface $manager)
+    public function _ajaxDeleteMedia(Request $request, Media $media, EntityManagerInterface $manager)
     {
         if ($request->isXMLHttpRequest()) {
             $mediaId = $media->getId();
@@ -81,7 +82,8 @@ class AdminMediaController extends AbstractController
 
             return new Response($mediaId);
         }
-        return new Response('This is not ajax!', 400);
+
+        throw new BadRequestHttpException('Requête non Ajax', null, 400);
     }
 
     /**
@@ -97,37 +99,11 @@ class AdminMediaController extends AbstractController
     public function editMedia(Media $media, Request $request,  EntityManagerInterface $manager, MediaCategoryRepository $mediaCategoryRepo)
     {
 
-        $lockedCategories = $this->getParameter('media.lockedCategories');
-        $mediaLockedCategories = array_intersect($media->getCategories(), $lockedCategories);
-
-        if (in_array("mutuelle", $media->getCategories())) {
-            $form = $this->createForm(MediaType::class, $media,  [
-                "type" => "mutuelle"
-            ]);
-            $media->addMediaCategory($mediaCategoryRepo->findByName("mutuelle"));
-        } elseif (in_array("marque", $media->getCategories())) {
-            $form = $this->createForm(MediaType::class, $media,  [
-                "type" => "marque"
-            ]);
-            $media->addMediaCategory($mediaCategoryRepo->findByName("marque"));
-        } elseif (in_array("socialNetwork", $media->getCategories())) {
-            $form = $this->createForm(MediaType::class, $media,  [
-                "type" => "socialnetwork"
-            ]);
-            $media->addMediaCategory($mediaCategoryRepo->findByName("socialnetwork"));
-        } else {
-            $form = $this->createForm(MediaType::class, $media, [
-                "type" => "default"
-            ]);
-        }
+        $form = $this->createForm(MediaType::class, $media);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            foreach ($mediaLockedCategories as $categorie) {
-                $media->addMediaCategory($mediaCategoryRepo->findByName($categorie));
-            }
 
             $manager->persist($media);
             $manager->flush();
@@ -160,7 +136,6 @@ class AdminMediaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($mediaCategory);
 
             $manager->persist($mediaCategory);
             $manager->flush();
@@ -209,6 +184,6 @@ class AdminMediaController extends AbstractController
             ]);
         }
 
-        return new Response('This is not ajax!', 400);
+        throw new BadRequestHttpException('Requête non Ajax', null, 400);
     }
 }

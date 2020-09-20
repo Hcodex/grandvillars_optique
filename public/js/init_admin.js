@@ -72,8 +72,7 @@ function showMonth(date) {
             $("#calendar").html(innerHTML);
         },
         error: function (errorThrown) {
-            console.log(errorThrown);
-            console.log("There is an error with AJAX!");
+            showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);
         }
     });
 }
@@ -159,13 +158,11 @@ $(document).on("click", ".btn-edit", function (e) {
 });
 
 $(document).on("click", ".btn-media-selector", function (e) {
-    console.log($(this).data("mediacategory"));
     e.preventDefault();
     $.ajax({
         type: "POST",
         url: "/admin/media/" + $(this).data("mediacategory") + "/axjaxMediaSelectorCreate",
         success: function (data) {
-            console.log(data);
             $("#modalMediaSelector").replaceWith(data);
             $("#modalMediaSelector").modal();
         },
@@ -180,7 +177,6 @@ $(document).on("submit", "form[name='define_media']", function (e) {
     target = $(this).data("mediacategory");
     selectedMedias = $("#modalMediaSelector .border-success").data("mediasrc");
     $(".submit-btn").html("<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>");
-    console.log("cible : " + target);
     $.ajax({
         type: "POST",
         url: "/admin/media/" + $(this).data("mediacategory") + "/axjaxMediaSelectorCreate",
@@ -188,12 +184,9 @@ $(document).on("submit", "form[name='define_media']", function (e) {
         contentType: false,
         processData: false,
         success: function (data) {
-            console.log(data);
             $("#modalMediaSelector").modal("hide");
             $("#modalMediaSelector").html("");
             showAlert("Média modifié avec succès", "success", 5000);
-            console.log($("." + target + "Media").attr("src"));
-            console.log("Selected : " + selectedMedias);
             $("." + target + "Media").attr("src", selectedMedias);
             if (target == "cover") {
                 $("#slider").css("background-image", "url(" + selectedMedias + ")");
@@ -206,14 +199,12 @@ $(document).on("submit", "form[name='define_media']", function (e) {
 });
 
 $(document).on("click", ".btn-upload", function (e) {
-    console.log($(this).data("formtype"));
     option = $(this).data("formtype") || "default";
     e.preventDefault();
     $.ajax({
         type: "POST",
         url: "/admin/upload/" + option,
         success: function (data) {
-            console.log(data);
             $("#modalUploadForm").replaceWith(data);
             $("#modalUploadForm").modal();
             $("#modalUploadForm").attr("data-option", option);
@@ -259,7 +250,6 @@ $(document).on("submit", "form[name='media']", function (e) {
             return xhr;
         },//end upload progress
         success: function (data) {
-            console.log(data);
             if (data["status"] === "success") {
                 if (option == "mutuelle") {
                     $("#partenaireMutuelleTable tr:last").after(data["render"]);
@@ -293,7 +283,6 @@ $(document).on("click", ".ajaxDeleteMedia", function (e) {
         type: "POST",
         url: $(this).attr("href"),
         success: function (data) {
-            console.log(data);
             $("#mediaRow" + data).remove();
             $("#modalConfirm").modal("hide")
             showAlert("Média supprimé avec succès", "success", 5000);
@@ -305,7 +294,6 @@ $(document).on("click", ".ajaxDeleteMedia", function (e) {
 });
 
 $(document).on("click", ".mediaSingleSelector", function (e) {
-    console.log($(this).attr("src"));
     id = $(this).data("media_id");
     $(".mediaSingleSelector").removeClass("border border-success"),
         $(this).addClass("border border-success");
@@ -322,7 +310,6 @@ $(document).on("click", ".mediaMultipleSelector", function (e) {
 
 $(document).on("click", "#healthInsuranceAdd", function (e) {
     e.preventDefault();
-    console.log("Ajout assurance");
     $.ajax({
         type: "POST",
         url: "/admin/healthInsurance/add",
@@ -349,7 +336,6 @@ $(document).on("submit", "form[name='health_insurance']", function (e) {
         contentType: false,
         processData: false,
         success: function (data) {
-            console.log(data);
             if (data["status"] === "success") {
                 $("#modalHealthInsuranceForm").modal("hide");
                 $("#healthInsurancesTable tr:last").after(data["render"]);
@@ -373,7 +359,6 @@ $(document).on("click", ".ajaxDeleteHealthInsurance", function (e) {
         type: "POST",
         url: $(this).attr("href"),
         success: function (data) {
-            console.log(data);
             $("#healthInsuranceRow" + data).remove();
             $("#modalConfirm").modal("hide")
             showAlert("Mutuelle supprimée avec succès", "success", 5000);

@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Contact;
 use App\Form\ContactType;
 use App\Form\RdvType;
 use App\Repository\ClosingDaysRepository;
@@ -10,19 +9,14 @@ use App\Repository\ContentRepository;
 use App\Repository\HealthInsuranceRepository;
 use App\Repository\MediaRepository;
 use App\Repository\TimeTableRepository;
-use App\Service\ClosedDays;
-use App\Service\ContentService;
 use App\Service\MailSender;
 use App\Service\PublicHollydays;
-use DateTime;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -34,7 +28,41 @@ class HomeController extends AbstractController
      */
     public function index(Request $request, MailSender $mailSender, ClosingDaysRepository $closingDayRepo, TimeTableRepository $timeTableRepo, ContentRepository $contentRepo, MediaRepository $mediaRepo)
     {
-        
+
+        $contactForm = $this->manageContactForm($request, $mailSender);
+
+        if ($contactForm === true) {
+            $this->addFlash('success', 'Votre message a bien été envoyé');
+            $contactForm = $this->createForm(RdvType::class);
+        }
+
+        $rdvForm = $this->manageRdvForm($request, $mailSender);
+
+        if ($rdvForm === true) {
+            $this->addFlash('success', 'Votre message a bien été envoyé');
+            $rdvForm = $this->createForm(RdvType::class);
+        }
+
+        return $this->render('home/index.html.twig', [
+            'form' => $contactForm->createView(),
+            'form2' => $rdvForm->createView(),
+            'closingDays'  =>  $closingDayRepo->findAllClosingDays(),
+            'publicHollydays' => PublicHollydays::getHollydays(),
+            'timeTable' => $timeTableRepo->getFirst(),
+            'content' => $contentRepo->getContents(),
+            'medias' => $mediaRepo->getMedias(),
+            'editorMode' => false,
+        ]);
+    }
+
+
+    /**
+     * Gère le formulaire de contact
+     * 
+     */
+    public function manageContactForm(Request $request, MailSender $mailSender)
+    {
+
         $contactForm = $this->createForm(ContactType::class);
         $contactForm->handleRequest($request);
 
@@ -42,8 +70,18 @@ class HomeController extends AbstractController
             $contact = $contactForm->getData();
             $mailSender->SendContactMail($contact);
 
-            $this->addFlash('success', 'Votre message a bien été envoyé');
+            return true;
         }
+
+        return $contactForm;
+    }
+
+    /**
+     * Gère le formulaire de RDV
+     * 
+     */
+    public function manageRdvForm(Request $request, MailSender $mailSender)
+    {
 
         $rdvForm = $this->createForm(RdvType::class);
         $rdvForm->handleRequest($request);
@@ -52,29 +90,15 @@ class HomeController extends AbstractController
             $contact = $rdvForm->getData();
             $mailSender->SendRdvMail($contact);
 
-            $this->addFlash('success', 'Votre demande a bien été envoyée');
-            $rdvForm = $this->createForm(RdvType::class);
+            return true;
         }
 
-        $recurrentClosingDays = $closingDayRepo->getRecurentClosingDays();
-        foreach ($recurrentClosingDays as $recurrentClosingDay){
-            $recurrentClosingDay->forceYear();
-        }
-        
-        return $this->render('home/index.html.twig', [
-            'form' => $contactForm->createView(),
-            'form2' => $rdvForm->createView(),
-            'closingDays'  => array_merge($closingDayRepo->getClosingDays(), $recurrentClosingDays),
-            'publicHollydays' => PublicHollydays::getHollydays(),
-            'timeTable' => $timeTableRepo->getFirst(),
-            'content'=> $contentRepo->getContents(),
-            'medias'=>$mediaRepo->getMedias(),
-            'editorMode' => false,
-        ]);
+        return $rdvForm;
     }
 
+
     /**
-     * Gère le formulaire de contact
+     * Traitement ajax du formulaire de contact
      * 
      * @Route("/ajaxContact", name="contact")
      */
@@ -82,30 +106,24 @@ class HomeController extends AbstractController
     {
         if ($request->isXMLHttpRequest()) {
 
-            $contactForm = $this->createForm(ContactType::class);
+            $contactForm = $this->manageContactForm($request, $mailSender);
 
-            $contactForm->handleRequest($request);
-
-            if ($contactForm->isSubmitted() && $contactForm->isValid()) {
-                $contact = $contactForm->getData();
-
-                $mailSender->SendContactMail($contact);
-
+            if ($contactForm === true) {
                 return new JsonResponse([
                     'status' => 'success',
                 ]);
+            } else {
+                return $this->render('partials/contact_form.html.twig', [
+                    'form' => $contactForm->createView(),
+                ]);
             }
-
-            return $this->render('partials/contact_form.html.twig', [
-                'form' => $contactForm->createView(),
-            ]);
         }
 
-        return new Response('This is not ajax!', 400);
+        throw new BadRequestHttpException('Requête non Ajax', null, 400);
     }
 
     /**
-     * Gère le formulaire de rendez-vous
+     * Traitement ajax du formulaire de rendez-vous
      * 
      * @Route("/ajaxRdv", name="rdv")
      */
@@ -123,34 +141,14 @@ class HomeController extends AbstractController
                 ]);
             }
 
-            $recurrentClosingDays = $closingDayRepo->getRecurentClosingDays();
-            foreach ($recurrentClosingDays as $recurrentClosingDay){
-                $date = $recurrentClosingDay->getStartDate();
-                $month = date_format($date, "m");
-                $day = date_format($date, "d");
-                $newDate = new DateTime();
-                $newDate->setDate(date('Y'), $month, $day)
-                        ->setTime(0, 0, 0);
-                $recurrentClosingDay->setStartDate($newDate);
-    
-                $date = $recurrentClosingDay->getEndDate();
-                $month = date_format($date, "m");
-                $day = date_format($date, "d");
-                $newDate = new DateTime();
-    
-                $newDate->setDate(date('Y'), $month, $day)
-                        ->setTime(0, 0, 0);
-                $recurrentClosingDay->setEndDate($newDate);
-            }
-
             return $this->render('home/modalRdv.html.twig', [
                 'form2' => $contactForm->createView(),
-                'closingDays'  => array_merge($closingDayRepo->getClosingDays(), $recurrentClosingDays),
+                'closingDays'  =>  $closingDayRepo->findAllClosingDays(),
                 'publicHollydays' => PublicHollydays::getHollydays(),
             ]);
         }
 
-        return new Response('This is not ajax!', 400);
+        throw new BadRequestHttpException('Requête non Ajax', null, 400);
     }
 
     /**
@@ -158,12 +156,12 @@ class HomeController extends AbstractController
      * 
      * @Route("/ajaxMutuelles", name="mutuelles")
      */
-    public function _ajaxMutuelles( Request $request, HealthInsuranceRepository $healthInsuranceRepo)
+    public function _ajaxMutuelles(Request $request, HealthInsuranceRepository $healthInsuranceRepo)
     {
         if ($request->isXMLHttpRequest()) {
-               return $this->render('partials/mutuelles_list.html.twig',[
+            return $this->render('partials/mutuelles_list.html.twig', [
                 'healthInsurances' => $healthInsuranceRepo->findAll(),
-               ]);
+            ]);
         }
 
         return new Response('This is not ajax!', 400);
@@ -189,5 +187,4 @@ class HomeController extends AbstractController
     {
         return $this->render('legal/mentions.html.twig',);
     }
-
 }

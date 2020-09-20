@@ -28,6 +28,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Flex\Unpack\Result;
 
 class AdminDashboardController extends AbstractController
@@ -179,7 +180,7 @@ class AdminDashboardController extends AbstractController
             return new Response('Ok');
         }
 
-        return new Response('This is not ajax!', 400);
+        throw new BadRequestHttpException('Requête non Ajax', null, 400);
     }
 
     /**
@@ -216,7 +217,7 @@ class AdminDashboardController extends AbstractController
             ]);
         }
 
-        return new Response('This is not ajax!', 400);
+        throw new BadRequestHttpException('Requête non Ajax', null, 400);
     }
 
     /**
@@ -239,6 +240,6 @@ class AdminDashboardController extends AbstractController
 
             return new Response($healthInsuranceId);
         }
-        return new Response('This is not ajax!', 400);
+        throw new BadRequestHttpException('Requête non Ajax', null, 400);
     }
 }

@@ -37,6 +37,19 @@ class ClosingDaysRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+
+
+    public function findAllClosingDays()
+    {
+        $simpleClosingDays = $this->getClosingDays();
+
+        $recurrentClosingDays = $this->getRecurentClosingDays();
+        foreach ($recurrentClosingDays as $recurrentClosingDay) {
+            $recurrentClosingDay->forceYear();
+        }
+
+        return array_merge($simpleClosingDays, $recurrentClosingDays);
+    }
     // /**
     //  * @return ClosingDays[] Returns an array of ClosingDays objects
     //  */

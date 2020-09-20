@@ -21,7 +21,6 @@ $("#nextbtn").on("click", function (e) {
     e.preventDefault();
     form = $("form[name='rdv']").get(0);
     $(this).html("<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>");
-    console.log(form);
     $.ajax({
         type: "POST",
         url: "./ajaxRdv",
@@ -110,7 +109,6 @@ $("form[name='contact']").submit(function (e) {
         contentType: false,
         processData: false,
         success: function (data) {
-            console.log(data);
             if (data["status"] === "success") {
                 showAlert("<strong>Votre message a bien été envoyé</strong>", "success", 5000);
                 $(".invalid-feedback").removeClass("invalid-feedback");
@@ -141,7 +139,6 @@ $(".tab-btn").on("click", function (e) {
 $(".slot-item").on("click", function (e) {
     var slot = $(this).data("slot");
     day = $.trim($(".list-group-item[data-list='day-" + slot + "'].active").text());
-    console.log(day);
     hour = $.trim($(this).text());
     $("#rdv_slot" + slot).val(day + " - " + hour).removeClass("d-none");
     $("#rdv_no_choice").addClass("d-none");
@@ -183,9 +180,6 @@ $("#mutuelles-btn").on("click", function (e) {
     });
 });
 
-
-
-
 function showMonth(date) {
     $.ajax({
         type: "GET",
@@ -196,8 +190,7 @@ function showMonth(date) {
             $("#calendar").html(innerHTML);
         },
         error: function (errorThrown) {
-            console.log(errorThrown);
-            console.log("There is an error with AJAX!");
+            showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);
         }
     });
 }
