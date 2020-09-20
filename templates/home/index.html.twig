@@ -184,9 +184,8 @@
 
 		<section id="services">
 			<div class="container my-5">
-				<h2>{{content.serviceSection|first.title}}
-				</h2>
-				{{content.serviceSection|first.content|raw}}
+				{% set item = content.serviceSection|first %}
+				{% include '/home/serviceSection.html.twig' %}
 				<div class="row row-cols-1 row-cols-xl-2">
 					{% for item in content.serviceItem %}
 						{% set itemBorder =  cycle(['border-primary', 'border-grey', 'border-info', 'border-dark'], loop.index0)  %}
@@ -216,7 +215,7 @@
 				{% include '/home/activisuSectionContent.html.twig' %}
 				<div class="col-lg-6 col-xl-5 order-1 order-xl-3 p-0">
 					<video class="lozad w-100 d-block" autoplay loop muted>
-						<source data-src="/media/eyecode.mp4" type="video/mp4">
+						<source data-src="/media/eyecode.mp4" src="" type="video/mp4">
 						Sorry, your browser doesn't support embedded videos.
 					</video>
 				</div>
@@ -320,7 +319,7 @@
 				<div class="container">
 					<h2 class="text-center text-white">Mutuelles partenaires</h2>
 					<div class="dropdown my-5 text-center">
-						<button id= "mutuelles-btn" class="btn btn-info dropdown-toggle col-12 col-md-6 mx-auto p-3" type="button" data-toggle="dropdown">Voir si ma mutelle est prise en charge
+						<button id="mutuelles-btn" class="btn btn-info dropdown-toggle col-12 col-md-6 mx-auto p-3" type="button" data-toggle="dropdown">Voir si ma mutelle est prise en charge
 							<span class="caret"></span>
 						</button>
 						<div class="dropdown-menu col-12 col-md-6 p-0 shadow">
@@ -439,30 +438,26 @@
 		{% include 'partials/prefooter.html.twig' %}
 
 
-
-
-	{% if editorMode %}
-		<div class="modal fade" id="modalContentForm" tabindex="-1" role="dialog" aria-labelledby="modalContentForm" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"></div>
-		</div>
-		<div class="modal fade" id="modalMediaSelector" tabindex="-1" role="dialog" aria-labelledby="modalMediaSelector" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"></div>
-		</div>
-		{% include 'admin/partials/modalUploadForm.html.twig' %}
-		{% include '/admin/content_editor/modalIconSelector.html.twig' %}
-		<a class="btn btn-info btn-upload circleBtn shadow">
-			<span class="iconify" data-icon="bx:bx-image-add" data-width="30" data-height="30"></span>
-		</a>
-	{% else %}
-		{% include 'home/modalRdv.html.twig' %}
-	{% endif %}
+		{% if editorMode %}
+			<div class="modal fade" id="modalContentForm" tabindex="-1" role="dialog" aria-labelledby="modalContentForm" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"></div>
+			</div>
+			<div class="modal fade" id="modalMediaSelector" tabindex="-1" role="dialog" aria-labelledby="modalMediaSelector" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"></div>
+			</div>
+			{% include 'admin/partials/modalUploadForm.html.twig' %}
+			{% include '/admin/content_editor/modalIconSelector.html.twig' %}
+			<a class="btn btn-info btn-upload circleBtn shadow">
+				<span class="iconify" data-icon="bx:bx-image-add" data-width="30" data-height="30"></span>
+			</a>
+		{% else %}
+			{% include 'home/modalRdv.html.twig' %}
+		{% endif %}
 
 	</main>
 
 
-
 {% endblock %}
-
 
 
 {% block javascripts %}

@@ -90,7 +90,8 @@ $('#closing_days_endDate').change(function (e) {
 
 $(document).on('submit', 'form[name="content"]', function (e) {
     e.preventDefault();
-    targetSection = $(this).data('target')
+    targetSection = $(this).data('target');
+    $('.submit-btn').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
     $.ajax({
         type: 'POST',
         url: '/admin/content/' + $(this).data('id') + '/axjaxContentFormCreate',
@@ -178,6 +179,7 @@ $(document).on('submit', 'form[name="define_media"]', function (e) {
     e.preventDefault();
     target = $(this).data('mediacategory');
     selectedMedias = $("#modalMediaSelector .border-success").data('mediasrc');
+    $('.submit-btn').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
     console.log("cible : " + target);
     $.ajax({
         type: 'POST',
