@@ -17,7 +17,7 @@
 							{{ form_row(form2.email) }}
 							{{ form_row(form2.name) }}
 							{{ form_row(form2.subject) }}
-							{{ form_row(form2.policy)|replace({'[link]': '<a class="text-primary" target="blank "href="'~ path('policy')~'">', '[/link]': '</a>'})|raw }}
+							{{ form_row(form2.policy)|replace({'[link]': '<a class="text-primary" target="blank" href="'~ path('policy')~'">', '[/link]': '</a>'})|raw }}
 						</div>
 						<a class="btn btn-info float-right tab-btn my-3" id="nextbtn" role="tablist">Suivant</a>
 					</div>
