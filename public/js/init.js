@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $('body').scrollspy({ target: '#navbar', offset: 300 });
+    $("body").scrollspy({ target: "#navbar", offset: 300 });
 
     $("#myInput").on("keyup", function () {
         var value = $(this).val().toLowerCase();
@@ -8,7 +8,7 @@ $(document).ready(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         }).length;
 
-        $(".dropdown-menu li:visible").length === 0 ? $('#mutuellesNoResult').removeClass("d-none") : $('#mutuellesNoResult').addClass("d-none");
+        $(".dropdown-menu li:visible").length === 0 ? $("#mutuellesNoResult").removeClass("d-none") : $("#mutuellesNoResult").addClass("d-none");
     });
 
     const observer = lozad(); // lazy loads elements with default selector as '.lozad'
@@ -17,30 +17,30 @@ $(document).ready(function () {
 });
 
 
-$('#nextbtn').on('click', function (e) {
+$("#nextbtn").on("click", function (e) {
     e.preventDefault();
-    form = $('form[name="rdv"]').get(0);
-    $(this).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+    form = $("form[name='rdv']").get(0);
+    $(this).html("<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>");
     console.log(form);
     $.ajax({
-        type: 'POST',
-        url: './ajaxRdv',
+        type: "POST",
+        url: "./ajaxRdv",
         data: new FormData(form),
         contentType: false,
         processData: false,
         success: function (data) {
-            if (data["status"] === 'success') {
-                $('.invalid-feedback').removeClass('invalid-feedback');
-                $('.is-invalid').removeClass('is-invalid');
-                $('.form-error-icon').remove();
-                $('.form-error-message').remove();
-                $("#pills-home").removeClass('active')
-                $("#pills-slots").tab('show');
+            if (data["status"] === "success") {
+                $(".invalid-feedback").removeClass("invalid-feedback");
+                $(".is-invalid").removeClass("is-invalid");
+                $(".form-error-icon").remove();
+                $(".form-error-message").remove();
+                $("#pills-home").removeClass("active")
+                $("#pills-slots").tab("show");
             } else {
-                var innerHTML = $(data).find('#rdvFormStep1').html();
-                $('#rdvFormStep1').html(innerHTML);
+                var innerHTML = $(data).find("#rdvFormStep1").html();
+                $("#rdvFormStep1").html(innerHTML);
             };
-            $('#nextbtn').html('Suivant');
+            $("#nextbtn").html("Suivant");
         },
         error: function (data) {
             showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);
@@ -57,11 +57,11 @@ $(".selector-list>li ").click(function () {
 });
 
 
-$('.navbar-nav a').click(function (event) {
+$(".navbar-nav a").click(function (event) {
     var id = $(this).attr("href");
     var offset = 70;
     var target = $(id).offset().top - offset;
-    $('html, body').animate({
+    $("html, body").animate({
         scrollTop: target
     }, 500);
     event.preventDefault();
@@ -72,9 +72,9 @@ function showAlert(message, type, closeDelay) {
 
     var $cont = $("#alerts-container");
 
-    if ($cont.length == 0) {
+    if ($cont.length === 0) {
         // alerts-container does not exist, create it
-        $cont = $('<div id="alerts-container" class="msg-box">')
+        $cont = $("<div id='alerts-container' class='msg-box'>")
             .appendTo($("body"));
     }
 
@@ -82,10 +82,10 @@ function showAlert(message, type, closeDelay) {
     type = type || "info";
 
     // create the alert div
-    var alert = $('<div>')
+    var alert = $("<div>")
         .addClass("fade in show alert alert-" + type)
         .append(
-            $('<button type="button" class="close" data-dismiss="alert">')
+            $("<button type='button' class='close' data-dismiss='alert'>")
                 .append("&times;")
         )
         .append(message);
@@ -100,29 +100,29 @@ function showAlert(message, type, closeDelay) {
 
 
 
-$('form[name="contact"]').submit(function (e) {
+$("form[name='contact']").submit(function (e) {
     e.preventDefault();
-    $('form[name="contact"]>.btn').addClass('disabled').text('Envoi...').prop("disabled", true);
+    $("form[name='contact']>.btn").addClass("disabled").text("Envoi...").prop("disabled", true);
     $.ajax({
-        type: 'POST',
-        url: './ajaxContact',
+        type: "POST",
+        url: "./ajaxContact",
         data: new FormData(this),
         contentType: false,
         processData: false,
         success: function (data) {
             console.log(data);
-            if (data["status"] === 'success') {
+            if (data["status"] === "success") {
                 showAlert("<strong>Votre message a bien été envoyé</strong>", "success", 5000);
-                $('.invalid-feedback').removeClass('invalid-feedback');
-                $('.is-invalid').removeClass('is-invalid');
-                $('.form-error-icon').remove();
-                $('.form-error-message').remove();
-                $('form[name="contact"]>.btn').addClass('btn-success').text('Message envoyé !').prop("disabled", true);
+                $(".invalid-feedback").removeClass("invalid-feedback");
+                $(".is-invalid").removeClass("is-invalid");
+                $(".form-error-icon").remove();
+                $(".form-error-message").remove();
+                $("form[name='contact']>.btn").addClass("btn-success").text("Message envoyé !").prop("disabled", true);
             } else {
                 showAlert("<strong>Echec,</strong> vérifiez les champs du formulaire", "danger", 5000);
-                var innerHTML = $(data).find('#contact').html();
-                $('#contact').html(innerHTML);
-                $('form[name="contact"]>.btn').removeClass('disabled').text('Confirmer').prop("disabled", false);
+                var innerHTML = $(data).find("#contact").html();
+                $("#contact").html(innerHTML);
+                $("form[name='contact']>.btn").removeClass("disabled").text("Confirmer").prop("disabled", false);
             }
         },
         error: function (data) {
@@ -132,13 +132,13 @@ $('form[name="contact"]').submit(function (e) {
 });
 
 
-$('.tab-btn').on('click', function (e) {
+$(".tab-btn").on("click", function (e) {
     e.preventDefault();
-    $(this).tab('show');
-    $(this).removeClass('active')
+    $(this).tab("show");
+    $(this).removeClass("active")
 })
 
-$('.slot-item').on('click', function (e) {
+$(".slot-item").on("click", function (e) {
     var slot = $(this).data("slot");
     day = $.trim($(".list-group-item[data-list='day-" + slot + "'].active").text());
     console.log(day);
@@ -148,34 +148,34 @@ $('.slot-item').on('click', function (e) {
 })
 
 
-$('#modalRdv .close').on('click', function () {
+$("#modalRdv .close").on("click", function () {
     purgeRdvForm();
 })
 
 function purgeRdvForm() {
-    $('.slot-item').removeClass("active");
-    $('#rdv_slot1').val('').addClass("d-none");
-    $('#rdv_slot2').val('').addClass("d-none");
-    $('#rdv_slot3').val('').addClass("d-none");
+    $(".slot-item").removeClass("active");
+    $("#rdv_slot1").val("").addClass("d-none");
+    $("#rdv_slot2").val("").addClass("d-none");
+    $("#rdv_slot3").val("").addClass("d-none");
     $("#rdv_no_choice").removeClass("d-none");
-    $("#pills-slots").removeClass('active');
-    $("#pills-message").removeClass('active')
-    $("#pills-home").tab('show');
-    $("#slot3").removeClass('active');
-    $("#slot2").removeClass('active')
-    $("#slot1").tab('show');
-    $("#slot3-tab").removeClass('active');
-    $("#slot2-tab").removeClass('active')
-    $("#slot1-tab").tab('show');
+    $("#pills-slots").removeClass("active");
+    $("#pills-message").removeClass("active")
+    $("#pills-home").tab("show");
+    $("#slot3").removeClass("active");
+    $("#slot2").removeClass("active")
+    $("#slot1").tab("show");
+    $("#slot3-tab").removeClass("active");
+    $("#slot2-tab").removeClass("active")
+    $("#slot1-tab").tab("show");
 }
 
-$('#mutuelles-btn').on('click', function (e) {
+$("#mutuelles-btn").on("click", function (e) {
     $.ajax({
-        type: 'GET',
-        url: './ajaxMutuelles',
+        type: "GET",
+        url: "./ajaxMutuelles",
         data: "html",
         success: function (response) {
-            $('.healthInsuranceList').replaceWith(response);
+            $(".healthInsuranceList").replaceWith(response);
         },
         error: function (response) {
             showAlert("<strong>Erreur</strong>, la requête n'a pu aboutir", "danger", 5000);
@@ -188,12 +188,12 @@ $('#mutuelles-btn').on('click', function (e) {
 
 function showMonth(date) {
     $.ajax({
-        type: 'GET',
+        type: "GET",
         url: "calendar/" + date,
         dataType: "html",
         success: function (response) {
-            var innerHTML = $(response).find('#calendar').html();
-            $('#calendar').html(innerHTML);
+            var innerHTML = $(response).find("#calendar").html();
+            $("#calendar").html(innerHTML);
         },
         error: function (errorThrown) {
             console.log(errorThrown);

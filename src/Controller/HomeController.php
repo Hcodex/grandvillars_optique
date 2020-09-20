@@ -28,6 +28,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
+     * Affiche la page d'accueil du site
+     * 
      * @Route("/", name="homepage")
      */
     public function index(Request $request, MailSender $mailSender, ClosingDaysRepository $closingDayRepo, TimeTableRepository $timeTableRepo, ContentRepository $contentRepo, MediaRepository $mediaRepo)
@@ -54,8 +56,6 @@ class HomeController extends AbstractController
             $rdvForm = $this->createForm(RdvType::class);
         }
 
-
-
         $recurrentClosingDays = $closingDayRepo->getRecurentClosingDays();
         foreach ($recurrentClosingDays as $recurrentClosingDay){
             $recurrentClosingDay->forceYear();
@@ -74,6 +74,8 @@ class HomeController extends AbstractController
     }
 
     /**
+     * Gère le formulaire de contact
+     * 
      * @Route("/ajaxContact", name="contact")
      */
     public function _ajaxContact(Request $request, MailSender $mailSender)
@@ -103,6 +105,8 @@ class HomeController extends AbstractController
     }
 
     /**
+     * Gère le formulaire de rendez-vous
+     * 
      * @Route("/ajaxRdv", name="rdv")
      */
     public function _ajaxRdv(Request $request, ClosingDaysRepository $closingDayRepo)
@@ -150,6 +154,8 @@ class HomeController extends AbstractController
     }
 
     /**
+     * Affiche la liste des mutuelles
+     * 
      * @Route("/ajaxMutuelles", name="mutuelles")
      */
     public function _ajaxMutuelles( Request $request, HealthInsuranceRepository $healthInsuranceRepo)
@@ -165,7 +171,7 @@ class HomeController extends AbstractController
 
 
     /**
-     * Display policy page
+     * Affiche la page politique de confidentialité
      *
      * @Route("/policy", name="policy")
      */
@@ -175,7 +181,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * Display mentions page
+     * Affiche la page mentions légales
      *
      * @Route("/mentions", name="mentions")
      */

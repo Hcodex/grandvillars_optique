@@ -100,8 +100,6 @@ class AdminMediaController extends AbstractController
         $lockedCategories = $this->getParameter('media.lockedCategories');
         $mediaLockedCategories = array_intersect($media->getCategories(), $lockedCategories);
 
-
-
         if (in_array("mutuelle", $media->getCategories())) {
             $form = $this->createForm(MediaType::class, $media,  [
                 "type" => "mutuelle"

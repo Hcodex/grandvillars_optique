@@ -90,7 +90,7 @@ class AccountController extends AbstractController
         ]);
     }
 
-        /**
+    /**
      * Permet de créer un utilisateur
      * 
      * @Route("/admin/register", name="account_register")
@@ -98,7 +98,8 @@ class AccountController extends AbstractController
      * 
      * @return Response
      */
-    public function register(Request $request,  EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder){
+    public function register(Request $request,  EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
+    {
         $user = new User();
 
         $form = $this->createForm(RegistrationType::class, $user);
@@ -110,7 +111,7 @@ class AccountController extends AbstractController
             $user->setHash($hash);
             $manager->persist($user);
             $manager->flush();
-            
+
             $this->addFlash(
                 'success',
                 "Utilisateur créé avec succès !"
@@ -122,10 +123,9 @@ class AccountController extends AbstractController
         return $this->render('admin/account/registration.html.twig', [
             'form' => $form->createView()
         ]);
-
     }
 
-        /**
+    /**
      * Permet d'éditer un utilisateur
      * 
      * @Route("/admin/user/{id}/edit", name="admin_user_edit")
@@ -134,7 +134,8 @@ class AccountController extends AbstractController
      * 
      * @return Response
      */
-    public function editUser(User $editedUser, Request $request,  EntityManagerInterface $manager){
+    public function editUser(User $editedUser, Request $request,  EntityManagerInterface $manager)
+    {
         $form = $this->createForm(EditUserType::class, $editedUser);
 
         $form->handleRequest($request);
@@ -142,7 +143,7 @@ class AccountController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($editedUser);
             $manager->flush();
-            
+
             $this->addFlash(
                 'success',
                 "Utilisateur modifié avec succès"
@@ -157,8 +158,8 @@ class AccountController extends AbstractController
         ]);
     }
 
-     /**
-     * Delete user
+    /**
+     * PErmet de supprimer un tuilisateur
      * 
      * @Route("/admin/user/{id}/delete", name="admin_user_delete")
      * @Security("is_granted('ROLE_ADMIN')", message="Vous n'êtes pas autorisé à accéder à cette page")
@@ -166,7 +167,7 @@ class AccountController extends AbstractController
      *
      * @return Response
      */
-    public function deleteClosingDay(User $deletedUser, EntityManagerInterface $manager)
+    public function deleteUser(User $deletedUser, EntityManagerInterface $manager)
     {
         $manager->remove($deletedUser);
         $manager->flush();

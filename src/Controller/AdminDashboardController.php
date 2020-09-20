@@ -33,8 +33,11 @@ use Symfony\Flex\Unpack\Result;
 class AdminDashboardController extends AbstractController
 {
     /**
+     * Page d'accueil du panneau d'administration
+     * 
      * @Route("/admin/", name="admin_dashboard")
      * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
+     * 
      */
     public function index(Request $request, EntityManagerInterface $manager, ClosingDaysRepository $closingDayRepo, UserRepository $userRepo, TimeTableRepository $timeTableRepo, HealthInsuranceRepository $healthInsuranceRepo, MediaRepository $mediaRepo)
     {
@@ -71,7 +74,7 @@ class AdminDashboardController extends AbstractController
     }
 
     /**
-     * Delete a closing day
+     * Supprime un jour de fermeture
      * 
      * @Route("/admin/closingday/{id}/delete", name="admin_closingday_delete")
      * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
@@ -94,6 +97,8 @@ class AdminDashboardController extends AbstractController
     }
 
     /**
+     * Affiche le mois suivant sur le calendrier
+     * 
      * @Route("admin/calendar/{targetDate}", name="calendar")
      * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")
      */
@@ -147,7 +152,7 @@ class AdminDashboardController extends AbstractController
 
 
     /**
-     * Edit le staut dun mutuelle
+     * Edite le statu d'une mutuelle
      * 
      * @Route("admin/healthInsurance/status/{id}/{status}", name="admin_healthInsurance_Status_Edit")
      * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_STAFF')")

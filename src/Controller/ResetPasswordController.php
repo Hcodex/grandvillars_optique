@@ -153,20 +153,7 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('app_forgot_password_request');
         }
 
-        $mailSender->SendResetPasswordMail($user->getEmail(), $resetToken,  $this->resetPasswordHelper->getTokenLifetime() );
-/*
-        $email = (new TemplatedEmail())
-            ->from(new Address('mailer@grandvillars-optique.fr', 'Mailer Grandvilar Optique'))
-            ->to($user->getEmail())
-            ->subject('Demande de réinitialisation de mot de passe')
-            ->htmlTemplate('emails/resetpassword.html.twig')
-            ->context([
-                'resetToken' => $resetToken,
-                'tokenLifetime' => $this->resetPasswordHelper->getTokenLifetime(),
-            ])
-        ;
-
-        $mailer->send($email);*/
+        $mailSender->SendResetPasswordMail($user->getEmail(), $resetToken,  $this->resetPasswordHelper->getTokenLifetime());
 
         return $this->redirectToRoute('app_check_email');
     }

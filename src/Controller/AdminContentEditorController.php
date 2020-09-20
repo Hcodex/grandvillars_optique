@@ -3,11 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Content;
-use App\Form\ContentIconType;
 use App\Form\ContentType;
-use App\Repository\ContentCategoryRepository;
 use App\Repository\ContentRepository;
-use App\Repository\MediaCategoryRepository;
 use App\Repository\MediaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,10 +17,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class AdminContentEditorController extends AbstractController
 {
     /**
+     * Affiche la page d'édition de contenu
+     * 
      * @Route("/admin/contentEditor", name="admin_content_editor")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function index(ContentRepository $contentRepo, ContentCategoryRepository $contentCategoryRepo, MediaRepository $mediaRepo)
+    public function index(ContentRepository $contentRepo, MediaRepository $mediaRepo)
     {
          return $this->render('home/index.html.twig', [
             'content'=> $contentRepo->getContents(),
@@ -34,6 +33,8 @@ class AdminContentEditorController extends AbstractController
     }
 
     /**
+     * Editeur de contenu
+     * 
      * @Route("/admin/content/{content}/axjaxContentFormCreate", name="admin_content_ajaxFormCreate")
      * @IsGranted("ROLE_ADMIN")
      */
@@ -53,10 +54,10 @@ class AdminContentEditorController extends AbstractController
                 $manager->persist($content);
                 $manager->flush();
 
-                $arg['item'] = $content;
-                $arg['editorMode'] = true;
-
-                $render = $this->renderView('home/' . $categoryName. '.html.twig', $arg);
+                $render = $this->renderView('home/' . $categoryName. '.html.twig', [
+                    'item' => $content,
+                    'editorMode' => true,
+                ]);
 
                 return new JsonResponse([
                     'status' => 'success',
