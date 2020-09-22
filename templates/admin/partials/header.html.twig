@@ -8,9 +8,11 @@
 				<li class="nav-item">
 					<a class="nav-link" href="{{path('admin_dashboard')}}">Accueil</a>
 				</li>
+				{% if is_granted('ROLE_ADMIN') %}
 				<li class="nav-item">
 					<a class="nav-link" href="{{path('admin_content_editor')}}">Editeur de contenu</a>
 				</li>
+				{% endif %}
 				<li class="nav-item btn-info btn p-0 mx-1">
 					<a class="nav-link text-dark" href="{{path('homepage')}}">Retour au site</a>
 				</li>

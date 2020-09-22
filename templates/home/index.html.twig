@@ -21,7 +21,7 @@
 
 {% block body %}
 	<main data-spy="scroll" data-target="#navbar" data-offset="0">
-		<div id="slider" class="vh-100 d-flex align-content-end flex-wrap" style="background-image:url('{{ medias.cover ? vich_uploader_asset(medias.cover|first)|imagine_filter('cover') : " /img/cover.jpg"|imagine_filter('cover') }}')">
+		<div id="slider" class="vh-100 d-flex align-content-end flex-wrap" style="background-image:url('{{ medias.cover ? vich_uploader_asset(medias.cover|first)|imagine_filter('cover') : "/img/cover.jpg"|imagine_filter('cover') }}')">
 			<div id='title' class="mb-5">
 				<h1>
 					<span class="h1-1">Bienvenue chez</span>

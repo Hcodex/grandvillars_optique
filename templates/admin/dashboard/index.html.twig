@@ -8,9 +8,11 @@
 
 	<main data-spy="scroll" data-target="#navbar" data-offset="0">
 		<h1 class="my-5 pt-5 text-center">Panneau d'administration</h1>
+		{% if is_granted('ROLE_ADMIN') %}
 		<div class="text-center">
 			<a class="btn btn-info p-3" href="{{path('admin_content_editor')}}" role="button">Editeur de contenu</a>
 		</div>
+		{% endif %}
 		<section>
 			<div class="container my-5">
 				<p>Connecté en tant que
@@ -146,44 +148,45 @@
 				</table>
 			</div>
 		</section>
-		<section class="mt-5">
-			<div class="container mt-5 text-primary">
-				<h2>Utilisateurs</h2>
-				<a class="btn btn-primary my-3" href="register" role="button">Créer un utilisateur</a>
-				<table class="table">
-					<thead>
-						<tr class="bg-info">
-							<th scope="col">Pseudo</th>
-							<th scope="col" class="text-center">Rôles</th>
-							<th scope="col" class="text-center">Editer</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for user in users %}
-							{% set userClass = "" %}
-							{% if app.user == user %}
-								{% set userClass = "btn-secondary disabled" %}
-							{% endif %}
-							{% set deleteMessage = "L'utilisateur <strong> " ~ user.pseudo ~ "</strong> sera définitivement supprimé" %}
-
-							<tr>
-								<td>{{user.pseudo}}</td>
-								<td class="text-center">{{user.roles|join(' - ')}}</td>
-								<td class="text-center">
-									<a class="btn btn-primary {{userClass}}" href="{{path('admin_user_edit', {'id' : user.id})}}" role="button">
-										<span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span>
-									</a>
-									<a class="showConfirm btn btn-danger text-white {{userClass}}" data-link="{{path('admin_user_delete', {'id' : user.id})}}" data-message="{{deleteMessage}}">
-										<span class="iconify" data-icon="ic:baseline-delete" data-inline="false"></span>
-									</a>
-								</td>
+		{% if is_granted('ROLE_ADMIN') %}
+			<section class="mt-5">
+				<div class="container mt-5 text-primary">
+					<h2>Utilisateurs</h2>
+					<a class="btn btn-primary my-3" href="register" role="button">Créer un utilisateur</a>
+					<table class="table">
+						<thead>
+							<tr class="bg-info">
+								<th scope="col">Pseudo</th>
+								<th scope="col" class="text-center">Rôles</th>
+								<th scope="col" class="text-center">Editer</th>
 							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-			</div>
-		</section>
+						</thead>
+						<tbody>
+							{% for user in users %}
+								{% set userClass = "" %}
+								{% if app.user == user %}
+									{% set userClass = "btn-secondary disabled" %}
+								{% endif %}
+								{% set deleteMessage = "L'utilisateur <strong> " ~ user.pseudo ~ "</strong> sera définitivement supprimé" %}
 
+								<tr>
+									<td>{{user.pseudo}}</td>
+									<td class="text-center">{{user.roles|join(' - ')}}</td>
+									<td class="text-center">
+										<a class="btn btn-primary {{userClass}}" href="{{path('admin_user_edit', {'id' : user.id})}}" role="button">
+											<span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span>
+										</a>
+										<a class="showConfirm btn btn-danger text-white {{userClass}}" data-link="{{path('admin_user_delete', {'id' : user.id})}}" data-message="{{deleteMessage}}">
+											<span class="iconify" data-icon="ic:baseline-delete" data-inline="false"></span>
+										</a>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</section>
+		{% endif %}
 		<section id="imagesAdmin">
 			<div class="container mt-5 text-primary">
 				<h2>Gestion des images</h2>
@@ -301,24 +304,24 @@
 			<div class="container mt-5 text-primary">
 				<h2>Réseaux sociaux</h2>
 				<a class="btn btn-primary text-white my-3 btn-upload" data-formtype="socialnetwork">Ajouter un réseau social</a>
-					<table id="socialNetworksTable" class="table">
-						<thead>
-							<tr class="bg-info">
-								<th scope="col" class="col-1">Image</th>
-								<th scope="col" class="text-center">Nom</th>
-								<th scope="col" class="text-center">Alt</th>
-								<th scope="col" class="text-center">Catégorie</th>
-								<th scope="col" class="text-center col-2">Editer</th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for media in medias %}
-								{% if "socialNetwork" in media.categories %}
-									{% include 'admin/partials/mediaRow.html.twig' %}
-								{% endif %}
-							{% endfor %}
-						</tbody>
-					</table>
+				<table id="socialNetworksTable" class="table">
+					<thead>
+						<tr class="bg-info">
+							<th scope="col" class="col-1">Image</th>
+							<th scope="col" class="text-center">Nom</th>
+							<th scope="col" class="text-center">Alt</th>
+							<th scope="col" class="text-center">Catégorie</th>
+							<th scope="col" class="text-center col-2">Editer</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for media in medias %}
+							{% if "socialNetwork" in media.categories %}
+								{% include 'admin/partials/mediaRow.html.twig' %}
+							{% endif %}
+						{% endfor %}
+					</tbody>
+				</table>
 			</div>
 		</section>
 
