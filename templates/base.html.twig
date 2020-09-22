@@ -5,6 +5,12 @@
 		<meta name="description" content="Webagency, l'agence de tous vos projets"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+		<meta property="og:url" content="http://grandvillars-optique.naxcloud.fr"/>
+		<meta property="og:type" content="website"/>
+		<meta property="og:title" content="Grandvillars Optique - Opticien, Audioprothésiste"/>
+		<meta property="og:description" content="Notre magasain vous accompagne dans la réalisation de vos lunettes, lentilles et prothèses auditives"/>
+		<meta property="og:image" content="http://grandvillars-optique.naxcloud.fr/img/favicon.jpg"/>
+
 		<title>
 			{% block title %}
 				Grandvillars Optique
@@ -20,7 +26,7 @@
 	<body>
 		{% block header %}{% endblock %}
 		{% block body %}{% endblock %}
-		
+
 		{% include 'partials/footer.html.twig' %}
 
 		{% block javascripts %}
@@ -31,8 +37,10 @@
 			<script src="/js/init.js"></script>
 			<script>
 				{% for label, messages in app.flashes %}
-				{% for message in messages %}
-				showAlert('{{ message | raw }}', '{{ label }}', 5000);{% endfor %}{% endfor %}
+					{% for message in messages %}
+					showAlert('{{ message | raw }}', '{{ label }}', 5000);
+					{% endfor %}
+				{% endfor %}
 			</script>
 		{% endblock %}
 	</body>
