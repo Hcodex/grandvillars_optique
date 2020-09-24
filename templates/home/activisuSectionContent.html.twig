@@ -1,4 +1,4 @@
-<div id="content{{item.id}}" class="col-sm-10 col-lg-6 col-xl-5 order-2 order-xl-2 my-5 align-self-center ">
+<div id="content{{item.id}}" class="col-sm-10 col-lg-6 col-xl-5 order-2 order-xl-2 my-5 align-self-center pr-lg-5">
 	<h3>{{item.title}}</h3>
 	{{item.content|raw}}
 	{% if  editorMode and is_granted('ROLE_ADMIN') %}
