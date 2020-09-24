@@ -399,7 +399,7 @@
 				<h2 class="text-center mb-5">Nos marques</h2>
 				<div class="d-flex flex-wrap">
 					{% for media in medias.marque %}
-						<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2"><img src="{{vich_uploader_asset(media)|imagine_filter('logo')}}" alt="{{media.alt}}" class="img-fluid"></div>
+						<div class="col-6 col-md-3 align-self-center px-4 py-3 py-md-2 my-2 my-md-4"><img src="{{vich_uploader_asset(media)|imagine_filter('logo')}}" alt="{{media.alt}}" class="img-fluid"></div>
 					{% endfor %}
 				</div>
 			</section>
