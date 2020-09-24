@@ -9,15 +9,16 @@
 
 {% block body %}
 	<main>
-		<h1 class="my-5 pt-5 text-center bg-white">Action impossible</h1>
-		<div class="container">
-			<h2>Oups ! Le requête a généré une erreur</h2>
+		<h1 class="my-5 pt-5 text-center bg-white">Action impossible !</h1>
+		<hr>
+		<div class="container text-center">
+			<div class="text-center m-5">
+				<span class="iconify text-info" data-icon="fa-regular:sad-tear" data-width="30%" data-inline="false"></span>
+			</div>
+			<h2>Oups ! La requête a généré une erreur</h2>
 			<p>
 				<a class="text-primary" href="{{ path('homepage') }}">Retour à la page d'accueil</a>
 			</p>
-			<div class="text-center m-5">
-				<span class="iconify text-secondary" data-icon="ic:outline-not-listed-location" data-width="30%" data-inline="false"></span>
-			</div>
 		</div>
 	</main>
 {% endblock %}
