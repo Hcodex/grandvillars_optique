@@ -15,17 +15,16 @@
 							<button class="btn btn-info btn-edit" type="button" data-id="{{item.id}}">
 								<span class="iconify" data-icon="clarity:edit-solid"></span>
 							</button>
-						{% else %}
-							{% if loop.last %}
-								<button class="btn btn-primary m-0 p-2 float-md-right" data-toggle="modal" data-target="#modalRdv">Prendre rendez-vous</button>
-							{% endif %}
 						{% endif %}
 					</h3>
+					{% if loop.last %}
+						<button class="col-12 col-sm-6 col-md-4 col-xl-5 btn btn-primary m-0 p-2" data-toggle="modal" data-target="#modalRdv">Prendre rendez-vous</button>
+					{% endif %}
 					{% if loop.first %}
-						<img class="col-4 col-md-2 col-xl-3" src="{{'/img/essilor.png'|imagine_filter('quote')}}" alt="Activisu">
+						<img class="col-4 col-md-2 col-xl-3 d-none d-sm-block" src="{{'/img/essilor.png'|imagine_filter('quote')}}" alt="Activisu">
 					{% endif %}
 					{% if loop.index == 2 %}
-						<img class="col-4 col-md-2 col-xl-3" src="{{'/img/audio2000.png'|imagine_filter('quote')}}" alt="Activisu">
+						<img class="col-4 col-md-2 col-xl-3 d-none d-sm-block" src="{{'/img/audio2000.png'|imagine_filter('quote')}}" alt="Activisu">
 					{% endif %}
 				</div>
 				<hr class="{{hrColor}}">
