@@ -36,11 +36,16 @@
 				<a href="#contactSection" class="btn btn-dark p-2 mx-2">Nous contacter</a>
 				<button class="btn btn-info p-2 mx-2 my-2" data-toggle="modal" data-target="#modalRdv">Prendre rendez-vous</button>
 			</div>
+
 		</div>
 
 		{% if not editorMode %}
 			{% include 'partials/closingDays.html.twig' %}
 		{% endif %}
+		{% if not editorMode %}
+			{% include 'partials/infoMessage.html.twig' %}
+		{% endif %}
+
 
 		<section id="quote" class="d-none d-md-block bg-secondary py-5">
 			<h2 class="d-none">Le mot de Cedric hinterlang - Opticien</h2>
