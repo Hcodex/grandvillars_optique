@@ -50,6 +50,10 @@ class Rdv
      */
     private $policy;
 
+        /**
+    * @Assert\IsTrue(message="Nous ne pouvons pas réaliser un examen de la vue sur des mineurs de moins de 16 ans", groups={"examVue"})
+     */
+    private $age;
 
     public function getEmail(): ?string
     {
@@ -147,6 +151,19 @@ class Rdv
 
         return $this;
     }
+
+    public function getAge(): ?bool
+    {
+        return $this->age;
+    }
+
+    public function setAge(string $age): self
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
 
 
 }

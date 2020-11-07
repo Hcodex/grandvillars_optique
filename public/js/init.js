@@ -28,16 +28,11 @@ $("#nextbtn").on("click", function (e) {
         contentType: false,
         processData: false,
         success: function (data) {
+            $("#rdvFormStep1").replaceWith(data["render"]);
+            ($("#rdv_subject").val() === "Contrôle de la vue" ||  $("#rdv_subject").val() === "Contrôle de la vue + lunettes" )? $("#rdv_age").parent().show() : $("#rdv_age").parent().hide();
             if (data["status"] === "success") {
-                $(".invalid-feedback").removeClass("invalid-feedback");
-                $(".is-invalid").removeClass("is-invalid");
-                $(".form-error-icon").remove();
-                $(".form-error-message").remove();
                 $("#pills-home").removeClass("active")
                 $("#pills-slots").tab("show");
-            } else {
-                var innerHTML = $(data).find("#rdvFormStep1").html();
-                $("#rdvFormStep1").html(innerHTML);
             };
             $("#nextbtn").html("Suivant");
         },
@@ -47,6 +42,9 @@ $("#nextbtn").on("click", function (e) {
     });
 });
 
+$('body').on("change", "#rdv_subject", function () {
+    ($(this).val() === "Contrôle de la vue" || ($(this).val() === "Contrôle de la vue + lunettes")) ? $("#rdv_age").parent().show() : $("#rdv_age").parent().hide();
+});
 
 
 $(".selector-list>li ").click(function () {

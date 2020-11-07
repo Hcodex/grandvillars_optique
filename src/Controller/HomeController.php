@@ -127,24 +127,23 @@ class HomeController extends AbstractController
      * 
      * @Route("/ajaxRdv", name="rdv")
      */
-    public function _ajaxRdv(Request $request, ClosingDaysRepository $closingDayRepo)
+    public function _ajaxRdv(Request $request)
     {
         if ($request->isXMLHttpRequest()) {
 
-            $contactForm = $this->createForm(RdvType::class);
+            $from = $this->createForm(RdvType::class);
 
-            $contactForm->handleRequest($request);
+            $from->handleRequest($request);
 
-            if ($contactForm->isValid()) {
-                return new JsonResponse([
-                    'status' => 'success',
-                ]);
-            }
+            $render = $this->renderView('partials/rdv_step1.html.twig', [
+                'form2' => $from->createView(),
+            ]);
 
-            return $this->render('home/modalRdv.html.twig', [
-                'form2' => $contactForm->createView(),
-                'closingDays'  =>  $closingDayRepo->findAllClosingDays(),
-                'publicHollydays' => PublicHollydays::getHollydays(),
+            $status = $from->isValid() ? "success" : "invalid";
+
+            return new JsonResponse([
+                'status' => $status,
+                'render' => $render,
             ]);
         }
 
