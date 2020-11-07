@@ -44,9 +44,20 @@
 						<p>Vos choix :
 						</p>
 						<div id="rdv_no_choice" class="form-control">Aucun créneau sélectionné</div>
-						{{ form_row(form2.slot1) }}
-						{{ form_row(form2.slot2) }}
-						{{ form_row(form2.slot3) }}
+						{% set slots = [form2.slot1, form2.slot2, form2.slot3] %}
+
+						{% for slot in slots %}
+							<div class="form-row align-items-center my-2">
+								<div class="col-sm-10 col-12">
+									{{ form_label(slot) }}
+									{{ form_widget(slot) }}
+								</div>
+								<div id="slot{{loop.index}}-btn" class="col-12 col-sm-2 d-none">
+									<span class="iconify text-primary edit-slot" data-slot="#slot{{loop.index}}-tab" data-icon="mdi-edit" data-inline="false" data-width="30"></span>
+									<span class="iconify text-danger delete-slot" data-slot="{{loop.index}}" data-icon="mdi-close-circle" data-inline="false" data-width="30"></span>
+								</div>
+							</div>
+						{% endfor %}
 						{{ form_row(form2.message) }}
 						<a class="btn btn-dark tab-btn float-left my-3" href="#pills-slots">Précédent</a>
 						<button type="submit" class="btn btn-primary float-right my-3">Confirmer</button>

@@ -31,7 +31,7 @@ $("#nextbtn").on("click", function (e) {
             $("#rdvFormStep1").replaceWith(data["render"]);
             ($("#rdv_subject").val() === "Contrôle de la vue" ||  $("#rdv_subject").val() === "Contrôle de la vue + lunettes" )? $("#rdv_age").parent().show() : $("#rdv_age").parent().hide();
             if (data["status"] === "success") {
-                $("#pills-home").removeClass("active")
+                $("#pills-home").removeClass("active");
                 $("#pills-slots").tab("show");
             };
             $("#nextbtn").html("Suivant");
@@ -42,8 +42,24 @@ $("#nextbtn").on("click", function (e) {
     });
 });
 
-$('body').on("change", "#rdv_subject", function () {
+$("body").on("change", "#rdv_subject", function () {
     ($(this).val() === "Contrôle de la vue" || ($(this).val() === "Contrôle de la vue + lunettes")) ? $("#rdv_age").parent().show() : $("#rdv_age").parent().hide();
+});
+
+//Editer créneau
+$(document).on("click", ".edit-slot", function (e) {
+    e.preventDefault();
+    var slot = $(this).attr("data-slot");
+    $("#pills-slots").tab('show');
+    $(slot).tab('show');
+    $("#pills-message").removeClass("active");
+});
+
+//Supprimer créneau
+$(document).on("click", ".delete-slot", function (e) {
+    e.preventDefault();
+    var slot = $(this).attr("data-slot");
+    $("#rdv_slot" + slot).val("-");
 });
 
 
@@ -139,6 +155,7 @@ $(".slot-item").on("click", function (e) {
     day = $.trim($(".list-group-item[data-list='day-" + slot + "'].active").text());
     hour = $.trim($(this).text());
     $("#rdv_slot" + slot).val(day + " - " + hour).removeClass("d-none");
+    $("#slot" + slot + "-btn").removeClass("d-none");
     $("#rdv_no_choice").addClass("d-none");
 })
 
