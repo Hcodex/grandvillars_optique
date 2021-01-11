@@ -1,12 +1,62 @@
-{%- set slots = [
-"entre\n 9h et 10h",
-"entre\n 10h et 12h",
-"entre\n 14h et 16h",
-"entre\n 16h et 17h",
-"entre\n 17h et 18h",
-"entre\n 18h et 19h",
-] -%}
-
+{% set slots = {
+  '0': {
+	'0' : {'text': 'entre\n 9h et 10h','status': 'disabled',},
+	'1' : {'text': 'entre\n 10h et 12h','status': 'disabled',},
+	'2' : {'text': 'entre\n 12h et 14h','status': 'disabled',},
+	'3' : {'text': 'entre\n 14h et 16h', 'status': 'disabled',},
+	'4' : {'text': 'entre\n 16h et 17h', 'status': 'disabled',},
+	'5' : {'text': 'entre\n 17h et 18h', 'status': 'disabled',},
+  },
+  '1': {
+	'0' : {'text': 'entre\n 9h et 12h','status': 'disabled',},
+	'1' : {'text': 'entre\n 12h et 13h','status': null,},
+	'2' : {'text': 'entre\n 13h et 14h','status': null,},
+	'3' : {'text': 'entre\n 14h et 16h', 'status': null,},
+	'4' : {'text': 'entre\n 16h et 17h', 'status': null,},
+	'5' : {'text': 'entre\n 17h et 18h', 'status': null,},
+  },
+  '2': {
+	'0' : {'text': 'entre\n 9h et 10h','status': null,},
+	'1' : {'text': 'entre\n 10h et 12h','status': null,},
+	'2' : {'text': 'entre\n 12h et 14h','status': null,},
+	'3' : {'text': 'entre\n 14h et 16h', 'status': null,},
+	'4' : {'text': 'entre\n 16h et 17h', 'status': null,},
+	'5' : {'text': 'entre\n 17h et 18h', 'status': null,},
+  },
+  '3': {
+	'0' : {'text': 'entre\n 9h et 10h','status': null,},
+	'1' : {'text': 'entre\n 10h et 12h','status': null,},
+	'2' : {'text': 'entre\n 12h et 14h','status': null,},
+	'3' : {'text': 'entre\n 14h et 16h', 'status': null,},
+	'4' : {'text': 'entre\n 16h et 17h', 'status': null,},
+	'5' : {'text': 'entre\n 17h et 18h', 'status': null,},
+  },
+  '4': {
+	'0' : {'text': 'entre\n 9h et 10h','status': null,},
+	'1' : {'text': 'entre\n 10h et 12h','status': null,},
+	'2' : {'text': 'entre\n 12h et 14h','status': null,},
+	'3' : {'text': 'entre\n 14h et 16h', 'status': null,},
+	'4' : {'text': 'entre\n 16h et 17h', 'status': null,},
+	'5' : {'text': 'entre\n 17h et 18h', 'status': null,},
+  },
+  '5': {
+	'0' : {'text': 'entre\n 9h et 10h','status': null,},
+	'1' : {'text': 'entre\n 10h et 12h','status': null,},
+	'2' : {'text': 'entre\n 12h et 14h','status': null,},
+	'3' : {'text': 'entre\n 14h et 16h', 'status': null,},
+	'4' : {'text': 'entre\n 16h et 17h', 'status': null,},
+	'5' : {'text': 'entre\n 17h et 18h', 'status': null,},
+  },
+  '6': {
+	'0' : {'text': 'entre\n 9h et 10h','status': null,},
+	'1' : {'text': 'entre\n 10h et 12h','status': null,},
+	'2' : {'text': 'entre\n 12h et 14h','status': null,},
+	'3' : {'text': 'entre\n 14h et 16h', 'status': null,},
+	'4' : {'text': 'entre\n 16h et 17h', 'status': null,},
+	'5' : {'text': 'entre\n 17h et 18h', 'status': null,},
+  },
+}
+%}
 
 {% set closeddays = [] %}
 
@@ -18,7 +68,6 @@
 {% endfor %}
 
 {% set closeddays = closeddays|merge(publicHollydays) %}
-
 
 {% for slotNum in 1..3 %}
 
@@ -50,16 +99,20 @@
 			{{ slotlist }}
 			<div class="tab-pane fade show {% if firstflag == false and (date not in closeddays) %}active{% set firstflag = true %}{% endif %}" id="slot-list-{{slotNum}}-{{i}}">
 				<ul class="list-group text-center selector-list">
-					{%- for slot in slots -%}
+					{% set daynum = date|date('w') %}
+
+					{%- for slot in slots[daynum] -%}
 						{% set slotClass ="" %}
-						{% if (date in closeddays ) or ((date|date('w') == 6) and (loop.index == 6)) or (date|date('w') == 1) and ((loop.index == 1) or (loop.index == 2)) %}
-							{% set slotClass ="bg-secondary disabled text-grey" %}
+						{% if (date in closeddays ) or (slot.status == "disabled") %}
+							{% set slotClass ="bg-secondary disabled" %}
 						{% endif %}
-						<li class="list-group-item list-group-item-action slot-item p-2 {{slotClass}}" data-list="hour-{{ slotNum }}" data-slot={{ slotNum }}>{{slot| nl2br | capitalize | raw}}</li>
+						<li class="list-group-item list-group-item-action slot-item p-2 btn {{slotClass}}" data-list="hour-{{ slotNum }}" data-slot={{ slotNum }}>{{slot.text| nl2br | capitalize | raw}}</li>
 					{%- endfor -%}
+
 				</ul>
 			</div>
 			{% endset %}
+
 		{%- endif -%}
 	{%- endfor -%}
 
