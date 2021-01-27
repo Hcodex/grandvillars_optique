@@ -14,14 +14,22 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContactType extends AbstractType
 {
+
+
+    public const HONEYPOT_FIELD_NAME = 'email';
+    public const EMAIL_FIELD_NAME = 'name';
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class, [
+            ->add(self::EMAIL_FIELD_NAME, EmailType::class, [
                 'label' => 'Email',
                 'attr' => [
                     'placeholder' => 'Votre adresse mail',
                 ],
+            ])
+            ->add(self::HONEYPOT_FIELD_NAME, TextType::class, [
+                'required' => false
             ])
             ->add('lastName', TextType::class, [
                 'label' => 'Nom',

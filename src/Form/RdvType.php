@@ -17,9 +17,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RdvType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('lastName', TextType::class, [
+                'required' => false
+            ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'attr' => [
@@ -92,7 +96,7 @@ class RdvType extends AbstractType
             'validation_groups' => function (FormInterface $form) {
 
                 $data = $form->getData();
-                if ($data->getSubject() == "Contrôle de la vue" || $data->getSubject() == "Contrôle de la vue + lunettes" ) {
+                if ($data->getSubject() == "Contrôle de la vue" || $data->getSubject() == "Contrôle de la vue + lunettes") {
                     return ['Default', 'examVue'];
                 }
                 return ['Default'];

@@ -198,3 +198,9 @@ video {
 	margin-top: -60px;
 	min-height: 60px;
 }
+
+.special{
+	height: 0px;
+    display: block;
+    overflow: hidden;
+}

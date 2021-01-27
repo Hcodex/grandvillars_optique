@@ -68,9 +68,14 @@ class HomeController extends AbstractController
 
         if ($contactForm->isSubmitted() && $contactForm->isValid()) {
             $contact = $contactForm->getData();
-            $mailSender->SendContactMail($contact);
 
-            return true;
+            // Honey pot le vrai champ mail est le champ Name
+            if (empty($contact->getEmail())) {
+                $contact->setEmail($contact->getName());
+                $mailSender->SendContactMail($contact);
+                return true;
+            }
+            
         }
 
         return $contactForm;
@@ -87,10 +92,12 @@ class HomeController extends AbstractController
         $rdvForm->handleRequest($request);
 
         if ($rdvForm->isSubmitted() && $rdvForm->isValid()) {
-            $contact = $rdvForm->getData();
-            $mailSender->SendRdvMail($contact);
 
-            return true;
+            $contact = $rdvForm->getData();
+            if (empty($contact->getLastName())) {
+                $mailSender->SendRdvMail($contact);
+                return true;
+            }
         }
 
         return $rdvForm;

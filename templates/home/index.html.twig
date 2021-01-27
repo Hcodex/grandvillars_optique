@@ -38,13 +38,13 @@
 			</div>
 
 		</div>
-
-		{% if not editorMode %}
-			{% include 'partials/closingDays.html.twig' %}
-		{% endif %}
 		{% if not editorMode %}
 			{% include 'partials/infoMessage.html.twig' %}
 		{% endif %}
+		{% if not editorMode %}
+			{% include 'partials/closingDays.html.twig' %}
+		{% endif %}
+
 
 
 		<section id="quote" class="d-none d-md-block bg-secondary py-5">

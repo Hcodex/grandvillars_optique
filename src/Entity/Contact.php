@@ -13,7 +13,6 @@ class Contact
     private $id;
 
     /**
-     * @Assert\Email(message="Adresse mail invalide")
      */
     private $email;
 
@@ -36,6 +35,11 @@ class Contact
     * @Assert\IsTrue(message="Vous devez accepter notre politique de confidentialité pour poursuivre")
      */
     private $policy;
+
+    /**
+     * @Assert\Email(message="Adresse mail invalide")
+     */
+    private $name;
 
     public function getId(): ?int
     {
@@ -101,4 +105,17 @@ class Contact
 
         return $this;
     }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
 }

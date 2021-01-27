@@ -55,6 +55,11 @@ class Rdv
      */
     private $age;
 
+    /**
+     *
+     */
+    private $lastName;
+
     public function getEmail(): ?string
     {
         return $this->email;
@@ -164,6 +169,17 @@ class Rdv
         return $this;
     }
 
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
 
 
 }
