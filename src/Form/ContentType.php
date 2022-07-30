@@ -15,7 +15,7 @@ class ContentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        if ($options["category"] == "serviceItem" || $options["category"] == "jobItem" || $options["category"] == 'certificationItem') {
+        if ($options["category"] == "serviceItem" || $options["category"] == "jobItem" || $options["category"] == 'certificationItem'|| $options["category"] == 'infoMessage') {
             $builder->add('icon', TextType::class, [
                 'empty_data' => '',
                 'label' => 'Icone',

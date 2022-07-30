@@ -1,0 +1,24 @@
+{% if item.content or (editorMode and is_granted('ROLE_ADMIN')) %}
+	{% if not item.content %}
+		{% set content = "Aucun message d'information défini, ce cadre ne s'affichera pas" %}
+		{% set title = '' %}
+	{% else %}
+		{% set content = item.content %}
+		{% set title = item.title %}
+	{% endif %}
+
+	<div id="content{{item.id}}" class="bg-warning p-3 px-2 px-md-5 text-justify text-xl-center">
+		<div class="col-12">
+			<p class="m-0">
+			<span class="iconify" data-icon="{{item.icon}}"></span><strong> {{title}}</strong>
+				{{content|striptags|raw}}
+				{% if  editorMode and is_granted('ROLE_ADMIN') %}
+				<button class="btn btn-primary btn-edit" type="button" data-id="{{item.id}}">
+					<span class="iconify" data-icon="clarity:edit-solid"></span>
+				</button>
+				{% endif %}
+			</p>
+		</div>
+	</div>
+
+{% endif %}

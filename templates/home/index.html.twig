@@ -39,9 +39,11 @@
 
 		</div>
 		
-		{% if not editorMode %}
-			{% include 'partials/infoMessage.html.twig' %}
+		{% if content.infoMessage|length > 0 %}
+			{% set item = content.infoMessage|first %}
+			{% include '/home/infoMessage.html.twig' %}
 		{% endif %}
+
 		{% if not editorMode %}
 			{% include 'partials/closingDays.html.twig' %}
 		{% endif %}
