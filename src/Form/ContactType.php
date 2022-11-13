@@ -40,7 +40,7 @@ class ContactType extends AbstractType
             ->add('subject', ChoiceType::class, [
                 'label' => 'Objet',
                 'choices' => [
-                    "Demande d'information" => 'Demande d\'iformation',
+                    "Demande d'information" => 'Demande d\'information',
                     "Prise de rendez vous" => 'Prise de rendez vous',
                     "Commande" => 'Commande',
                     "Autre demande" => 'Autre demande',
